@@ -1,3 +1,7 @@
+---
+title: Fonts for coding
+layout: post
+---
 # Fonts, readability, coding
 I’ve been on a typography bender lately, so this is a quick summary of my findings.
 ## Size matters
