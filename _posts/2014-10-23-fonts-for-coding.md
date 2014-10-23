@@ -24,7 +24,7 @@ This disqualifies many sans-serif fonts, which often have similar characters. So
 ![Font comparison: Verdana, Input, OCR-F, Fira Mono](/images/Font-comparison.png)
 
 * Verdana is great. The characters are distinct, there is good spacing, punctuation and brackets/braces/parens are roomy.
-But I find that the long, non-spaced sequences often found in code become forbiddingly dense when set in Verdana.
+But I find that the long, non-spaced sequences often found in code, become forbiddingly dense when set in Verdana.
 * [Input Sans](http://input.fontbureau.com/preview). A proportional font designed for coders! It gets everything right. Except … for some reason, I find it ugly. I keep noticing it when I use it, instead of it getting out of the way. I don’t know why. But do try it!
 I hope Input Sans is a sign of things to come.
 * [FF OCR-F](https://www.fontfont.com/fonts/ocr-f). This is a wonderful font. It’s proportional, and it keeps generous spacing between letters. More so than Verdana, and it avoids the cramped feeling for long non-spaced code. The only issue I have with it is that the font weights are extreme, either too light or too strong.
