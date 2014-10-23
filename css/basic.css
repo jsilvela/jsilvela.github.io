@@ -1,6 +1,8 @@
 body {
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 3em;
+	margin-bottom: 3em;
 	max-width: 36em;
 	font-family: Charter, Georgia, serif;
 	text-rendering: optimizeLegibility;
