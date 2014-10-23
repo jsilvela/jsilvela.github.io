@@ -54,6 +54,10 @@ tt, code {
 	font-family: fira mono, source code pro, monospace;
 }
 
+div.rss {
+	margin-top: 2em;
+}
+
 div.note {
 	color: black;
 	background: lightgrey;
