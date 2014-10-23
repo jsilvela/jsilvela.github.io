@@ -1,0 +1,28 @@
+---
+layout: post
+title: Xmonad + GNOME
+date: 2010-09-19 06:07:06.000000000 +02:00
+categories:
+- code
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '4112009'
+  _wp_old_slug: ''
+author: Jaime Silvela
+---
+<h1>{{page.title}}</h1>
+<p>{{ page.date | date_to_long_string }}</p>
+<p>I'm positively impressed with Linux lately, as I learn more.<br />
+By combining the tiling window manager Xmonad with the GNOME environment, I've found my favorite windowing system on any platform.</p>
+<p>I used these <a href="http://markhansen.co.nz/xmonad-ubuntu-lucid">basic instructions</a>, but configured Xmonad to use the Window key (aka. Super key) as modifier instead of Alt, so that it doesn't interfere with the Emacs keybindings. This is how it looks.<br />
+<code><br />
+import XMonad<br />
+import XMonad.Config.Gnome</p>
+<p>main = xmonad gnomeConfig<br />
+              {<br />
+                modMask = mod4Mask<br />
+              }<br />
+</code></p>

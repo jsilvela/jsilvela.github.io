@@ -1,0 +1,65 @@
+body {
+	color: #111111;
+	background: #fcfcfc;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 36em;
+	font-family: Charter, Georgia, serif;
+	text-rendering: optimizeLegibility;
+}
+
+@media screen {
+	body, h2, h3 {
+		font-size: medium;
+	}
+	h1 {
+		font-size: large;
+	}
+}
+
+@media print {
+	body, h2, h3 {
+		font-size: 10pt;
+	}
+	h1 {
+		font-size: 11pt;
+	}
+}
+
+h1, h2, h3 {
+	font-weight: bold;
+}
+
+li {
+	margin-bottom: 0.7em;
+}
+
+p {
+	line-height: 1.45;
+}
+
+em {
+	font-style: italic;
+}
+
+tt, code {
+	font-family: fira mono, source code pro, monospace;
+}
+
+div.note {
+	color: black;
+	background: lightgrey;
+	padding: 0.5em;
+	border: none;
+	font-family: source sans pro, sans-serif;
+}
+
+:link {
+	color: blue;
+	background: transparent;
+}
+
+:visited {
+	color: purple;
+	background: transparent;
+}

@@ -1,0 +1,57 @@
+---
+layout: post
+title: Number of trailing zeros in n factorial
+date: 2008-11-17 06:52:29.000000000 +01:00
+categories:
+- code
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '4112009'
+author: Jaime Silvela
+---
+<h1>{{page.title}}</h1>
+<p>{{ page.date | date_to_long_string }}</p>
+<p>I was asked this question in my first job interview in this country. I was completely unprepared for this type of interview, and I did badly. But it's a nice problem to think about and it's easy to solve.</p>
+<p>In case you don't know, n factorial is the multiplication of all positive integers less than or equal to n. By convention, 0 factorial is taken as 1. The factorial is typically represented with "!'.</p>
+<p>So:</p>
+<pre>0! = 1
+1! = 1
+2! = 2 1 = 2
+3! = 3 2 1 = 6</pre>
+<p>And so on. You may have noted the following pattern: n! = n (n-1)! This leads to the following recursive function in the Scheme language (you can get Scheme system <a href="http://download.plt-scheme.org/">here</a>)</p>
+<pre>(define (factorial n)
+  (if (= n 0)
+      1
+      (* n (factorial (- n 1)))))</pre>
+<p>You can feed this to the Scheme system, and start getting numbers.</p>
+<pre>(factorial 0)  --&gt; 1
+(factorial 3)  --&gt; 6
+(factorial 32) --&gt; 263130836933693530167218012160000000</pre>
+<p>So, we want to be able to compute that 32! has 7 trailing zeros, but we don't want to have to compute 32!</p>
+<p>The key observation is this: the number of zeros equals the number of times 10 is a factor in 32! (or n!). 10 = 2 5, and since 2 appears more often than 5 in n!, we can say that the number of trailing zeros is the same as the number of times 5 is a factor in n!</p>
+<p>Now, how do we count the number of times 5 is a factor? We can begin by observing that 32! = 32 31 30 .. 25 .. 20 .. 15 .. 10 .. 5 .. 1 (the .. stand for omitted numbers). So, we can see 6 of the factors in 32! are multiples of 5. And we can compute this number simply by diving by 5: 32 / 5 = 6 (assuming we discard the decimal part). That's a start.</p>
+<p>Now, we also have 25 in there, and it has two factors of 5; we need to account for the extra five. So, there are 6 + 1 = 7 factors of 5 in 32!, and 7 trailing zeros, which you can verify above. Nice. We could have started the opposite way, counting the number of "double fives" first, multiplying them by 2, then adding the "single fives". But if we did that, we would have  to throw away the 25 when progressing toward the single fives, and that would be more baggage to keep track of. This way, also, we count for the "double five" only once, because 25 had been counted once as a "single five".</p>
+<p>So, number of fives in 32! = 32 / 5 + 32 / 25 = 6 + 1 = 7</p>
+<p>We can formulate an algorithm informally: Number of fives in n! = n / 5 + n / 25 + n / 125 ... (/ is assumed to be integer division ie. it discards decimals). Let's give this function a name: fives-in-factorial(n). By the way, the '...' means 'and so on', but it would not make sense to go on forever, once one of the summands reaches 0.</p>
+<p>Maybe you can see a pattern here: fives-in-factorial(n) = n / 5 + (n / 5) / 5 + (n / (5 * 5)) / 5 ...</p>
+<p>This suggests a recursive definition:</p>
+<pre>fives-in-factorial(n) = n/5 + fives-in-factorial(n/5)</pre>
+<p>The base of the recursion is that for n &lt; 5, there are no fives in n!, hence fives-in-factorial(n) = 0</p>
+<p>Translated into code:</p>
+<pre>(define (fives-in-factorial n)
+  (if (&lt; n 5)
+      0
+      (+ (floor (/ n 5))
+         (fives-in-factorial (/ n 5)))))</pre>
+<p>(In case you're wondering about "floor": given a number, it discards its decimal part). You can again introduce this code in a Scheme system and start getting some answers. We already know 32.</p>
+<pre>(factorial 32)           --&gt; 263130836933693530167218012160000000
+(fives-in-factorial 32)  --&gt; 7
+
+(factorial 6)            --&gt; 720
+(fives-in-factorial 6)   --&gt; 1
+
+(factorial 46)           --&gt; 5502622159812088949850305428800254892961651752960000000000
+(fives-in-factorial 46)  --&gt; 10</pre>
