@@ -1,31 +1,10 @@
-@font-face {
-  font-family: 'MonitorPro';
-  src: url('http://silvela.org/jaime/fonts/MonitorPro-Normal.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'MonitorPro';
-  src: url('http://silvela.org/jaime/fonts/MonitorPro-NormalItalic.woff') format('woff');
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'MonitorPro';
-  src: url('http://silvela.org/jaime/fonts/MonitorPro-Bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-}
-
 body {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 3em;
 	margin-bottom: 3em;
 	max-width: 36em;
-	font-family: MonitorPro, Charter, Georgia, serif;
+	font-family: Charter, Georgia, serif;
 	text-rendering: optimizeLegibility;
 }
 
