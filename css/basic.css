@@ -4,7 +4,7 @@ body {
 	margin-top: 3em;
 	margin-bottom: 3em;
 	max-width: 36em;
-	font-family: Charter, Georgia, serif;
+	font-family: Verdana, sans-serif;
 	text-rendering: optimizeLegibility;
 }
 
@@ -40,10 +40,10 @@ h1, h2, h3 {
 
 li {
 	margin-bottom: 0.7em;
-}
+	line-height: 1.4;}
 
 p, q {
-	line-height: 1.45;
+	line-height: 1.55;
 }
 
 em, q {
