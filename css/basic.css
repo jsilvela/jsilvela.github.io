@@ -50,7 +50,7 @@ em, q {
 	font-style: italic;
 }
 
-tt, code {
+pre, tt, code {
 	font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Menlo, monospace;
 }
 
