@@ -16,7 +16,7 @@ Now that I’m approaching middle age, my eyes get tired more easily. I did a te
 ## Fonts for coding. Criteria
 0. Not necessarily monospaced!
 1. Renders well on your editor/OS.
-2. Distinct capital-i, lowercase-l and number-one. Good size of punctuation. Good size of brackets, braces, parens.
+2. Distinct capital-i, lowercase-L and number-one. Good size of punctuation. Good size of brackets, braces, parens.
 This disqualifies many sans-serif fonts, which often have similar characters. Some exceptions: Verdana, Clear Type, ITC Officina.
 3. Numbers are clearly distinct from letters. Notably, zero and one. Fonts with “old style figures” that don’t line up fail here. For example: Georgia, Hoefler Text.
 

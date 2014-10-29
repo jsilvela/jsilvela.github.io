@@ -4,7 +4,7 @@ body {
 	margin-top: 3em;
 	margin-bottom: 3em;
 	max-width: 36em;
-	font-family: Verdana, "Bitstream Vera Sans", "DejaVu Sans", sans-serif;
+	font-family: "Bitstream Vera Serif", "DejaVu Serif", Verdana, "Bitstream Vera Sans", "DejaVu Sans", sans-serif;
 	text-rendering: optimizeLegibility;
 }
 
