@@ -4,7 +4,7 @@ body {
 	margin-top: 3em;
 	margin-bottom: 3em;
 	max-width: 36em;
-	font-family: Verdana, sans-serif;
+	font-family: Verdana, "Bitstream Vera Sans", "DejaVu Sans", sans-serif;
 	text-rendering: optimizeLegibility;
 }
 
@@ -51,7 +51,7 @@ em, q {
 }
 
 tt, code {
-	font-family: fira mono, source code pro, monospace;
+	font-family: "fira mono", "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Menlo, monospace;
 }
 
 div.rss {
