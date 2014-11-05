@@ -6,6 +6,7 @@ body {
 	max-width: 36em;
 	font-family: "Fira Sans", Verdana, sans-serif;
 	font-weight: 400;
+	font-size: 16px;
 	text-rendering: optimizeLegibility;
 }
 
@@ -15,10 +16,10 @@ body {
 		background: #fcfcfc;
 	}
 	body, h2, h3 {
-		font-size: medium;
+		font-size: 1.4em;
 	}
 	h1 {
-		font-size: large;
+		font-size: 1.6em;
 	}
 }
 
