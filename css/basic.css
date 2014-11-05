@@ -52,7 +52,7 @@ em, q {
 }
 
 pre, tt, code {
-	font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Menlo, monospace;
+	font-family: "fira mono",  "DejaVu Sans Mono", Menlo, monospace;
 }
 
 div.rss {
