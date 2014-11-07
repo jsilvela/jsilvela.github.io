@@ -1,5 +1,5 @@
 html {
-	font-size: 14px;
+	font-size: 100%;
 }
 
 body {
@@ -12,14 +12,14 @@ body {
 
 @media screen {
 	body {
-		color: #111111;
-		background: #fcfcfc;
+		color: #111;
+		background: #fdfdfd;
 	}
 	body, h2, h3 {
-		font-size: 1.4em;
+		font-size: 1.3125em;
 	}
 	h1 {
-		font-size: 1.6em;
+		font-size: 1.3333em;
 	}
 }
 
