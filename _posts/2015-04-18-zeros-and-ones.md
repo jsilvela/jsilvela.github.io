@@ -14,6 +14,7 @@ I think the “zeros and ones” routine is cultivated by programmers who want t
 
 So how does one describe the job of a programmer accurately, and shortly?
 Not sure, but I have some ideas, mostly in the negative direction.
+
 * Computer programming is not mainly about computers. Your job did not change in a significant way when you switched to mac, and you can write programs that work even if you’re largely ignorant of computer architecture.
 * Many people program who are not computer programmers. Writing Excel macros, using Matlab, even writing the odd SQL query, are routine for engineers, economists, biologists. Some of them indeed have “got it”, the programming gene, the skill to build big programs, the appreciation of code as an object in itself, to be studied and manipulated with purpose, rather than just chasing after the compiler.
 * Conversely, some people who have a degree in CS, even a higher degree in CS, may not be programmers. They may be good at complexity theory, or security, or software project management, but they lack the practical know-how to get code off the ground.
