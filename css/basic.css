@@ -3,8 +3,9 @@ html {
 }
 
 body {
-	margin: 3em 10%;
+	margin: 2em auto;
 	max-width: 36em;
+	width: 90%;
 	font-family: "Source Serif Pro", "DejaVu Serif", Georgia, serif;
 	font-weight: 400;
 	text-rendering: optimizeLegibility;
@@ -13,7 +14,7 @@ body {
 @media screen {
 	body {
 		color: #111;
-		background: #fdfdfd;
+		background: #fafafa;
 	}
 	h2, h3 {
 		font-size: 1.1em;
