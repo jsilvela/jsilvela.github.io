@@ -1,11 +1,11 @@
 html {
-	font-size: 100%;
+	font-size: 23px;
 }
 
 body {
 	margin: 3em 10%;
 	max-width: 36em;
-	font-family: Charter, Georgia, serif;
+	font-family: "Source Serif Pro", "DejaVu Serif", Georgia, serif;
 	font-weight: 400;
 	text-rendering: optimizeLegibility;
 }
@@ -16,10 +16,10 @@ body {
 		background: #fdfdfd;
 	}
 	body, h2, h3 {
-		font-size: 1.3125em;
+		font-size: 1.1em;
 	}
 	h1 {
-		font-size: 1.3333em;
+		font-size: 1.2em;
 	}
 }
 
@@ -37,7 +37,7 @@ body {
 }
 
 h1, h2, h3 {
-	font-weight: bold;
+	font-weight: 700;
 }
 
 li {
