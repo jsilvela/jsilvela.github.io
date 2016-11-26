@@ -1,0 +1,13 @@
+baseurl = "http://blog.silvela.org/"
+canonifyurls = true
+disablePathToLower = true
+languageCode =  "en-us"
+title = "Lost Among Notes"
+author = "Jaime Silvela"
+theme = "lost"
+
+[params]
+  copyright= "Jaime Silvela"
+  twitter= "https://twitter.com/jsilvela"
+  email= "jaime.silvela@gmail.com"
+
