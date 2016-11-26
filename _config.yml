@@ -1,2 +1,4 @@
+source: ./
+exclude: ["*"]
 destination:  ./_site
-keep_files: ["./"]
+keep_files: ["*"]
