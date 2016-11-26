@@ -1,10 +1,9 @@
 ---
 title: And the Oscar goes to
 layout: post
+date: 2016-03-06 06:52:29.000000000 +01:00
 author: Jaime Silvela
 ---
-<h1>{{page.title}}</h1>
-<p>{{ page.date | date_to_long_string }}</p>
 
 In order to prepare myself to write a program for clustering of numeric arrays,
 I lived for two months in a numeric array.

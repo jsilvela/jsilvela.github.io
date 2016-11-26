@@ -1,0 +1,6 @@
+name = "Lost"
+license = "MIT"
+description = "Simplification of Hugo Zen"
+tags = ["blog"]
+features = ["blog", "themes"]
+min_version = 0.13

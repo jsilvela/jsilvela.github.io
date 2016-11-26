@@ -2,9 +2,8 @@
 title: You Know How This Ends
 layout: post
 author: Jaime Silvela
+date: 2015-10-30 10:23:32.000000000 +02:00
 ---
-<h1>{{page.title}}</h1>
-<p>{{ page.date | date_to_long_string }}</p>
 
 I’m not much into superhero movies, but there is a particular plot device they use that I find fun: in the typical superhero movie, somewhere in the first half, the hero will get a chance to kill the bad guy, and he will not take it. Maybe he doesn’t yet grasp how dangerous this guy is.
 

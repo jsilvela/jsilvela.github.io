@@ -2,9 +2,8 @@
 title: It’s all zeros and ones
 layout: post
 author: Jaime Silvela
+date: 2015-04-18 10:23:32.000000000 +02:00
 ---
-<h1>{{page.title}}</h1>
-<p>{{ page.date | date_to_long_string }}</p>
 
 That look of half-confusion, half-familiarity, when you tell people you’re a computer programmer. In the popular imagination, we programmers are “good with computers”. Perhaps some think that we have to do math to write programs. Others may have seen movies where the programmer is an over-caffeinated man-boy who types, and switches windows, at ludicrous speed. Of course, we’re all tired of friends asking us to fix their PowerPoint presentation.
 

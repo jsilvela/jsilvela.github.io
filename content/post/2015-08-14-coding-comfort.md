@@ -2,9 +2,8 @@
 title: Coding Comfort
 layout: post
 author: Jaime Silvela
+date: 2015-08-14 10:23:32.000000000 +02:00
 ---
-<h1>{{page.title}}</h1>
-<p>{{ page.date | date_to_long_string }}</p>
 
 In the last year or so I've made a number of changes to my coding habits that
 have had a positive impact on my comfort.

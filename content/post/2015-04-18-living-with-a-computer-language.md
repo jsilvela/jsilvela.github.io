@@ -2,9 +2,8 @@
 title: Living with a computer language
 layout: post
 author: Jaime Silvela
+date: 2015-04-18 10:23:32.000000000 +02:00
 ---
-<h1>{{page.title}}</h1>
-<p>{{ page.date | date_to_long_string }}</p>
 
 I’m not a big fan of David Lean’s movie “Doctor Zhivago”, but it contains a line I love:
 “He approved of us, but for reasons which were subtle, like his verse.”

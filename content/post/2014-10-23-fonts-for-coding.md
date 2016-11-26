@@ -1,10 +1,9 @@
 ---
 title: Fonts for coding
 layout: post
+date: 2014-10-23 10:23:32.000000000 +02:00
 author: Jaime Silvela
 ---
-<h1>{{page.title}}</h1>
-<p>{{ page.date | date_to_long_string }}</p>
 
 I’ve been on a typography bender lately. This is a quick summary of my findings.
 

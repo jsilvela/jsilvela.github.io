@@ -2,9 +2,8 @@
 title: White space in source code, or ditch monospace
 layout: post
 author: Jaime Silvela
+date: 2014-10-29 10:23:32.000000000 +02:00
 ---
-<h1>{{page.title}}</h1>
-<p>{{ page.date | date_to_long_string }}</p>
 
 White space is very important for readability in general, and for readability of code in particular.
 If you look at a book on typography, you’ll see discussions on line spacing, kerning, double spacing and other spatial concerns. For example, check [Butterick’s Practical Typography](http://practicaltypography.com/).
