@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.16-DEV" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700" rel="stylesheet">
+
+
+<link rel="stylesheet" href="http://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="http://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>White space in source code, or ditch monospace - Lost Among Notes</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h3><a href="http://blog.silvela.org/">Home</a></h3>
+		
+	</header>
+
+
+	<main>
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">White space in source code, or ditch monospace</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2014-10-29">October 29, 2014</time></span>
+			<div itemprop="entry-text">
+				<p>White space is very important for readability in general, and for readability of code in particular.
+If you look at a book on typography, you’ll see discussions on line spacing, kerning, double spacing and other spatial concerns. For example, check <a href="http://practicaltypography.com/">Butterick’s Practical Typography</a>.</p>
+
+<p>Code is less dense on page than regular prose, but it is very compressed in comparison. Each and every letter and punctuation mark is important, each character must be clearly identifiable.
+Many coders use monospaced typefaces to display their programs, and there are several monospaced typefaces designed specifically for code.</p>
+
+<p>Monospaced typefaces have peculiar problems. Because all their letterforms are made to fit the same width, the i’s and l’s are swimming in space, and the m’s and w’s are compressed. This can give rise to distracting changes in visual rhythm, or to letter collisions. In contrast, proportional fonts usually manage to keep a uniform density across the line:</p>
+
+<p><img src="http://blog.silvela.org/images/mono-problems.png" alt="Issues with monospaced fonts" /></p>
+
+<p>Aside from their inherent problems, how do monospaced typefaces compare to proportional ones? Let’s look at the Bitstream Vera family, which contains proportional and monospaced fonts.</p>
+
+<p><img src="http://blog.silvela.org/images/Bitstream_Vera_family.png" alt="Bitstream Vera family" /></p>
+
+<p>The line set in Vera Mono, at the top, is very loose; looser than necessary, I find. My favorite rendering is the third one, with Vera Serif. In my opinion, it makes it much easier to tell what’s going on, and the letters are perfectly discernible.</p>
+
+<p>Why are so many programmers unwilling to use proportional typefaces? I think one important reason is that ever since C++, Java and CamelCase became the defaults, we’re used to long, un-spaced identifiers, and long lines of code. In those circumstances, the accidental whitespace patterns created by monospaced typefaces are a relief for the eye. Proportional typefaces can create bleak walls of text. <br/>Let’s compare Vera Mono vs. Vera Serif:</p>
+
+<p><img src="http://blog.silvela.org/images/no_underscores.png" alt="Long lines of code (Vera fonts)" /></p>
+
+<p>What would happen if we ditched CamelCase, and separated the sub-words with underscores? Let’s compare Vera Mono, with no underscores, vs. Vera Serif with underscores:</p>
+
+<p><img src="http://blog.silvela.org/images/underscores.png" alt="Long lines, with underscores (Vera fonts)" /></p>
+
+<p>Much better, right? The spacing is deliberate, and the eye is drawn to the gaps within the identifiers. Even with the extra characters, the code set in Vera Serif is more compact than in Vera Mono.</p>
+
+<p>Many proportional typefaces are unsuitable for coding, but some are as good at distinguishing letters as any monospaced. For instance, Verdana, Charter, Bitstream Vera Serif (and its descendant DejaVu Serif), Clear Sans, ITC Officina Sans, the Input family…</p>
+
+<p>Should proportional typefaces be used for code? We’re all free to choose; after all, we each get our own monitor.
+Here’s my take: a good proportional font, and judicious coding conventions, will improve the readability of your code base.
+Watch your spaces!</p>
+
+			</div>
+		</article>
+	</main>
+	
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+
+<hr/>
+
+
+
+	<footer>
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
