@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code on Lost Among Notes</title>
+    <link>http://blog.silvela.org/categories/code/</link>
+    <description>Recent content in Code on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 Sep 2010 06:07:06 +0200</lastBuildDate>
+    <atom:link href="http://blog.silvela.org/categories/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Xmonad &#43; GNOME</title>
+      <link>http://blog.silvela.org/post/2010-09-19-xmonad-gnome/</link>
+      <pubDate>Sun, 19 Sep 2010 06:07:06 +0200</pubDate>
+      
+      <guid>http://blog.silvela.org/post/2010-09-19-xmonad-gnome/</guid>
+      <description>&lt;p&gt;I’m positively impressed with Linux lately, as I learn more.&lt;br /&gt;
+By combining the tiling window manager Xmonad with the GNOME environment, I’ve found my favorite windowing system on any platform.&lt;/p&gt;
+&lt;p&gt;I used these &lt;a href=&#34;http://markhansen.co.nz/xmonad-ubuntu-lucid&#34;&gt;basic instructions&lt;/a&gt;, but configured Xmonad to use the Window key (aka. Super key) as modifier instead of Alt, so that it doesn’t interfere with the Emacs keybindings. This is how it looks.&lt;br /&gt;
+&lt;code&gt;&lt;br /&gt;
+import XMonad&lt;br /&gt;
+import XMonad.Config.Gnome&lt;/p&gt;
+&lt;p&gt;main = xmonad gnomeConfig&lt;br /&gt;
+              {&lt;br /&gt;
+                modMask = mod4Mask&lt;br /&gt;
+              }&lt;br /&gt;
+&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Number of trailing zeros in n factorial</title>
+      <link>http://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</link>
+      <pubDate>Mon, 17 Nov 2008 06:52:29 +0100</pubDate>
+      
+      <guid>http://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</guid>
+      <description>&lt;p&gt;I was asked this question in my first job interview in the US. I was completely unprepared for this type of interview, and I did badly. But it’s a nice problem to think about and it’s easy to solve.&lt;/p&gt;
+&lt;p&gt;In case you don’t know, n factorial is the multiplication of all positive integers less than or equal to n. By convention, 0 factorial is taken as 1. The factorial is typically represented with “!”.&lt;/p&gt;
+&lt;p&gt;So:&lt;/p&gt;
+&lt;pre&gt;0! = 1
+1! = 1
+2! = 2 1 = 2
+3! = 3 2 1 = 6&lt;/pre&gt;
+&lt;p&gt;And so on. You may have noted the following pattern: n! = n (n-1)! This leads to the following recursive function in the Scheme language (you can get Scheme system &lt;a href=&#34;http://download.plt-scheme.org/&#34;&gt;here&lt;/a&gt;)&lt;/p&gt;
+&lt;pre&gt;(define (factorial n)
+  (if (= n 0)
+      1
+      (* n (factorial (- n 1)))))&lt;/pre&gt;
+&lt;p&gt;You can feed this to the Scheme system, and start getting numbers.&lt;/p&gt;
+&lt;pre&gt;(factorial 0)  --&amp;gt; 1
+(factorial 3)  --&amp;gt; 6
+(factorial 32) --&amp;gt; 263130836933693530167218012160000000&lt;/pre&gt;
+&lt;p&gt;So, we want to be able to compute that 32! has 7 trailing zeros, but we don’t want to have to compute 32!&lt;/p&gt;
+&lt;p&gt;The key observation is this: the number of zeros equals the number of times 10 is a factor in 32! (or n!). 10 = 2 5, and since 2 appears more often than 5 in n!, we can say that the number of trailing zeros is the same as the number of times 5 is a factor in n!&lt;/p&gt;
+&lt;p&gt;Now, how do we count the number of times 5 is a factor? We can begin by observing that 32! = 32 31 30 .. 25 .. 20 .. 15 .. 10 .. 5 .. 1 (the .. stand for omitted numbers). So, we can see 6 of the factors in 32! are multiples of 5. And we can compute this number simply by diving by 5: 32 / 5 = 6 (assuming we discard the decimal part). That’s a start.&lt;/p&gt;
+&lt;p&gt;Now, we also have 25 in there, and it has two factors of 5; we need to account for the extra five. So, there are 6 + 1 = 7 factors of 5 in 32!, and 7 trailing zeros, which you can verify above. Nice. We could have started the opposite way, counting the number of &lt;q&gt;double fives&lt;/q&gt; first, multiplying them by 2, then adding the &lt;q&gt;single fives&lt;/q&gt;. But if we did that, we would have  to throw away the 25 when progressing toward the single fives, and that would be more baggage to keep track of. This way, also, we count for the &lt;q&gt;double five&lt;/q&gt; only once, because 25 had been counted once as a &lt;q&gt;single five&lt;/q&gt;.&lt;/p&gt;
+&lt;p&gt;So, number of fives in 32! = 32 / 5 + 32 / 25 = 6 + 1 = 7&lt;/p&gt;
+&lt;p&gt;We can formulate an algorithm informally: Number of fives in n! = n / 5 + n / 25 + n / 125 ... (/ is assumed to be integer division ie. it discards decimals). Let’s give this function a name: fives-in-factorial(n). By the way, the ’...’ means &lt;q&gt;and so on&lt;/q&gt;, but it would not make sense to go on forever, once one of the summands reaches 0.&lt;/p&gt;
+&lt;p&gt;Maybe you can see a pattern here: fives-in-factorial(n) = n / 5 + (n / 5) / 5 + (n / (5 * 5)) / 5 ...&lt;/p&gt;
+&lt;p&gt;This suggests a recursive definition:&lt;/p&gt;
+&lt;pre&gt;fives-in-factorial(n) = n/5 + fives-in-factorial(n/5)&lt;/pre&gt;
+&lt;p&gt;The base of the recursion is that for n &amp;lt; 5, there are no fives in n!, hence fives-in-factorial(n) = 0&lt;/p&gt;
+&lt;p&gt;Translated into code:&lt;/p&gt;
+&lt;pre&gt;(define (fives-in-factorial n)
+  (if (&amp;lt; n 5)
+      0
+      (+ (floor (/ n 5))
+         (fives-in-factorial (/ n 5)))))&lt;/pre&gt;
+&lt;p&gt;(In case you’re wondering about &lt;q&gt;floor&lt;/q&gt;: given a number, it discards its decimal part). You can again introduce this code in a Scheme system and start getting some answers. We already know 32.&lt;/p&gt;
+&lt;pre&gt;(factorial 32)           --&amp;gt; 263130836933693530167218012160000000
+(fives-in-factorial 32)  --&amp;gt; 7
+
+(factorial 6)            --&amp;gt; 720
+(fives-in-factorial 6)   --&amp;gt; 1
+
+(factorial 46)           --&amp;gt; 5502622159812088949850305428800254892961651752960000000000
+(fives-in-factorial 46)  --&amp;gt; 10&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

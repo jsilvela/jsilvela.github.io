@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vectors on Lost Among Notes</title>
+    <link>http://blog.silvela.org/categories/vectors/</link>
+    <description>Recent content in Vectors on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 08 Dec 2008 09:12:17 +0100</lastBuildDate>
+    <atom:link href="http://blog.silvela.org/categories/vectors/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scalar product and direction cosines</title>
+      <link>http://blog.silvela.org/post/2008-12-08-scalar-product-and-direction-cosines/</link>
+      <pubDate>Mon, 08 Dec 2008 09:12:17 +0100</pubDate>
+      
+      <guid>http://blog.silvela.org/post/2008-12-08-scalar-product-and-direction-cosines/</guid>
+      <description>&lt;p&gt;When I learned about the scalar product in high school, I was somewhat surprised by how lucky its properties are.&lt;br /&gt;
+The treatment is usually this: define $latex  x \cdot y = |x| |y| \cos \theta $, where $latex \theta $ is the angle between $latex x $ and $latex y $. Then deduce that $latex x \cdot y $ is linear on the left and right arguments. Then, deduce that $latex (x_1 \vec i + x_2 \vec j + x_3 \vec k) \cdot (y_1 \vec i + y_2 \vec j + y_3 \vec k)  = x_1 y_1 + x_2 y_2 + x_3 y_3 $&lt;/p&gt;
+&lt;p&gt;Now, define the direction cosines of a vector $latex x $ as the cosines of the angles the vector forms with the basis vectors. By definition: $latex x = |x| (\cos \phi_1, \cos \phi_2, \cos \phi_3) $.&lt;br /&gt;
+If we define $latex \theta $ as the angle between $latex x $ and $latex y $, $latex \alpha_i $ as the angles between $latex x $ and the axis, and $latex \beta_i $ as the angles between $latex y $ and the axis, we have: $latex \cos \theta = \sum_i \cos \alpha_i \cos \beta_i $.&lt;/p&gt;
+&lt;p&gt;This last formula mystified me. The deduction was so purely algebraic that I found it unsatisfactory. I wanted to see the geometric meaning.&lt;/p&gt;
+&lt;p&gt;A more geometric deduction follows: $latex (\cos \alpha_1, \cos \alpha_2, \cos \alpha_3) $ is a point $latex a $ on the unit sphere. If we take another point $latex b $ on the unit sphere, the subtend an angle $latex \theta $:&lt;br /&gt;
+&lt;img src=&#34;http://blog.silvela.org/images/432576072_eyeTJ-S.jpg&#34; alt=&#34;On the unit sphere&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;On the unit sphere, we can find the angle $latex \theta $ subtended by $latex a $ and $latex b $, by calculating the distance $latex l $ between them:&lt;br /&gt;
+&lt;img src=&#34;http://blog.silvela.org/images/432576073_8QviV-S.jpg&#34; alt=&#34;Calculating the angle&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As you can see in the picture, $latex l = 2 \sin \frac{\theta}{2} $. Therefore: $latex 2 \sin \frac{\theta}{2} = \sqrt (\sum (\cos \alpha_i - \cos \beta_i)^2 $&lt;br /&gt;
+By basic trigonometry: $latex \sin \frac{\theta}{2} = \sqrt \frac{1 - \cos \theta}{2}$&lt;/p&gt;
+&lt;p&gt;Putting the above two together: $latex 4 \frac{1 - \cos \theta}{2} = \sum (\cos \alpha_i - \cos \beta_i)^2  = \sum (\cos^2 \alpha_i - 2 \cos \alpha_i \cos \beta_i + \cos^2 \beta_i)$&lt;br /&gt;
+Since $latex a $ and $latex b $ are both on the unit sphere: $latex 4 \frac{1 - \cos \theta}{2} = 2 - \sum 2 \cos \alpha_i \cos \beta_i $,&lt;br /&gt;
+and $latex \cos \theta = \sum \cos \alpha_i \cos \beta_i$&lt;/p&gt;
+&lt;p&gt;In this deduction of $latex \cos \theta $, we didn’t assume any knowledge of the scalar product. In fact, we could have used it as a basis for the definition of the scalar product.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
