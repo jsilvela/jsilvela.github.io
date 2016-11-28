@@ -1,4 +1,0 @@
-source: ./
-exclude: ["*"]
-destination:  _site
-keep_files: [_site]
