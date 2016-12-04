@@ -2,11 +2,11 @@
 categories = []
 date = "2016-12-02T21:45:19+01:00"
 tags = []
-title = "D3's Abstraction Trouble"
+title = "D3's Messy Abstraction Path"
 
 +++
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
 
 D3 is a wonderful idea. A graphing library in Javascript that uses
 functional idioms, outputs SVG and is chock full of contributions from
@@ -14,9 +14,11 @@ the community? No wonder it's so successful.
 
 And yet, D3 code has a tendency to grow unwieldy very quickly. As
 happens in SQL, the means of abstraction in the language (in our case
-the library) are not central, and details just tend to grow and grow.
+in the library) are obscure, and details in "normal" code tend to pile up.
 
 Let's see a simple example to illustrate this.
+
+## D3's normal abstraction path: low abstraction
 
 We begin with a simple toy problem, and then add a little complexity
 to it to see what happens.
@@ -82,7 +84,7 @@ that we can locate it, for example, "single". Then
 		.attr("height", 20);
 
 This generates an empty ```<svg>``` element with the desired dimensions.
-We want to print the runner's name, so we add a ```<text>``` element. Bear in
+We want to show the runner's name, so we add a ```<text>``` element. Bear in
 mind that our runner, Alice, lives in an array with other runners. She is
 ```runner[0]```.
 
@@ -93,9 +95,10 @@ mind that our runner, Alice, lives in an array with other runners. She is
 To the right of the runner's name, we want to mark splits by dots, placed at a
 distance proportional to the times. <br/>
 Here we start to use D3's core features: the binding operations, and selections.
-We're going to select the existing circles in the plot, which is the empty
-selection. To it we're going to bind the array with the splits, and for each
-element of it, we shall add a red ```<circle>```.
+We're going to select all the existing circles in the plot. There are none at
+this point; we're doing this to get a **selection**, which is the main type that
+D3 deals with. We now bind, to this selection, the array with the splits, and
+for each split, we shall add a red ```<circle>```.
 
 	plot.selectAll("circle")
 		.data(runners[0].splits)
@@ -108,12 +111,13 @@ element of it, we shall add a red ```<circle>```.
 			.style("fill", "red");
 
 In the above, ```.data()``` binds the data to the selection, and ```.enter()```
-return the elements of the data that were not already bound. You can learn about
-D3's selections, and ```enter()```, ```exit()```, ```update()``` here.
+returns the elements of the data that were not already bound. You can learn about
+D3's ```selection```s, and ```enter()```, ```exit()```, ```update()``` here.
 
-Notice that the line ```.attr("cx", function(t) {return 100 +
-5*t;})```, which takes a function. This is a pervasive idiom in D3,
-and nothing more than the usual ```map``` from functional land.
+Note the line ```.attr("cx", function(t) {return 100 +
+5*t;})```, which takes a function. This is a pervasive idiom in D3, and nothing more than
+the usual ```map``` from functional land. It's a function being mapped over the
+array that was bound previously with the ```.data()``` call, i.e. over the splits.
 
 Now, let's plot all the runners.
 
@@ -165,14 +169,16 @@ In the below, ```plotAll``` is a selection we have defined on an identified
 					return "translate(0," + (k*30) + ")";
 				});
 
-The use of ```.enter()``` and ```.data()``` is as previous. The only new thing
-we have seen is that the signature ```function(ignore, k) {}```. This is fairly
+The use of ```.enter()``` and ```.data()``` is analogous to what we did before. The only novelty
+is signature ```function(ignore, k) {}```. This is fairly
 standard in Javascript, and within D3. The second argument is the index of the
 datum within the data array. We name the first argument ```ignore``` as a
-convention to signal that the value of the element is not used, just its order.
+convention to signal that the value of the element is not used within the function.
 
 It is easy to rewire the code that wrote the text and the splits. We just need
-to pull the data we're interested in from each element.
+to pull the data we're interested in from each element. <br/>
+We can see here the rendering of the runner names. The rendering of the splits
+would work in the same way.
 
 	runLines.append("text")
 		.text(function(d) {return d.name;})
@@ -183,17 +189,19 @@ functional programming approach, we would figure out how to plot individual
 runners, then iterate or ```map``` over an array to produce the full plot for
 all runners.
 
-With D3, the default way of operating does not abstract the individual. To make
+In D3, the default way of operating does not abstract the individual. To make
 it more visual: you can make 5 sandwiches by repeating the process of making a
 single sandwich 5 times, or you can put 5 slices of bread on 5 plates, then 5
 pieces of cheese on the 5 slices, then 5 portions of ham on the 5 pieces of
 cheese, then 5 slices of bred on top of the portions of ham. This second way of
 operation is the default D3 way.
 
+## Problems due to low abstraction
+
 Of course, this is just preference so far, but let's see where the low
 abstraction can give rise to problems.
 <br/>
-In our runner array, we keep track of each runner's nationality,as we saw above
+In our runner array, we keep track of each runner's nationality, as we saw above
 with Alice, who is British. Let's imagine we'd like to color the dots for the splits according
 to nationality.
 
@@ -215,7 +223,7 @@ given that we're iterating over the splits.
 			.style("fill", "red");
 
 One thing we could do is assign a class on each of the ```<g>``` elements we defined before.
-We add a line to the bottom of the definition of ```runLines```.
+We would add a line to the bottom of the definition of ```runLines```.
 
 	var runLines = plotAll.selectAll("g")
 		.data(runners)
@@ -234,27 +242,35 @@ We could think of handing, to each circle in our splits code, not just the time,
 
 	function getNatlSplits(runner) ==> [..., {nationality, time_i}, ...]
 
-Then
+Then do
 
 	runLines.selectAll("circle")
 		.data(function(d) {return getNatlSplits(d);})
 		.enter()
 
 But this is even clunkier. We need an auxiliary function, and we're repeating the same nationality
-for all those elements.
+for all those elements. And does the ```{nationality, time}``` pair have any meaning?
 
-We can also traverse the data structures to get the parent of the splits. But isn't this already
-getting more complicated than it should have been?
+The problem here is that, in iterating over the ```splits```, we have lost access
+to the *parent* data that contained ```nationality```. <br/>
+We would solve this problem quite easily if we could keep the parent data in scope.
 
-## What if?
+## Introducing abstraction, the D3 way
 
 The problem with coloring the circles, simple as it is, is an illustration of D3's trouble
 with abstraction.
 
 Now imagine that we had a procedure ```plotRunner(runner)``` that produced the line with 
-the runner name and the splits. To color the circles based on nationality would be trivial.
+the runner name and the splits. To color the circles based on nationality would be trivial. The
+function parameter would allow us access to both ```splits``` and ```nationality```.
+
 If we simply iterated over ```runners``` and called ```plotRunner``` for each, the code would
-need very little change.
+need very little change. ```ploRunner``` cannot function in a vacuum. It needs to do either of:
+
+* Output an SVG snippet, to be combined by a higher level function that generates the full SVG.
+* Receive an *entry point* into the overall SVG into which it will add its content.
+
+The D3 way is the second.
 
 <div id="singleAbstracted"></div>
 
@@ -263,14 +279,18 @@ need very little change.
 		.append("svg")
 		.attr("width", 300)
 		.attr("height", 20);
+	
+	plotAbstracted.datum(runners[0]);
 
-	var plotRunner(selection) {
-		selection.append("text")
-			.text(selection.data().name)
+	var plotRunner = function(d) {
+		var seln = d3.select(this);
+
+		seln.append("text")
+			.text(d.name)
 			.attr("dy", 20);
 
-		plot.selectAll("circle")
-			.data(runners[0].splits)
+		seln.selectAll("circle")
+			.data(d.splits)
 			.enter()
 			.append("circle")
 				.attr("r", 5)
@@ -279,6 +299,43 @@ need very little change.
 				.style("stroke", "red")
 				.style("fill", "red");
 	}
+
+	plotAbstracted.each(plotRunner);
+</script>
+
+<div id="allAbstracted"></div>
+
+<script>
+	var allAbstracted = d3.select("#allAbstracted")
+		.append("svg")
+		.attr("width", 300)
+		.attr("height", 90);
 	
-	plotRunner(plotAbstracted);
+	var slots = allAbstracted.selectAll("g")
+		.data(runners)
+		.enter()
+		.append("g")
+			.attr("transform",
+				function(ignore, k) {
+					return "translate(0," + (k*30) + ")";
+				}
+			);
+
+	slots.each(plotRunner);
+</script>
+
+Now, all this is very magical, in a bad way. Capturing selections
+inside of ```each``` by using this is flimsy.
+
+And so, we can call
+
+	slots.each(plotRunner);
+
+but this will not work. The context is different and ```this``` will
+not retrieve a selection.
+
+	slots.each(function(d) {plotRunner(d);});
+
+<script>
+	var nationalColors = {"US": "red", "UK": "blue", "Spain": "green"};
 </script>
