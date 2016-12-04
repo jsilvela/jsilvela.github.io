@@ -10,21 +10,21 @@ title = "D3's Messy Abstraction Path"
 
 D3 is a wonderful idea. A graphing library in Javascript that uses
 functional idioms, outputs SVG and is chock full of contributions from
-the community? No wonder it's so successful.
+the community? No wonder it’s so successful.
 
 And yet, D3 code has a tendency to grow unwieldy very quickly. As
 happens in SQL, the means of abstraction in the language (in our case
-in the library) are obscure, and details in "normal" code tend to pile
+in the library) are obscure, and details in “normal” code tend to pile
 up.
 
-Let's see a simple example to illustrate this.
+Let’s see a simple example to illustrate this.
 
-## D3's normal abstraction path: low abstraction
+## D3’s normal abstraction path: low abstraction
 
 We begin with a simple toy problem, and then add a little complexity
 to it to see what happens.
 
-Say we're plotting the result of a race. We have a list of runners,
+Say we’re plotting the result of a race. We have a list of runners,
 and for each of them we have a list of splits.
 
 Take our first runner:
@@ -35,7 +35,7 @@ Take our first runner:
 		"splits": [5.05, 11.32, 17.49, 24.22]
 	}
 
-Let's display a line with the runner's name, and circles representing
+Let’s display a line with the runner’s name, and circles representing
 the splits.
 
 <div id="single"></div>
@@ -78,7 +78,7 @@ the splits.
 The way you do things in D3 is to build up your SVG graph by
 accretion. Start by making a ```<div>``` in your HTML where you want
 the plot, and give it an ID so that we can locate it, for example,
-"single". Then
+“single”. Then
 
 	var plot = d3.select("#single")
 		.append("svg")
@@ -86,7 +86,7 @@ the plot, and give it an ID so that we can locate it, for example,
 		.attr("height", 20);
 
 This generates an empty ```<svg>``` element with the desired
-dimensions.  We want to show the runner's name, so we add a
+dimensions.  We want to show the runner’s name, so we add a
 ```<text>``` element. Bear in mind that our runner, Alice, lives in an
 array with other runners. She is ```runner[0]```.
 
@@ -94,11 +94,11 @@ array with other runners. She is ```runner[0]```.
 		.text(runners[0].name)
 		.attr("dy", 20);
 
-To the right of the runner's name, we want to mark splits by dots,
+To the right of the runner’s name, we want to mark splits by dots,
 placed at a distance proportional to the times. <br/> Here we start to
-use D3's core features: the binding operations, and selections.  We're
+use D3’s core features: the binding operations, and selections.  We’re
 going to select all the existing circles in the plot. There are none
-at this point; we're doing this to get a **selection**, which is the
+at this point; we’re doing this to get a **selection**, which is the
 main data type that D3 deals with. We now bind, to this selection, the
 array with the splits, and for each split, we shall add a red
 ```<circle>```.
@@ -115,17 +115,17 @@ array with the splits, and for each split, we shall add a red
 
 In the above, ```.data()``` binds the data to the selection, and
 ```.enter()``` returns the elements of the data that were not already
-bound. You can learn about D3's ```selection```s, and ```enter()```,
+bound. You can learn about D3’s ```selection```s, and ```enter()```,
 ```exit()```, ```update()``` [in this D3
 guide](https://bost.ocks.org/mike/selection/).
 
 Note the line ```.attr("cx", function(t) {return 100 + 5*t;})```,
 which takes a function as argument. This is a pervasive idiom in D3,
-and nothing more than the usual ```map``` from functional land. It's a
+and nothing more than the usual ```map``` from functional land. It’s a
 function being mapped over the array that was bound previously with
 the ```.data()``` call, i.e. over the splits.
 
-Now, let's plot all the runners.
+Now, let’s plot all the runners.
 
 <div id="all"></div>
 
@@ -161,7 +161,7 @@ Now, let's plot all the runners.
 
 Not much needs to be done on top of what we were doing before for a
 single runner. Firstly, we need to have fresh line to display each
-runner. Thanks to SVG's ```<g>``` grouping element, and to SVG
+runner. Thanks to SVG’s ```<g>``` grouping element, and to SVG
 transforms, we can have a fresh canvas, with its own coordinate
 system, for each runner.  In the below, ```plotAll``` is a selection
 we have defined on an identified ```<div>```, as we did before with
@@ -184,7 +184,7 @@ name the first argument ```ignore``` as a convention to signal that
 the value of the element is not used within the function.
 
 It is easy to rewire the code that wrote the text and the splits. We
-just need to pull the data we're interested in from each
+just need to pull the data we’re interested in from each
 element. <br/> We can see here the rendering of the runner names. The
 rendering of the splits would work in the same way.
 
@@ -192,7 +192,7 @@ rendering of the splits would work in the same way.
 		.text(function(d) {return d.name;})
 		.attr("dy", 20);
 
-Already you can start to appreciate D3's failing abstraction. In a
+Already you can start to appreciate D3’s failing abstraction. In a
 typical functional programming approach, we would figure out how to
 plot individual runners, then iterate or ```map``` over an array to
 produce the full plot for all runners.
@@ -207,18 +207,18 @@ operation is the default D3 way.
 
 ## Problems due to low abstraction
 
-Of course, this is working so far, but let's see where the low
+Of course, this is working so far, but let’s see where the low
 abstraction can give rise to problems.  <br/> In our runner array, we
-keep track of each runner's nationality, as we saw above with Alice,
-who is British. Let's imagine we'd like to color the dots for the
-splits according to the runner's nationality.
+keep track of each runner’s nationality, as we saw above with Alice,
+who is British. Let’s imagine we’d like to color the dots for the
+splits according to the runner’s nationality.
 
 	UK ==> blue
 	US ==> red
 	Spain ==> green
 
-In the fragment we use to plot the circles, it's not apparent how we
-could get the nationality, given that we're iterating over the splits.
+In the fragment we use to plot the circles, it’s not apparent how we
+could get the nationality, given that we’re iterating over the splits.
 
 	runLines.selectAll("circle")
 		.data(function(d) {return d.splits;})
@@ -261,7 +261,7 @@ Then do
 		.enter()
 		...
 
-But this is even clunkier. We need an auxiliary function, and we're
+But this is even clunkier. We need an auxiliary function, and we’re
 repeating the same nationality for all those elements. And does the
 ```{nationality, time}``` pair have any meaning outside our code?
 
@@ -273,7 +273,7 @@ we could keep the parent data in scope.
 ## Abstraction the D3 way: too magical
 
 The problem with coloring the circles, simple as it is, is an
-illustration of D3's trouble with abstraction.
+illustration of D3’s trouble with abstraction.
 
 Now imagine that we had a procedure ```plotRunner(runner)``` that
 produced the line with the runner name and the splits. To color the
@@ -292,9 +292,9 @@ add its content.
 The D3 way is the second. And D3 already has a handy type for entry
 points into SVG: selections.
 
-Let's write our ```plotRunner``` function, and for the moment let's
-not worry about how we get the selection into it. Let's just assume
-it's there, and call it ```seln```.
+Let’s write our ```plotRunner``` function, and for the moment let’s
+not worry about how we get the selection into it. Let’s just assume
+it’s there, and call it ```seln```.
 
 	var plotRunner = function(runner) {
 		// NOTE: incomplete. Future version to explain
@@ -319,7 +319,7 @@ This is pretty much what we did previously, but there is one crucial
 difference: thanks to the function argument ```d```, **we now have
 access to the parent data within the function body**.
 
-Let's go back to our color-by-nationality problem. We just need to
+Let’s go back to our color-by-nationality problem. We just need to
 codify the color assignments, and modify ```plotRunner``` to leverage
 them:
 
@@ -443,8 +443,8 @@ plots, the functional decomposition can clarify your code and make it
 more flexible.
 
 I wish there were less magic involved. *React*, for instance, achieves
-a very coherent abstraction and is also written in Javascript. I don't
-know enough JS yet, but I'm getting interested in D3's internals.
+a very coherent abstraction and is also written in Javascript. I don’t
+know enough JS yet, but I’m getting interested in D3’s internals.
 
 <hr/>
 <hr/>
