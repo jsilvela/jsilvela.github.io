@@ -316,7 +316,7 @@ it’s there, and call it ```seln```.
 	}
 
 This is pretty much what we did previously, but there is one crucial
-difference: thanks to the function argument ```d```, **we now have
+difference: thanks to the function argument ```runner```, **we now have
 access to the parent data within the function body**.
 
 Let’s go back to our color-by-nationality problem. We just need to

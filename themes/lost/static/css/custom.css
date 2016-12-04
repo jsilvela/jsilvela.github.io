@@ -14,7 +14,7 @@
 	html {
 		font-size: 11pt;
 	}
-	
+
 	body {
 		background-color: white;
 	}
@@ -118,4 +118,5 @@ main {
 
 pre, code {
 	background: #ECECEC;
+	font-family: "Consolas", "Menlo", "Inconsolata", "DejaVu Sans Mono", monospace;
 }
