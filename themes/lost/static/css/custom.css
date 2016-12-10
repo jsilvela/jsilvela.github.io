@@ -25,7 +25,7 @@
 }
 
 body {
-	font-family: "Source Serif Pro", "Source Sans Pro", "Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Source Serif Pro", Georgia, serif;
 	line-height: 1.6;
 }
 
@@ -118,5 +118,5 @@ main {
 
 pre, code {
 	background: #ECECEC;
-	font-family: "Consolas", "Menlo", "Inconsolata", "DejaVu Sans Mono", monospace;
+	font-family: "Source Code Pro", "Consolas", "Inconsolata", monospace;
 }
