@@ -19,6 +19,6 @@
 		{{ if eq $isHomePage true }}
 			<h1 class="site-title">{{ .Site.Title }}</h1>
 		{{ else }}
-			<h3><a href="{{ .Site.BaseURL }}">Home</a></h3>
+			<h2><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h2>
 		{{ end }}
 	</header>
