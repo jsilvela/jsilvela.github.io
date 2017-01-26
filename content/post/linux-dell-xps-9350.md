@@ -23,11 +23,8 @@ Only two after-installation nits:
  was not able to join networks. I had to uninstall it, and install
  ```wicd``` instead.
 
-* Ayyy, the HiDPI display ... you can sort of make the desktop work,
-  but not uniformly. XFCE and GNOME have controls, though I can't seem
-  to get sizing of text and icons to be consistent across
-  applications. Not a killer since the programs I care most about are
-  text-based, and their font sizes are tweakable in settings.
+* Ayyy, the HiDPI display ... you can sort of make the desktop work but not uniformly. GNOME has decent basic support.
+	* [Tweaking GNOME and browsers](http://www.pcworld.com/article/2911509/how-to-make-linuxs-desktop-look-good-on-high-resolution-displays.html)
 
 All going fine so far, and waking from sleep seems more reliable than on Win 10. Joining WiFi networks is less reliable than on Win 10, though.
 
