@@ -4,12 +4,20 @@ tags = [
 categories = [
 ]
 date = "2018-08-05T11:36:11+01:00"
-title = "SQL over time"
+title = "Ditch your ORM"
 
 +++
 
+Here I'm telling a story of PostgreSQL performance over time, and the point
+of it, for me, is that given the richness of SQL, and the steady improvement of 
+implementations, it is foolish
+to trust your querying to an ORM. SQL is very much worth learning, and learning
+well. There are many gains to be made, in efficiency and in code quality.
+
+<hr/>
+
 Years ago, I worked at a financial firm in New York City. The system we were
-building had a Postgres database -- version 8, I think.
+building had a Postgres database &mdash; version 8, I think.
 
 There was a particular situation that made many of our queries slow:
 we had a large
@@ -21,19 +29,20 @@ contexts like the financial industry that may be audited, and held to the
 Sarbanes-Oxley act.
 
 We often needed to know the most recent factor for each of our bonds.
-Conceptually, this involved one or other kind of self-join.
+Conceptually, this involved some kind of a self-join.
 
-Let’s see an example. First, let’s create a dummy table for our data:
+First, let’s create a dummy table for our data, with daily factors for
+5000 bonds over 5 years, which I think gives an idea of our old work set:
 
-``` SQL
+``` sql
 create table factors as
 with dates as (
 	SELECT generate_series as date
-	FROM generate_series('2018-01-01 00:00'::timestamp,
-		'2018-08-04 12:00', '10 hours')
+	FROM generate_series('2013-01-01 00:00'::timestamp,
+		'2018-01-01 00:00', '24 hours')
 ), bonds as (
 	select 'bn_' || generate_series as bond
-	from generate_series(1, 1000)
+	from generate_series(1, 5000)
 )
 select bond, date, random() as factor
 from bonds cross join dates;
@@ -49,70 +58,78 @@ group by bond;
 ```
 
 Unfortunately, we can’t get the factor from the same row
-that had the `max_date`.
+that had the `max date`.
 We need an extra join:
 
 ``` sql
-with latest_dates as (
-	select bond, max(date) as date
-	from factors
-	group by bond
-)
 select bond, date, factor
-from latest_dates
+from (
+      select bond, max(date) as date
+      from factors
+      group by bond
+) latest
 join factors using (bond, date);
 ```
 
 Let’s do an `explain analyze`:
 
 ```
-Hash Join  (cost=30366.00..35525.50 rows=1000 width=48) (actual time=839.536..1260.912 rows=1000 loops=1)
-   Hash Cond: ((latest_dates.bond = factors.bond) AND (latest_dates.date = factors.date))
-   CTE latest_dates
-     ->  HashAggregate  (cost=11070.00..11080.00 rows=1000 width=14) (actual time=353.348..353.988 rows=1000 loops=1)
-           ->  Seq Scan on factors factors_1  (cost=0.00..8480.00 rows=518000 width=14) (actual time=0.025..75.878 rows=518000 loops=1)
-   ->  CTE Scan on latest_dates  (cost=0.00..20.00 rows=1000 width=40) (actual time=353.353..355.030 rows=1000 loops=1)
-   ->  Hash  (cost=8480.00..8480.00 rows=518000 width=22) (actual time=485.041..485.041 rows=518000 loops=1)
-         Buckets: 2048  Batches: 32  Memory Usage: 902kB
-         ->  Seq Scan on factors  (cost=0.00..8480.00 rows=518000 width=22) (actual time=0.008..166.135 rows=518000 loops=1)
- Total runtime: 1261.271 ms
+ Hash Join  (cost=535294.32..668778.20 rows=5000 width=23) (actual time=5752.455..6431.663 rows=5000 loops=1)
+   Hash Cond: ((factors_1.bond = factors.bond) AND ((max(factors_1.date)) = factors.date))
+   ->  HashAggregate  (cost=195209.37..195259.25 rows=4988 width=15) (actual time=2539.438..2540.340 rows=5000 loops=1)
+         Group Key: factors_1.bond
+         ->  Seq Scan on factors factors_1  (cost=0.00..149534.58 rows=9134958 width=15) (actual time=0.004..639.147 rows=9135000 loops=1)
+   ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=23) (actual time=3210.795..3210.795 rows=9135000 loops=1)
+         Buckets: 65536  Batches: 256  Memory Usage: 2456kB
+         ->  Seq Scan on factors  (cost=0.00..149534.58 rows=9134958 width=23) (actual time=0.026..1162.946 rows=9135000 loops=1)
+ Planning time: 0.516 ms
+ Execution time: 6432.132 ms
  ```
 
-Not great, given the data set isn’t that big.
+This was a core query for us -- many queries depended on the latest value of
+our bonds. My friend Tom and I would agonize over how this operation slowed
+down all else. We had a system of triggers and keys that didn’t work too
+well. Materialized views were still years away.
 
-```
-bn_217  | 2018-08-04 10:00:00 |   0.527411319315434
- bn_964  | 2018-08-04 10:00:00 |  0.0373749709688127
-```
+The above query time of 6 seconds is on better hardware, and way more RAM than
+we had available in 2005, and also, on a more modern version of Postgres (9.6).
+So, the core query, which was a subquery in many other queries, would compound,
+and we ended with multi-minute queries.
 
-My friend Tom and I would agonize over how this pretty core query was piled
-on everything else. We had a system of triggers and keys that didn’t work too
-well. Materialized views were still years away (Postgres 9.3).
+We wanted to do better, and Tom found some advice to use another query,
+which both of us found un-intuitive:
 
-Tom found some advice to use another query, which both of us found un-intutive:
-
-``` SQL
+``` sql
 select f1.bond, f1.date, f1.factor
 from factors f1
 left join factors f2 on f1.bond = f2.bond and f1.date < f2.date
-where f2.date is NULL
+where f2.date is NULL;
 ```
+
+The query was better than our first try, by quite a bit. We ended up using
+that self-join idiom whenever we had time-series, which was often.
 
 Let’s `explain analyze`:
 
 ```
- Hash Anti Join  (cost=17485.00..40998.83 rows=345333 width=22) (actual time=394.663..2625.339 rows=1000 loops=1)
+ Hash Anti Join  (cost=308326.56..735885.05 rows=6089972 width=23) (actual time=2747.910..8272.947 rows=5000 loops=1)
    Hash Cond: (f1.bond = f2.bond)
    Join Filter: (f1.date < f2.date)
-   Rows Removed by Join Filter: 3329963
-   ->  Seq Scan on factors f1  (cost=0.00..8480.00 rows=518000 width=22) (actual time=0.013..94.830 rows=518000 loops=1)
-   ->  Hash  (cost=8480.00..8480.00 rows=518000 width=14) (actual time=393.446..393.446 rows=518000 loops=1)
-         Buckets: 4096  Batches: 64 (originally 32)  Memory Usage: 1025kB
-         ->  Seq Scan on factors f2  (cost=0.00..8480.00 rows=518000 width=14) (actual time=0.008..148.163 rows=518000 loops=1)
- Total runtime: 2625.760 ms
+   Rows Removed by Join Filter: 9135000
+   ->  Seq Scan on factors f1  (cost=0.00..149534.58 rows=9134958 width=23) (actual time=0.019..734.746 rows=9135000 loops=1)
+   ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=15) (actual time=2719.739..2719.739 rows=9135000 loops=1)
+         Buckets: 131072  Batches: 256  Memory Usage: 2823kB
+         ->  Seq Scan on factors f2  (cost=0.00..149534.58 rows=9134958 width=15) (actual time=0.015..1085.309 rows=9135000 loops=1)
+ Planning time: 0.799 ms
+ Execution time: 8273.339 ms
 ```
 
-```
+Interestingly, in my current Linux machine running PostgreSQL 9.6, this second
+query is slower, and uses more disk for the internal hasing previous to the `JOIN`.
+
+Now let's see another approach using window functions:
+
+``` sql
 select bond, date, factor
 from (
 	select bond, rank() over wd as rank,
@@ -123,14 +140,46 @@ from (
 ) as latest where rank = 1;
 ```
 
+In a way, this is conceptually the cleanest approach. We partition our table
+by bond, and rank members of each partition by date. We then just need to
+get the top ranked entry in each partition.
+
+However, performance is not very good.
+
+Up to now, we have not used indexing, and so all our merges have required
+sorting/hashing. Let's create an index:
+
+
+``` sql
+create index idx_bond_date on factors (bond, date);
 ```
- Subquery Scan on latest  (cost=78896.91..98321.91 rows=2590 width=22) (actual time=1721.732..3085.822 rows=1000 loops=1)
-   Filter: (latest.rank = 1)
-   Rows Removed by Filter: 517000
-   ->  WindowAgg  (cost=78896.91..91846.91 rows=518000 width=22) (actual time=1721.722..2997.214 rows=518000 loops=1)
-         ->  Sort  (cost=78896.91..80191.91 rows=518000 width=22) (actual time=1721.707..1934.382 rows=518000 loops=1)
-               Sort Key: factors.bond, factors.date
-               Sort Method: external merge  Disk: 17208kB
-               ->  Seq Scan on factors  (cost=0.00..8480.00 rows=518000 width=22) (actual time=0.013..83.520 rows=518000 loops=1)
- Total runtime: 3120.775 ms
- ```
+
+The index speeds up the first query very much. As you can see, the query plan
+changes to use index scanning when merging the "latest" sub-query with the
+main table.
+
+```
+ Nested Loop  (cost=195210.43..235393.18 rows=5000 width=23) (actual time=2636.866..2703.235 rows=5000 loops=1)
+   ->  HashAggregate  (cost=195210.00..195259.88 rows=4988 width=15) (actual time=2636.824..2638.746 rows=5000 loops=1)
+         Group Key: factors_1.bond
+         ->  Seq Scan on factors factors_1  (cost=0.00..149535.00 rows=9135000 width=15) (actual time=0.022..700.351 rows=9135000 loops=1)
+   ->  Index Scan using idx_bond_date on factors  (cost=0.43..8.03 rows=1 width=23) (actual time=0.009..0.012 rows=1 loops=5000)
+         Index Cond: ((bond = factors_1.bond) AND (date = (max(factors_1.date))))
+ Planning time: 0.785 ms
+ Execution time: 2703.610 ms
+```
+
+For the other methods, the index does not improve the query plan.
+
+The query planner is improved, release after release of Postgres, and some
+version-to-version comparisons show how much more efficient Postgres is getting.
+
+But to reap the benefits of the improved planner, it's good to write idiomatic
+SQL. Idiomaitic SQL is what planner improvements target. Leaving your SQL
+to an ORM, what control do you hope to exert? If you want to get good performance,
+you are likely to need to learn the vagaries of the ORM, on top of SQL, and
+negate the economy of effort you were hoping for.
+
+Now, about the query for latest factors: today I would use a materialized view,
+and refresh it daily. Looking for the latest factors would be a simple table
+scan. Your ORM won't tell you that!
