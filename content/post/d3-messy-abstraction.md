@@ -323,7 +323,7 @@ them:
 		"US": "red",
 		"UK": "blue",
 		"Spain": "green"};
-	
+
 	var plotRunner = function(runner) {
 		...
 		...
@@ -408,7 +408,7 @@ There we go.
 		.append("svg")
 		.attr("width", 300)
 		.attr("height", 90);
-	
+
 	var runnerLines = runnersFinal.selectAll("g")
 		.data(runners)
 		.enter()
@@ -476,7 +476,7 @@ Final code listing:
 		.append("svg")
 		.attr("width", 300)
 		.attr("height", 90);
-	
+
 	var runnerLines = runnersFinal.selectAll("g")
 		.data(runners)
 		.enter()
