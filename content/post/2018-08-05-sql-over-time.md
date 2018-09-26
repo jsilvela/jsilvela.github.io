@@ -3,15 +3,16 @@ tags = [
 ]
 categories = [
 ]
-date = "2018-08-05T11:36:11+01:00"
-title = "Ditch your ORM"
+date = "2018-09-25T01:36:11+01:00"
+title = "SQL over time, or, Ditch your ORM"
 
 +++
 
 Here I'm telling a story of PostgreSQL performance over time, and the point
-of it, for me, is that given the richness of SQL, and the steady improvement of 
+of it, for me, is that given the richness of SQL, and the steady improvement of
 implementations, it is foolish
-to trust your querying to an ORM. SQL is very much worth learning, and learning
+to trust your querying to an ORM.
+SQL is very much worth learning, and learning
 well. There are many gains to be made, in efficiency and in code quality.
 
 <hr/>
@@ -86,7 +87,7 @@ Let’s do an `explain analyze`:
  Execution time: 6432.132 ms
  ```
 
-This was a core query for us -- many queries depended on the latest value of
+This was a core query for us &mdash; many queries depended on the latest value of
 our bonds. My friend Tom and I would agonize over how this operation slowed
 down all else. We had a system of triggers and keys that didn’t work too
 well. Materialized views were still years away.
@@ -125,7 +126,7 @@ Let’s `explain analyze`:
 ```
 
 Interestingly, in my current Linux machine running PostgreSQL 9.6, this second
-query is slower, and uses more disk for the internal hasing previous to the `JOIN`.
+query is slower, and uses more disk for the internal hashing previous to the `JOIN`.
 
 Now let's see another approach using window functions:
 
@@ -146,7 +147,7 @@ get the top ranked entry in each partition.
 
 However, performance is not very good.
 
-Up to now, we have not used indexing, and so all our merges have required
+Up to now, we have not used indexing, and so all our `JOIN`s have required
 sorting/hashing. Let's create an index:
 
 
@@ -154,8 +155,9 @@ sorting/hashing. Let's create an index:
 create index idx_bond_date on factors (bond, date);
 ```
 
-The index speeds up the first query very much. As you can see, the query plan
-changes to use index scanning when merging the "latest" sub-query with the
+The index speeds up the first query very much. As you can see below,
+the query plan
+switches to use index scanning when joining the `latest` sub-query with the
 main table.
 
 ```
@@ -171,13 +173,13 @@ main table.
 
 For the other methods, the index does not improve the query plan.
 
-The query planner is improved, release after release of Postgres, and some
-version-to-version comparisons show how much more efficient Postgres is getting.
+The Postgres query planner is improved release after release, and some
+version-to-version comparisons have shown significant speedups over time.
 
 But to reap the benefits of the improved planner, it's good to write idiomatic
 SQL. Idiomaitic SQL is what planner improvements target. Leaving your SQL
 to an ORM, what control do you hope to exert? If you want to get good performance,
-you are likely to need to learn the vagaries of the ORM, on top of SQL, and
+you are likely to need to learn the internals of the ORM, on top of SQL, and
 negate the economy of effort you were hoping for.
 
 Now, about the query for latest factors: today I would use a materialized view,
