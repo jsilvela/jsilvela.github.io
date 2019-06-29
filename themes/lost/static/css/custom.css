@@ -20,6 +20,30 @@
 	}
 }
 
+@font-face{
+	font-family: 'Source Serif Pro';
+	font-weight: 700;
+	font-style: normal;
+	font-stretch: normal;
+	src: url('../fonts/SourceSerifPro-Bold.otf.woff') format('woff');
+}
+
+@font-face{
+	font-family: 'Source Serif Pro';
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+	src: url('../fonts/SourceSerifPro-Regular.otf.woff') format('woff');
+}
+
+@font-face{
+	font-family: 'Source Serif Pro';
+	font-weight: 400;
+	font-style: italic;
+	font-stretch: normal;
+	src: url('../fonts/SourceSerifPro-It.otf.woff') format('woff');
+}
+
 @page {
 	margin: 1cm;
 }
@@ -60,7 +84,8 @@ footer {
 }
 
 blockquote {
-	font-style: normal;
+  font-style: italic;
+	font-family: "Source Serif Pro";
 }
 
 main {
@@ -100,7 +125,8 @@ main {
   display: inline-block;
   margin-bottom: 2rem;
   font-size: 1em;
-  color: #888;
+  font-variant: small-caps;
+	color: #666;
 }
 
 .footer-link {
