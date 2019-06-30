@@ -1,4 +1,4 @@
-baseurl = "http://blog.silvela.org/"
+baseurl = "https://blog.silvela.org/"
 canonifyurls = true
 disablePathToLower = true
 languageCode =  "en-us"

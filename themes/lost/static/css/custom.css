@@ -126,7 +126,8 @@ main {
   margin-bottom: 2rem;
   font-size: 1em;
   font-variant: small-caps;
-	color: #666;
+  font-variant-caps: all-small-caps;
+  color: #666;
 }
 
 .footer-link {
