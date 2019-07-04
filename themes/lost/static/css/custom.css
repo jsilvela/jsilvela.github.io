@@ -1,4 +1,4 @@
-@media screen {html {font-size: 23px;}}
+@media screen {html {font-size: 25px;}}
 @media screen and (max-width:1000px){html {font-size: 23px;}}
 @media screen and (max-width:760px){html {font-size: 20px;}}
 @media screen and (max-width:720px){html {font-size: 19px;}}
@@ -42,6 +42,13 @@
 	font-style: italic;
 	font-stretch: normal;
 	src: url('../fonts/SourceSerifPro-It.otf.woff') format('woff');
+}
+
+@font-face{
+	font-family: 'Fira Mono';
+	src: url('../fonts/FiraMono-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
 
 @page {
@@ -145,5 +152,6 @@ main {
 
 pre, code {
 	background: #ECECEC;
-	font-family: "Source Code Pro", "Consolas", "Inconsolata", monospace;
+	font-family: 'Fira Mono', Consolas, Menlo, monospace;
+	font-size: 0.9em;
 }
