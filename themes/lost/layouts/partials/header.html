@@ -18,4 +18,21 @@
 		{{ else }}
 			<h2><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h2>
 		{{ end }}
+
+		{{if eq "post" .Section}}
+			{{if .NextInSection}}
+				<em>Newer:</em>
+				<a href="{{.NextInSection.Permalink}}">
+					{{.NextInSection.Title}}
+				</a>
+			{{end}}
+			{{if and .PrevInSection .NextInSection}}|{{end}}
+			{{if .PrevInSection}}
+				<em>Older: </em>
+				<a href="{{.PrevInSection.Permalink}}">
+					{{.PrevInSection.Title}}
+				</a>
+			{{end}}
+		{{end}}
+
 	</header>
