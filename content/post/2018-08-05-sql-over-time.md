@@ -15,7 +15,7 @@ to trust your querying to an ORM.
 SQL is very much worth learning, and learning
 well. There are many gains to be made, in efficiency and in code quality.
 
-<hr/>
+---
 
 Years ago, I worked at a financial firm in New York City. The system we were
 building had a Postgres database &mdash; version 8, I think.
@@ -74,15 +74,15 @@ join factors using (bond, date);
 
 Let’s do an `explain analyze`:
 
-```
- Hash Join  (cost=535294.32..668778.20 rows=5000 width=23) (actual time=5752.455..6431.663 rows=5000 loops=1)
-   Hash Cond: ((factors_1.bond = factors.bond) AND ((max(factors_1.date)) = factors.date))
-   ->  HashAggregate  (cost=195209.37..195259.25 rows=4988 width=15) (actual time=2539.438..2540.340 rows=5000 loops=1)
+``` txt
+ Hash Join  (cost=535294.32..668778.20 rows=5000 width=23) […]
+   Hash Cond: ((factors_1.bond = factors.bond) AND  […]
+   ->  HashAggregate  (cost=195209.37..195259.25 rows=4988 width=15) […]
          Group Key: factors_1.bond
-         ->  Seq Scan on factors factors_1  (cost=0.00..149534.58 rows=9134958 width=15) (actual time=0.004..639.147 rows=9135000 loops=1)
-   ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=23) (actual time=3210.795..3210.795 rows=9135000 loops=1)
+         ->  Seq Scan on factors factors_1   […]
+   ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=23)  […]
          Buckets: 65536  Batches: 256  Memory Usage: 2456kB
-         ->  Seq Scan on factors  (cost=0.00..149534.58 rows=9134958 width=23) (actual time=0.026..1162.946 rows=9135000 loops=1)
+         ->  Seq Scan on factors  […]
  Planning time: 0.516 ms
  Execution time: 6432.132 ms
  ```
@@ -112,15 +112,15 @@ that self-join idiom whenever we had time-series, which was often.
 
 Let’s `explain analyze`:
 
-```
- Hash Anti Join  (cost=308326.56..735885.05 rows=6089972 width=23) (actual time=2747.910..8272.947 rows=5000 loops=1)
+``` txt
+ Hash Anti Join  (cost=308326.56..735885.05 rows=6089972 width=23) […]
    Hash Cond: (f1.bond = f2.bond)
    Join Filter: (f1.date < f2.date)
    Rows Removed by Join Filter: 9135000
-   ->  Seq Scan on factors f1  (cost=0.00..149534.58 rows=9134958 width=23) (actual time=0.019..734.746 rows=9135000 loops=1)
-   ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=15) (actual time=2719.739..2719.739 rows=9135000 loops=1)
+   ->  Seq Scan on factors f1  […]
+   ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=15) […]
          Buckets: 131072  Batches: 256  Memory Usage: 2823kB
-         ->  Seq Scan on factors f2  (cost=0.00..149534.58 rows=9134958 width=15) (actual time=0.015..1085.309 rows=9135000 loops=1)
+         ->  Seq Scan on factors f2  […]
  Planning time: 0.799 ms
  Execution time: 8273.339 ms
 ```
@@ -150,7 +150,6 @@ However, performance is not very good.
 Up to now, we have not used indexing, and so all our `JOIN`s have required
 sorting/hashing. Let's create an index:
 
-
 ``` sql
 create index idx_bond_date on factors (bond, date);
 ```
@@ -160,13 +159,13 @@ the query plan
 switches to use index scanning when joining the `latest` sub-query with the
 main table.
 
-```
- Nested Loop  (cost=195210.43..235393.18 rows=5000 width=23) (actual time=2636.866..2703.235 rows=5000 loops=1)
-   ->  HashAggregate  (cost=195210.00..195259.88 rows=4988 width=15) (actual time=2636.824..2638.746 rows=5000 loops=1)
+``` txt
+ Nested Loop  (cost=195210.43..235393.18 rows=5000 width=23) […]
+   ->  HashAggregate  (cost=195210.00..195259.88 rows=4988 width=15) […]
          Group Key: factors_1.bond
-         ->  Seq Scan on factors factors_1  (cost=0.00..149535.00 rows=9135000 width=15) (actual time=0.022..700.351 rows=9135000 loops=1)
-   ->  Index Scan using idx_bond_date on factors  (cost=0.43..8.03 rows=1 width=23) (actual time=0.009..0.012 rows=1 loops=5000)
-         Index Cond: ((bond = factors_1.bond) AND (date = (max(factors_1.date))))
+         ->  Seq Scan on factors factors_1  […]
+   ->  Index Scan using idx_bond_date on factors  […]
+         Index Cond: ((bond = factors_1.bond) AND (date = (max […]
  Planning time: 0.785 ms
  Execution time: 2703.610 ms
 ```
