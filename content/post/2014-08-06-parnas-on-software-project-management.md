@@ -6,7 +6,7 @@ title = "Parnas on software project management"
 
 +++
 
-From Software Fundamentals. Collected Papers by David L. Parnas p. 604
+From *Software Fundamentals. Collected Papers by David L. Parnas* page 604
 
 > One of Mills’s most important lessons had to do with the difference between
 > management and engineering. He did not try to tell us how to make unmanageable
