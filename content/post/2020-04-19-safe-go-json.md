@@ -42,3 +42,8 @@ var safeEmpty Products
 safeJSON, _ := json.Marshal(safeEmpty)
 fmt.Println(string(safeJSON)) // => []
 ```
+
+For maps, the story is exactly the same:
+
+1. Define a type for your map: `type Phonebook map[string]Client`
+1. Write a custom `func (pb Phonebook) MarshalJSON() ([]byte, error)` that handles `nil` separately
