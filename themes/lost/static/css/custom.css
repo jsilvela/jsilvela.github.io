@@ -134,7 +134,7 @@ main {
   margin-bottom: 1.5rem;
   font-size: 1em;
   font-variant: small-caps;
-  font-variant-caps: all-small-caps;
+  /* font-variant-caps: all-small-caps; breaks in Safari */
   color: #666;
 }
 
