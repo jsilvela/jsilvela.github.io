@@ -1,15 +1,15 @@
 +++
-title = "Math year one (of two.) Classes"
+title = "Math year one. Classes"
 date = 2020-06-14T15:49:18+02:00
 draft = false
 +++
 
-I’ve started a Master’s degree in Mathematics. There’s a higher level post on my
-personal blog. This post is a summary of the classes I’ve taken in the prequel
-year. The 2020/2021 session will be "the master proper".
+I’ve started a Master’s degree in Mathematics. This post is a summary of the classes I’ve taken in the prequel
+year. The 2020 / 2021 session will be "the master proper".
+There’s a [higher level post](https://lost.silvela.org/post/2020-06-14-math-year-one/) on my personal blog.
 
 ## Galois Theory
-## 
+
 This was my greatest fear and my biggest challenge. I had never seen abstract
 algebra at the university level, and though linear algebra is a sibling, there’s
 just so much modern algebra to absorb. This subject was offered to junior and
@@ -61,7 +61,7 @@ What a work of genius. We've spent 3 months studying work that Galois completed
 by age 20, before his death in a duel.
 
 ### Materials
-### 
+
 * John Stillwell's *Elements of Algebra* was invaluable. This thin book has a
 narrative thread that motivates material. It is not formal, yet it is rigorous
 at the same time.
@@ -81,7 +81,7 @@ lectures on rings and ideals were extremely useful this time around. As an added
 benefit, Michael Artin's book is followed.
 
 ## Topology
-## 
+
 This is a world-building subject. Some math topics are practical and allow you
 to compute stuff. Topology sets the stage in which you can discuss matters that
 depend on proximity.
@@ -111,7 +111,7 @@ sadist, but once you start proving theorems, you understand the brilliance of
 the definition.
 
 ### Materials
-### 
+
 * Munkres's *Topology* is the classic here, for good reason. It goes point by
 point over the definitions, and shows you why they work, and why something
 simpler won't cut it. Our professor followed Munkres closely, which made this an
@@ -122,7 +122,7 @@ concise and livelier, recommended as additional reading. However, I think
 Munkres is not replaceable.
 
 ## Measure Theory and Integration
-## 
+
 In a similar way to Topology, Measure Theory applies the force of set theory to
 a problem in analysis. If topology takes on the question of closeness and
 continuity, Measure Theory takes on measure (duh).
@@ -143,7 +143,7 @@ However, once it gets going, it is a very pleasant subject, and it builds a nice
 theory  where the Riemann integral always seemed rough and ad-hoc.
 
 ### Materials
-### 
+
 * My professor, who was brilliant, recommended Folland. I decided against that
 book, however, as I did not want to buy yet another analysis book.
 * My main
@@ -158,7 +158,7 @@ was more advanced than I needed, though, and Bartle was better suited for the
 class at hand.
 
 ## Probability with Measure Theory
-## 
+
 This is the one subject I have not gotten much out of, in this year. I didn't
 enjoy the lectures, and this was aggravated when COVID-19 struck, and we moved
 the lectures online.
@@ -169,7 +169,7 @@ some probability theory general know-how.
 One day I'll look into it again.
 
 ## Commutative Algebra
-## 
+
 I signed up for this subject as preparation for Algebraic Curves next year. My
 professor, a non-specialist with a background in logic, was precise, exacting,
 somewhat tough. I was not inspired. However, the subject itself needs better
@@ -190,7 +190,7 @@ is taken, and proofs are squeaky clean, yet seem to spring from thin air. "My
 son, one day this will all make sense."
 
 ### Material
-### 
+
 On my professor's advice, I bought Reid's *Commutative Algebra*. Interestingly,
 Reid complains about the un-motivated approach to algebra often taken... and
 then falls short himself. I think this book is not a good first book, or perhaps
@@ -203,7 +203,7 @@ My professor took much care and prepared a set of notes. They were a good comple
 to Reid. Less imaginative but also less jumpy.
 
 ## Differential Geometry
-## 
+
 The third world-building subject this year. It was at the same time better
 motivated than topology and measure theory, as a growth of previous experience
 with curves and surfaces, and yet required a lot more machinery to get going.
@@ -246,7 +246,7 @@ DG, *smooth maps* convert *smooth functions* back to smooth functions via
 *pullback*.
 
 ### Materials
-### 
+
 The professor prepared an extensive set of notes, worked out exercises, and very
 stimulating classes. Probably the best professor I've had this year. The classes
 were laden with mentions to other areas of math, to try to show where
