@@ -54,7 +54,7 @@
 
 @font-face{
 	font-family: 'Go Mono';
-	src: url('../fonts/Go-Mono.ttf') format('ttf');
+	src: url('../fonts/Go-Mono.ttf') format('truetype');
 	font-weight: 400;
 	font-style: normal;
 }
