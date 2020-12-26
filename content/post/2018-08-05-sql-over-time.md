@@ -35,57 +35,49 @@ Conceptually, this involved some kind of a self-join.
 First, let’s create a dummy table for our data, with daily factors for
 5000 bonds over 5 years, which I think gives an idea of our old work set:
 
-```
-create table factors as
-with dates as (
-	SELECT generate_series as date
-	FROM generate_series('2013-01-01 00:00'::timestamp,
-		'2018-01-01 00:00', '24 hours')
-), bonds as (
-	select 'bn_' || generate_series as bond
-	from generate_series(1, 5000)
-)
-select bond, date, random() as factor
-from bonds cross join dates;
-```
+      create table factors as
+      with dates as (
+            SELECT generate_series as date
+            FROM generate_series('2013-01-01 00:00'::timestamp,
+                  '2018-01-01 00:00', '24 hours')
+      ), bonds as (
+            select 'bn_' || generate_series as bond
+            from generate_series(1, 5000)
+      )
+      select bond, date, random() as factor
+      from bonds cross join dates;
 
 To get the latest factor, we can think of first getting the latest time
 each bond was updated:
 
-```
-select bond, max(date) as date
-from factors
-group by bond;
-```
+      select bond, max(date) as date
+      from factors
+      group by bond;
 
 Unfortunately, we can’t get the factor from the same row
 that had the `max date`.
 We need an extra join:
 
-```
-select bond, date, factor
-from (
-      select bond, max(date) as date
-      from factors
-      group by bond
-) latest
-join factors using (bond, date);
-```
+      select bond, date, factor
+      from (
+            select bond, max(date) as date
+            from factors
+            group by bond
+      ) latest
+      join factors using (bond, date);
 
 Let’s do an `explain analyze`:
 
-``` txt
- Hash Join  (cost=535294.32..668778.20 rows=5000 width=23) […]
-   Hash Cond: ((factors_1.bond = factors.bond) AND  […]
-   ->  HashAggregate  (cost=195209.37..195259.25 rows=4988 width=15) […]
-         Group Key: factors_1.bond
-         ->  Seq Scan on factors factors_1   […]
-   ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=23)  […]
-         Buckets: 65536  Batches: 256  Memory Usage: 2456kB
-         ->  Seq Scan on factors  […]
- Planning time: 0.516 ms
- Execution time: 6432.132 ms
- ```
+      Hash Join  (cost=535294.32..668778.20 rows=5000 width=23) […]
+      Hash Cond: ((factors_1.bond = factors.bond) AND  […]
+      ->  HashAggregate  (cost=195209.37..195259.25 rows=4988 width=15) […]
+            Group Key: factors_1.bond
+            ->  Seq Scan on factors factors_1   […]
+      ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=23)  […]
+            Buckets: 65536  Batches: 256  Memory Usage: 2456kB
+            ->  Seq Scan on factors  […]
+      Planning time: 0.516 ms
+      Execution time: 6432.132 ms
 
 This was a core query for us &mdash; many queries depended on the latest value of
 our bonds. My friend Tom and I would agonize over how this operation slowed
@@ -100,46 +92,40 @@ and we ended with multi-minute queries.
 We wanted to do better, and Tom found some advice to use another query,
 which both of us found un-intuitive:
 
-```
-select f1.bond, f1.date, f1.factor
-from factors f1
-left join factors f2 on f1.bond = f2.bond and f1.date < f2.date
-where f2.date is NULL;
-```
+      select f1.bond, f1.date, f1.factor
+      from factors f1
+      left join factors f2 on f1.bond = f2.bond and f1.date < f2.date
+      where f2.date is NULL;
 
 The query was better than our first try, by quite a bit. We ended up using
 that self-join idiom whenever we had time-series, which was often.
 
 Let’s `explain analyze`:
 
-``` txt
- Hash Anti Join  (cost=308326.56..735885.05 rows=6089972 width=23) […]
-   Hash Cond: (f1.bond = f2.bond)
-   Join Filter: (f1.date < f2.date)
-   Rows Removed by Join Filter: 9135000
-   ->  Seq Scan on factors f1  […]
-   ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=15) […]
-         Buckets: 131072  Batches: 256  Memory Usage: 2823kB
-         ->  Seq Scan on factors f2  […]
- Planning time: 0.799 ms
- Execution time: 8273.339 ms
-```
+      Hash Anti Join  (cost=308326.56..735885.05 rows=6089972 width=23) […]
+      Hash Cond: (f1.bond = f2.bond)
+      Join Filter: (f1.date < f2.date)
+      Rows Removed by Join Filter: 9135000
+      ->  Seq Scan on factors f1  […]
+      ->  Hash  (cost=149534.58..149534.58 rows=9134958 width=15) […]
+            Buckets: 131072  Batches: 256  Memory Usage: 2823kB
+            ->  Seq Scan on factors f2  […]
+      Planning time: 0.799 ms
+      Execution time: 8273.339 ms
 
 Interestingly, in my current Linux machine running PostgreSQL 9.6, this second
 query is slower, and uses more disk for the internal hashing previous to the `JOIN`.
 
 Now let's see another approach using window functions:
 
-```
-select bond, date, factor
-from (
-	select bond, rank() over wd as rank,
-		first_value(date) over wd as date,
-		first_value(factor) over wd as factor
-	from factors
-	window wd as (partition by bond order by date desc)
-) as latest where rank = 1;
-```
+      select bond, date, factor
+      from (
+            select bond, rank() over wd as rank,
+                  first_value(date) over wd as date,
+                  first_value(factor) over wd as factor
+            from factors
+            window wd as (partition by bond order by date desc)
+      ) as latest where rank = 1;
 
 In a way, this is conceptually the cleanest approach. We partition our table
 by bond, and rank members of each partition by date. We then just need to
@@ -150,25 +136,21 @@ However, performance is not very good.
 Up to now, we have not used indexing, and so all our `JOIN`s have required
 sorting/hashing. Let's create an index:
 
-```
-create index idx_bond_date on factors (bond, date);
-```
+      create index idx_bond_date on factors (bond, date);
 
 The index speeds up the first query very much. As you can see below,
 the query plan
 switches to use index scanning when joining the `latest` sub-query with the
 main table.
 
-``` txt
- Nested Loop  (cost=195210.43..235393.18 rows=5000 width=23) […]
-   ->  HashAggregate  (cost=195210.00..195259.88 rows=4988 width=15) […]
-         Group Key: factors_1.bond
-         ->  Seq Scan on factors factors_1  […]
-   ->  Index Scan using idx_bond_date on factors  […]
-         Index Cond: ((bond = factors_1.bond) AND (date = (max […]
- Planning time: 0.785 ms
- Execution time: 2703.610 ms
-```
+      Nested Loop  (cost=195210.43..235393.18 rows=5000 width=23) […]
+      ->  HashAggregate  (cost=195210.00..195259.88 rows=4988 width=15) […]
+            Group Key: factors_1.bond
+            ->  Seq Scan on factors factors_1  […]
+      ->  Index Scan using idx_bond_date on factors  […]
+            Index Cond: ((bond = factors_1.bond) AND (date = (max […]
+      Planning time: 0.785 ms
+      Execution time: 2703.610 ms
 
 For the other methods, the index does not improve the query plan.
 

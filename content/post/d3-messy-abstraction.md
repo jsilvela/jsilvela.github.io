@@ -17,7 +17,7 @@ happens in SQL, the means of abstraction in the language (in our case
 in the library) are obscure, and details in “normal” code tend to pile
 up.
 
-(Note that in SQL, the ```WITH``` statement allows abstraction and composition nicely, but a lot of people, or at least a lot of SQL codebases, do not leverage it.)
+(Note that in SQL, the `WITH` statement allows abstraction and composition nicely, but a lot of people, or at least a lot of SQL codebases, do not leverage it.)
 
 ## D3’s normal abstraction path: low abstraction
 
@@ -76,7 +76,7 @@ the splits.
 </script>
 
 The way you do things in D3 is to build up your SVG graph by
-accretion. Start by putting a ```<div>``` in your HTML where you want
+accretion. Start by putting a `<div>` in your HTML where you want
 the plot to render, and give it an ID so that we can locate it, for example,
 “single”. Then
 
@@ -85,10 +85,10 @@ the plot to render, and give it an ID so that we can locate it, for example,
 		.attr("width", 300)
 		.attr("height", 20);
 
-This generates an empty ```<svg>``` element with the desired
+This generates an empty `<svg>` element with the desired
 dimensions.  We want to show the runner’s name, so we add a
-```<text>``` element. Bear in mind that our runner, Alice, lives in an
-array with other runners. She is ```runner[0]```.
+`<text>` element. Bear in mind that our runner, Alice, lives in an
+array with other runners. She is `runner[0]`.
 
 	plot.append("text")
 		.text(runners[0].name)
@@ -101,7 +101,7 @@ going to select all the existing circles in the plot. There are none
 at this point; we’re doing this to get a **selection**, which is the
 main data type that D3 deals with. We now bind, to this empty selection, the
 array with the splits, and for each split, we shall add a red
-```<circle>```.
+`<circle>`.
 
 	plot.selectAll("circle")
 		.data(runners[0].splits)
@@ -113,16 +113,16 @@ array with the splits, and for each split, we shall add a red
 			.style("stroke", "red")
 			.style("fill", "red");
 
-In the above, ```.data()``` binds the data to the selection, and
-```.enter()``` returns the elements of the data array that were not already
-bound — i.e. all in our case, since the selection was empty. You can learn about D3’s ```selection```s, and ```enter()```,
-```exit()```, ```update()``` [in this D3
+In the above, `.data()` binds the data to the selection, and
+`.enter()` returns the elements of the data array that were not already
+bound — i.e. all in our case, since the selection was empty. You can learn about D3’s `selection`s, and `enter()`,
+`exit()`, `update()` [in this D3
 guide](https://bost.ocks.org/mike/selection/).
 
-Note the line ```.attr("cx", function(t) {return 100 + 5*t;})```,
-which takes a function as argument. This idiom is used widely in D3. It’s nothing more than the usual ```map``` from functional land; a
+Note the line `.attr("cx", function(t) {return 100 + 5*t;})`,
+which takes a function as argument. This idiom is used widely in D3. It’s nothing more than the usual `map` from functional land; a
 function being mapped over the splits array that we bound previously with
-the ```.data()``` call.
+the `.data()` call.
 
 Now, let’s plot all the runners.
 
@@ -160,10 +160,10 @@ Now, let’s plot all the runners.
 
 Not much needs to be done on top of what we were doing before for a
 single runner. Firstly, we need to have fresh line to display each
-runner. Thanks to SVG’s ```<g>``` grouping element, and to SVG
+runner. Thanks to SVG’s `<g>` grouping element, and to SVG
 transforms, we can have a fresh canvas, with its own coordinate
-system, for each runner.  In the code below, ```plotAll``` is an empty ```<svg>``` element we have defined on an identified ```<div>```, as we did before with
-```plot``` in the single runner case.
+system, for each runner.  In the code below, `plotAll` is an empty `<svg>` element we have defined on an identified `<div>`, as we did before with
+`plot` in the single runner case.
 
 	var runLines = plotAll.selectAll("g")
 		.data(runners)
@@ -174,10 +174,10 @@ system, for each runner.  In the code below, ```plotAll``` is an empty ```<svg>`
 					return "translate(0," + (k*30) + ")";
 				});
 
-The only novelty here is the signature ```function(ignore, k)
-{}```. This is fairly standard in Javascript, and within D3. The
+The only novelty here is the signature `function(ignore, k)
+{}`. This is fairly standard in Javascript, and within D3. The
 second argument is the index of the datum within the data array. We
-name the first argument ```ignore``` as a convention to signal that
+name the first argument `ignore` as a convention to signal that
 in this case, the value of the argument is not used within the function body.
 
 It is easy to repurpose the code that rendered the text and the splits. We
@@ -191,7 +191,7 @@ rendering of the splits would work in the same way.
 
 Already you may have started to appreciate D3’s failing abstraction. In a
 typical functional programming approach, we would figure out how to
-plot individual runners, then iterate or ```map``` over an array to
+plot individual runners, then iterate or `map` over an array to
 produce the full plot for all runners.
 
 In D3, the default way of operating does not abstract the
@@ -227,8 +227,8 @@ could get the nationality, given that we’re iterating over the splits.
 			.style("stroke", "red")
 			.style("fill", "red");
 
-One thing we could do is assign a CSS class on each of the ```runLines``` we defined before.  We would add a line to the bottom of the
-definition of ```runLines```.
+One thing we could do is assign a CSS class on each of the `runLines` we defined before.  We would add a line to the bottom of the
+definition of `runLines`.
 
 	var runLines = plotAll.selectAll("g")
 		.data(runners)
@@ -259,11 +259,11 @@ Then do
 
 But this is even clunkier. We need an auxiliary function, and we’re
 repeating the same nationality for all those elements. And does the
-```{nationality, time}``` pair have any meaning outside of making our code work?
+`{nationality, time}` pair have any meaning outside of making our code work?
 
-The problem here is that, in iterating over the ```splits```, we have
+The problem here is that, in iterating over the `splits`, we have
 lost access to the *parent* data that contained
-```nationality```. <br/> We would solve this problem quite easily if
+`nationality`. <br/> We would solve this problem quite easily if
 we could keep the parent data in scope.
 
 ## Abstraction the D3 way: too magical
@@ -271,13 +271,13 @@ we could keep the parent data in scope.
 The problem with coloring the circles, simple as it is, is an
 illustration of D3’s trouble with abstraction.
 
-Now imagine that we had a procedure ```plotRunner(runner)``` that
+Now imagine that we had a procedure `plotRunner(runner)` that
 produced the line with the runner name and the splits. To color the
 circles based on nationality would be trivial. The function parameter
-would allow us access to both ```splits``` and ```nationality``` in the function body.
+would allow us access to both `splits` and `nationality` in the function body.
 
-If we simply iterated over ```runners``` and called ```plotRunner```
-for each, the code would need very little change. But ```plotRunner```
+If we simply iterated over `runners` and called `plotRunner`
+for each, the code would need very little change. But `plotRunner`
 cannot function in a vacuum. It needs to do either of:
 
 * Output an SVG snippet, to be aggregated by a higher level function
@@ -288,9 +288,9 @@ add its content.
 The D3 way is the second. And D3 already has a handy type for entry
 points into SVG: selections.
 
-Let’s write our ```plotRunner``` function, and for the moment let’s
+Let’s write our `plotRunner` function, and for the moment let’s
 not worry about how we get the selection into it. Let’s just assume
-it’s there, and call it ```seln```.
+it’s there, and call it `seln`.
 
 	var plotRunner = function(runner) {
 		// NOTE: incomplete. Future version to explain
@@ -312,11 +312,11 @@ it’s there, and call it ```seln```.
 	}
 
 This is pretty much what we did previously, but there is one crucial
-difference: thanks to the function argument ```runner```, we now have
+difference: thanks to the function argument `runner`, we now have
 access to the parent data within the function body.
 
 Let’s go back to our color-by-nationality problem. We just need to
-codify the color assignments, and modify ```plotRunner``` to leverage
+codify the color assignments, and modify `plotRunner` to leverage
 them:
 
 	var nationalColor = {
@@ -336,18 +336,18 @@ them:
 
 Easy as pie.
 
-We need to hook this up. ```plotRunner```, as its name implies, plots
+We need to hook this up. `plotRunner`, as its name implies, plots
 a single runner.  As we saw in previous examples, selections in D3 are arrays.  How do we iterate through them?
 
-D3 has an operator ```.each()``` to iterate over selections. It
+D3 has an operator `.each()` to iterate over selections. It
 takes a function argument that can itself have either one argument
 (the datum bound to the sub-selection), or two arguments (the datum, and the
 ordinal of the sub-selection within the selection).<br/> There is one
-more piece of magic to ```.each()```. Within the function passed to
-it, ```this``` will be the context of the current DOM element. We can
-get the current selection with ```d3.select(this)```.
+more piece of magic to `.each()`. Within the function passed to
+it, `this` will be the context of the current DOM element. We can
+get the current selection with `d3.select(this)`.
 
-So, the ```plotRunner``` function will be called from an ```.each()```
+So, the `plotRunner` function will be called from an `.each()`
 loop, and we can now fill in the part we had left undefined.
 
 	var plotRunner = function(runner) {
@@ -359,8 +359,8 @@ loop, and we can now fill in the part we had left undefined.
 			...
 
 Now we need to build the selection we will iterate over. We have seen
-this before. We bind the ```runners``` array to an empty selection,
-append ```<g>``` elements for each runner, and translate vertically.
+this before. We bind the `runners` array to an empty selection,
+append `<g>` elements for each runner, and translate vertically.
 
 	var runnerLines = runnersFinal.selectAll("g")
 		.data(runners)
@@ -423,7 +423,7 @@ There we go.
 </script>
 
 Now, all this is very magical, in a bad way. Capturing selections
-inside of ```.each()``` by using ```this``` is flimsy.  And so, we
+inside of `.each()` by using `this` is flimsy.  And so, we
 rendered the plot by calling
 
 	runnerLines.each(plotRunner);
@@ -432,8 +432,8 @@ but the following will not work:
 
 	runnerLines.each(function(d) {plotRunner(d);});
 
-How can this be? ```this``` depends on context, and in the second
-version, ```plotRunner``` gets it from the enclosing ```function (d) {``` rather than from ```.each()```. There goes your referential transparency.
+How can this be? `this` depends on context, and in the second
+version, `plotRunner` gets it from the enclosing `function (d) {` rather than from `.each()`. There goes your referential transparency.
 
 D3 offers a lot of power, but its abstraction mechanism is somewhat
 finicky.  I recommend that you use it, though. For all but simple
