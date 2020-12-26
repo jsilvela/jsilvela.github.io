@@ -23,7 +23,7 @@ So let's say we have a `type Product struct {...}` and we want to marshal a slic
 1. Define a type for the slice: `type Products []Product`
 1. Write a custom marshaler for the new type (`Products`), like so:
 
-``` go
+```
     func (ps Products) MarshalJSON() ([]byte, error) {
         if len(ps) == 0 {
             empty := make([]Product, 0)
@@ -37,7 +37,7 @@ Note that the marshaler for `Products` dispatches to the default marshaler for s
 
 You can verify:
 
-``` go
+```
 var safeEmpty Products
 safeJSON, _ := json.Marshal(safeEmpty)
 fmt.Println(string(safeJSON)) // => []

@@ -35,7 +35,7 @@ Conceptually, this involved some kind of a self-join.
 First, let’s create a dummy table for our data, with daily factors for
 5000 bonds over 5 years, which I think gives an idea of our old work set:
 
-``` sql
+```
 create table factors as
 with dates as (
 	SELECT generate_series as date
@@ -52,7 +52,7 @@ from bonds cross join dates;
 To get the latest factor, we can think of first getting the latest time
 each bond was updated:
 
-``` sql
+```
 select bond, max(date) as date
 from factors
 group by bond;
@@ -62,7 +62,7 @@ Unfortunately, we can’t get the factor from the same row
 that had the `max date`.
 We need an extra join:
 
-``` sql
+```
 select bond, date, factor
 from (
       select bond, max(date) as date
@@ -100,7 +100,7 @@ and we ended with multi-minute queries.
 We wanted to do better, and Tom found some advice to use another query,
 which both of us found un-intuitive:
 
-``` sql
+```
 select f1.bond, f1.date, f1.factor
 from factors f1
 left join factors f2 on f1.bond = f2.bond and f1.date < f2.date
@@ -130,7 +130,7 @@ query is slower, and uses more disk for the internal hashing previous to the `JO
 
 Now let's see another approach using window functions:
 
-``` sql
+```
 select bond, date, factor
 from (
 	select bond, rank() over wd as rank,
@@ -150,7 +150,7 @@ However, performance is not very good.
 Up to now, we have not used indexing, and so all our `JOIN`s have required
 sorting/hashing. Let's create an index:
 
-``` sql
+```
 create index idx_bond_date on factors (bond, date);
 ```
 
