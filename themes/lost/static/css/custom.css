@@ -1,9 +1,8 @@
-@media screen {html {font-size: 23px;}}
-@media screen and (max-width:1024px){html {font-size: 22px;}}
-@media screen and (max-width:760px){html {font-size: 19px;}}
-@media screen and (max-width:520px){html {font-size: 18px;}}
-
 @media screen {
+	html {
+		font-size: 21px;
+	}
+
 	body {
 		background-color: #FAFAFA;
 		color: #303030;
@@ -87,16 +86,16 @@ a {
 }
 
 img {
-  max-width: 100%;
-  height: auto;
-  vertical-align: middle;
-  border: 0;
+	max-width: 100%;
+	height: auto;
+	vertical-align: middle;
+	border: 0;
 }
 
 header,
 footer {
-  margin: 2rem 0;
-  text-align: center;
+	margin: 2rem 0;
+	text-align: center;
 }
 
 blockquote {
@@ -105,50 +104,50 @@ blockquote {
 }
 
 main {
-  margin: 1.5rem 0;
+	margin: 1.5rem 0;
 }
 
 .container {
-  width: 90%;
-  max-width: 35em;
-  margin: 0 auto;
+	width: 90%;
+	max-width: 35em;
+	margin: 0 auto;
 }
 
 .header-logo img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 4px solid #E1E1E1;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: 4px solid #E1E1E1;
 }
 
 .header-logo img:hover {
-  border-color: #F1F1F1;
+	border-color: #F1F1F1;
 }
 
 .site-title {
-  margin-top: 2rem;
+	margin-top: 2rem;
 }
 
 .entry-title {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .entry-title a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .entry-meta {
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  font-size: 1em;
-  font-variant: small-caps;
-  font-family: "Source Serif Pro", Georgia, Charter, serif;
-  /* font-variant-caps: all-small-caps; breaks in Safari */
-  color: #666;
+	display: inline-block;
+	margin-bottom: 1.5rem;
+	font-size: 1em;
+	font-variant: small-caps;
+	font-family: "Source Serif Pro", Georgia, Charter, serif;
+	/* font-variant-caps: all-small-caps; breaks in Safari */
+	color: #666;
 }
 
 .footer-link {
-  margin: 2rem 0;
+	margin: 2rem 0;
 }
 
 .hr {
