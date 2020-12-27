@@ -1,5 +1,5 @@
 @media screen {html {font-size: 23px;}}
-@media screen and (max-width:1000px){html {font-size: 22px;}}
+@media screen and (max-width:1024px){html {font-size: 22px;}}
 @media screen and (max-width:760px){html {font-size: 19px;}}
 @media screen and (max-width:520px){html {font-size: 18px;}}
 
@@ -64,7 +64,7 @@
 }
 
 body {
-	font-family: Georgia, Charter, serif;
+	font-family: "Source Serif Pro", Georgia, Charter, serif;
 	line-height: 1.6;
 }
 
@@ -100,8 +100,8 @@ footer {
 }
 
 blockquote {
-  font-style: italic;
-	font-family: Georgia, Charter, serif;
+	font-style: italic;
+	font-family: "Source Serif Pro", Georgia, Charter, serif;
 }
 
 main {
