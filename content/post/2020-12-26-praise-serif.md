@@ -5,8 +5,8 @@ draft = false
 +++
 
 TL;DR you should try a serif monospace font for coding. It may well render
-sharper, and/or be more readable than the sans-serif monospace fonts that
-are used pervasively.
+sharper, and/or be more readable than the sans-serif monospace fonts
+you're likely using.
 
 There aren't many serif monospaced fonts available. Two free ones are
 [*Go Mono*](https://blog.golang.org/go-fonts) and
