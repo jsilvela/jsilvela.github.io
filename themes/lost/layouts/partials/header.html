@@ -3,10 +3,14 @@
 <head>
 <meta charset="utf-8">
 {{ hugo.Generator }}
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="/css/custom.css">
 <link rel="alternate" href="/index.xml" type="application/rss+xml" title="{{ .Site.Title }}">
-<title>{{ $isHomePage := eq .Title .Site.Title }}{{ .Title }}{{ if eq $isHomePage false }} - {{ .Site.Title }}{{ end }}</title>
+<title>
+	{{ $isHomePage := eq .Title .Site.Title }}
+	{{ .Title }}
+	{{ if eq $isHomePage false }} - {{ .Site.Title }}{{ end }}
+</title>
 </head>
 <body>
 
