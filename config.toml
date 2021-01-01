@@ -13,3 +13,5 @@ publishdir = "public"
   twitter= "https://twitter.com/jsilvela"
   email= "jaime.silvela@gmail.com"
 
+[markup.goldmark.renderer]
+	unsafe= true
