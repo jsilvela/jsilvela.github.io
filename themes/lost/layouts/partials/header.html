@@ -24,19 +24,33 @@
 		{{ end }}
 
 		{{if eq "post" .Section}}
+		{{if or .PrevInSection .NextInSection}}
+		<table>
 			{{if .NextInSection}}
-				<em>Newer:</em>
-				<a href="{{.NextInSection.Permalink}}">
-					{{.NextInSection.Title}}
-				</a>
+				<tr>
+					<td><a href="{{.NextInSection.Permalink}}">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>{{.NextInSection.Title}}</em>
+					</td>
+				</tr>
 			{{end}}
-			{{if and .PrevInSection .NextInSection}}|{{end}}
 			{{if .PrevInSection}}
-				<em>Older: </em>
-				<a href="{{.PrevInSection.Permalink}}">
-					{{.PrevInSection.Title}}
-				</a>
+				<tr>
+					<td>
+						<a href="{{.PrevInSection.Permalink}}">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>{{.PrevInSection.Title}}</em>
+					</td>
+				</tr>
 			{{end}}
+		</table>
 		{{end}}
+	{{end}}
 
 	</header>

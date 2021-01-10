@@ -128,6 +128,11 @@ footer {
 	text-align: center;
 }
 
+header table {
+	margin: 2rem 0;
+	text-align: left;
+}
+
 blockquote {
 	font-style: normal;
 }
@@ -186,6 +191,6 @@ main {
 
 pre, code {
 	background: #ECECEC;
-	font-family: "IBM Plex Mono", "Adelle Mono", Consolas, Menlo, "DejaVu Sans Mono", monospace;
-	font-size: 18px;
+	font-family: "Adelle Mono", "IBM Plex Mono", Consolas, Menlo, "DejaVu Sans Mono", monospace;
+	font-size: 17px;
 }
