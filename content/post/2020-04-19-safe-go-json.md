@@ -24,13 +24,13 @@ So let's say we have a `type Product struct {...}` and we want to marshal a slic
 1. Write a custom marshaler for the new type (`Products`), like so:
 
 ```
-    func (ps Products) MarshalJSON() ([]byte, error) {
-        if len(ps) == 0 {
-            empty := make([]Product, 0)
-            return json.Marshal(empty)
-        }
-        return json.Marshal([]Product(ps))
+func (ps Products) MarshalJSON() ([]byte, error) {
+    if len(ps) == 0 {
+        empty := make([]Product, 0)
+        return json.Marshal(empty)
     }
+    return json.Marshal([]Product(ps))
+}
 ```
 
 Note that the marshaler for `Products` dispatches to the default marshaler for slices of `Product`.  If you did `json.Marshal(ps)` you'd have an infinite loop!

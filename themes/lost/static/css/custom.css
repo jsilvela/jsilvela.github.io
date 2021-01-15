@@ -7,6 +7,14 @@
 		background-color: #FAFAFA;
 		color: #303030;
 	}
+
+	pre, code {
+		font-size: 18px;
+	}
+
+	a {
+		color: #1EAEDB;
+	}
 }
 
 @media print {
@@ -17,6 +25,14 @@
 	body {
 		background-color: white;
 		color: black;
+	}
+
+	pre, code {
+		font-size: 10pt;
+	}
+
+	a {
+		color: #aaa;
 	}
 }
 
@@ -154,6 +170,5 @@ main {
 pre, code {
 	background: #ECECEC;
 	font-family: "Fira Mono", Menlo, "DejaVu Sans Mono", monospace;
-	font-size: 18px;
 	line-height: 1.6;
 }
