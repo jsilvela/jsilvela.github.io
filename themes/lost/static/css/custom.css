@@ -38,9 +38,8 @@
 
 @font-face{
 	font-family: 'Source Serif Pro';
-	font-weight: 700;
+	font-weight: 600;
 	font-style: normal;
-	font-stretch: normal;
 	src: url('../fonts/SourceSerifPro-Semibold.otf.woff') format('woff');
 }
 
@@ -48,7 +47,6 @@
 	font-family: 'Source Serif Pro';
 	font-weight: 400;
 	font-style: normal;
-	font-stretch: normal;
 	src: url('../fonts/SourceSerifPro-Regular.otf.woff') format('woff');
 }
 
@@ -56,36 +54,20 @@
 	font-family: 'Source Serif Pro';
 	font-weight: 400;
 	font-style: italic;
-	font-stretch: normal;
 	src: url('../fonts/SourceSerifPro-It.otf.woff') format('woff');
 }
 
 @font-face{
-	font-family: 'Source Sans Pro';
-	font-weight: 700;
-	font-style: normal;
-	font-stretch: normal;
-	src: url('../fonts/SourceSansPro-Bold.otf.woff') format('woff');
-}
-
-@font-face{
-	font-family: 'Fira Mono';
-	src: url('../fonts/FiraMono-Regular.woff') format('woff');
+	font-family: 'DM Mono';
+	src: url('../fonts/DMMono-Regular.ttf') format('truetype');
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face{
-	font-family: 'Overpass Mono';
-	src: url('../fonts/overpass-mono-regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face{
-	font-family: 'Overpass Mono';
-	src: url('../fonts/overpass-mono-bold.woff') format('woff');
-	font-weight: 700;
+	font-family: 'DM Mono';
+	src: url('../fonts/DMMono-Medium.ttf') format('truetype');
+	font-weight: 500;
 	font-style: normal;
 }
 
@@ -108,8 +90,8 @@ h6 { font-size: 1em; }
 h1, h2, h3, h4, h5, h6 {
 	margin-top: 0;
 	margin-bottom: 1.5rem;
-	font-weight: 700;
-	font-family: "Overpass Mono", "Source Sans Pro", sans-serif;
+	font-weight: 500;
+	font-family: "DM Mono", "Fira Mono", Consolas, Menlo, monospace;
 }
 
 a {
@@ -192,6 +174,6 @@ main {
 
 pre, code {
 	background: #ECECEC;
-	font-family: "Overpass Mono", "Andale Mono", "Fira Mono", Consolas, Menlo, monospace;
+	font-family: "DM Mono", "Fira Mono", "Andale Mono", Consolas, Menlo, monospace;
 	line-height: 1.6;
 }
