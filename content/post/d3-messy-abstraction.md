@@ -29,11 +29,13 @@ and for each of them we have a list of splits.
 
 Take our first runner:
 
-	{
-		"name": "Alice",
-		"nationality": "UK",
-		"splits": [5.05, 11.32, 17.49, 29.22]
-	}
+```
+{
+    "name": "Alice",
+    "nationality": "UK",
+    "splits": [5.05, 11.32, 17.49, 29.22]
+}
+```
 
 Let’s display a line with the runner’s name, and circles representing
 the splits.
@@ -41,38 +43,38 @@ the splits.
 <div id="single"></div>
 
 <script>
-	var runners = [{
-		"name": "Alice",
-		"nationality": "UK",
-		"splits": [5.05, 11.32, 17.49, 29.22]
-	}, {
-		"name": "Bob",
-		"nationality": "US",
-		"splits": [6.05, 13.32, 23.49, 32.22]
-	}, {
-		"name": "Carlos",
-		"nationality": "Spain",
-		"splits": [5, 10.32, 15.49, 22.22]
-	}];
+    var runners = [{
+        "name": "Alice",
+        "nationality": "UK",
+        "splits": [5.05, 11.32, 17.49, 29.22]
+    }, {
+        "name": "Bob",
+        "nationality": "US",
+        "splits": [6.05, 13.32, 23.49, 32.22]
+    }, {
+        "name": "Carlos",
+        "nationality": "Spain",
+        "splits": [5, 10.32, 15.49, 22.22]
+    }];
 
-	var plot = d3.select("#single")
-		.append("svg")
-		.attr("width", 300)
-		.attr("height", 20);
+    var plot = d3.select("#single")
+        .append("svg")
+        .attr("width", 300)
+        .attr("height", 20);
 
-	plot.append("text")
-		.text(runners[0].name)
-		.attr("dy", 20);
+    plot.append("text")
+        .text(runners[0].name)
+        .attr("dy", 20);
 
-	plot.selectAll("circle")
-		.data(runners[0].splits)
-		.enter()
-		.append("circle")
-			.attr("r", 5)
-			.attr("cx", function(t) {return 100 + 5*t;})
-			.attr("cy", 10)
-			.style("stroke", "red")
-			.style("fill", "red");
+    plot.selectAll("circle")
+        .data(runners[0].splits)
+        .enter()
+        .append("circle")
+            .attr("r", 5)
+            .attr("cx", function(t) {return 100 + 5*t;})
+            .attr("cy", 10)
+            .style("stroke", "red")
+            .style("fill", "red");
 </script>
 
 The way you do things in D3 is to build up your SVG graph by
@@ -80,19 +82,23 @@ accretion. Start by putting a `<div>` in your HTML where you want
 the plot to render, and give it an ID so that we can locate it, for example,
 “single”. Then
 
-	var plot = d3.select("#single")
-		.append("svg")
-		.attr("width", 300)
-		.attr("height", 20);
+```
+var plot = d3.select("#single")
+    .append("svg")
+    .attr("width", 300)
+    .attr("height", 20);
+```
 
 This generates an empty `<svg>` element with the desired
 dimensions.  We want to show the runner’s name, so we add a
 `<text>` element. Bear in mind that our runner, Alice, lives in an
 array with other runners. She is `runner[0]`.
 
-	plot.append("text")
-		.text(runners[0].name)
-		.attr("dy", 20);
+```
+plot.append("text")
+    .text(runners[0].name)
+    .attr("dy", 20);
+```
 
 To the right of the runner’s name, we want to mark splits by dots,
 placed at a distance proportional to the times. <br/> Here we start to
@@ -103,15 +109,17 @@ main data type that D3 deals with. We now bind, to this empty selection, the
 array with the splits, and for each split, we shall add a red
 `<circle>`.
 
-	plot.selectAll("circle")
-		.data(runners[0].splits)
-		.enter()
-		.append("circle")
-			.attr("r", 5)
-			.attr("cx", function(t) {return 100 + 5*t;})
-			.attr("cy", 10)
-			.style("stroke", "red")
-			.style("fill", "red");
+```
+plot.selectAll("circle")
+    .data(runners[0].splits)
+    .enter()
+    .append("circle")
+        .attr("r", 5)
+        .attr("cx", function(t) {return 100 + 5*t;})
+        .attr("cy", 10)
+        .style("stroke", "red")
+        .style("fill", "red");
+```
 
 In the above, `.data()` binds the data to the selection, and
 `.enter()` returns the elements of the data array that were not already
@@ -129,33 +137,33 @@ Now, let’s plot all the runners.
 <div id="all"></div>
 
 <script>
-	var plotAll = d3.select("#all")
-		.append("svg")
-		.attr("width", 300)
-		.attr("height", 90);
+    var plotAll = d3.select("#all")
+        .append("svg")
+        .attr("width", 300)
+        .attr("height", 90);
 
-	var runLines = plotAll.selectAll("g")
-		.data(runners)
-		.enter()
-		.append("g")
-			.attr("transform",
-				function(ignore, k) {
-					return "translate(0," + (k*30) + ")";
-				});
+    var runLines = plotAll.selectAll("g")
+        .data(runners)
+        .enter()
+        .append("g")
+            .attr("transform",
+                function(ignore, k) {
+                    return "translate(0," + (k*30) + ")";
+                });
 
-	runLines.append("text")
-		.text(function(d) {return d.name;})
-		.attr("dy", 20);
+    runLines.append("text")
+        .text(function(d) {return d.name;})
+        .attr("dy", 20);
 
-	runLines.selectAll("circle")
-		.data(function(d) {return d.splits;})
-		.enter()
-		.append("circle")
-			.attr("r", 5)
-			.attr("cx", function(t) {return 100 + 5*t;})
-			.attr("cy", 10)
-			.style("stroke", "red")
-			.style("fill", "red");
+    runLines.selectAll("circle")
+        .data(function(d) {return d.splits;})
+        .enter()
+        .append("circle")
+            .attr("r", 5)
+            .attr("cx", function(t) {return 100 + 5*t;})
+            .attr("cy", 10)
+            .style("stroke", "red")
+            .style("fill", "red");
 </script>
 
 Not much needs to be done on top of what we were doing before for a
@@ -165,14 +173,16 @@ transforms, we can have a fresh canvas, with its own coordinate
 system, for each runner.  In the code below, `plotAll` is an empty `<svg>` element we have defined on an identified `<div>`, as we did before with
 `plot` in the single runner case.
 
-	var runLines = plotAll.selectAll("g")
-		.data(runners)
-		.enter()
-		.append("g")
-			.attr("transform",
-				function(ignore, k) {
-					return "translate(0," + (k*30) + ")";
-				});
+```
+var runLines = plotAll.selectAll("g")
+    .data(runners)
+    .enter()
+    .append("g")
+        .attr("transform",
+            function(ignore, k) {
+                return "translate(0," + (k*30) + ")";
+            });
+```
 
 The only novelty here is the signature `function(ignore, k)
 {}`. This is fairly standard in Javascript, and within D3. The
@@ -185,9 +195,11 @@ just need to pull the data we’re interested in from each
 runner. <br/> We can see here the rendering of the runner names. The
 rendering of the splits would work in the same way.
 
-	runLines.append("text")
-		.text(function(d) {return d.name;})
-		.attr("dy", 20);
+```
+runLines.append("text")
+    .text(function(d) {return d.name;})
+    .attr("dy", 20);
+```
 
 Already you may have started to appreciate D3’s failing abstraction. In a
 typical functional programming approach, we would figure out how to
@@ -210,35 +222,41 @@ keep track of each runner’s nationality, as we saw above with Alice,
 who is British. Let’s imagine we’d like to color the dots for the
 splits according to the runner’s nationality.
 
-	UK ==> blue
-	US ==> red
-	Spain ==> green
+```
+UK ==> blue
+US ==> red
+Spain ==> green
+```
 
 In the fragment we use to plot the circles, it’s not apparent how we
 could get the nationality, given that we’re iterating over the splits.
 
-	runLines.selectAll("circle")
-		.data(function(d) {return d.splits;})
-		.enter()
-		.append("circle")
-			.attr("r", 5)
-			.attr("cx", function(t) {return 100 + 5*t;})
-			.attr("cy", 10)
-			.style("stroke", "red")
-			.style("fill", "red");
+```
+runLines.selectAll("circle")
+    .data(function(d) {return d.splits;})
+    .enter()
+    .append("circle")
+        .attr("r", 5)
+        .attr("cx", function(t) {return 100 + 5*t;})
+        .attr("cy", 10)
+        .style("stroke", "red")
+        .style("fill", "red");
+```
 
 One thing we could do is assign a CSS class on each of the `runLines` we defined before.  We would add a line to the bottom of the
 definition of `runLines`.
 
-	var runLines = plotAll.selectAll("g")
-		.data(runners)
-		.enter()
-		.append("g")
-			.attr("transform",
-				function(ignore, k) {
-					return "translate(0," + (k*30) + ")";
-				})
-			.classed(function(d) {return d.nationality;}, true);
+```
+var runLines = plotAll.selectAll("g")
+    .data(runners)
+    .enter()
+    .append("g")
+        .attr("transform",
+            function(ignore, k) {
+                return "translate(0," + (k*30) + ")";
+            })
+        .classed(function(d) {return d.nationality;}, true);
+```
 
 But this feels lazy. We now need supporting CSS directives, and we
 need to make sure the text is still rendered black, even if the splits
@@ -248,14 +266,18 @@ We could think of handing, to each circle in our splits code, not just
 the time, but the nationality. That is, we could define a procedure to
 convert the data.
 
-	function getNatlSplits(runner) ==> [..., {nationality, time_i}, ...]
+```
+function getNatlSplits(runner) ==> [..., {nationality, time_i}, ...]
+```
 
 Then do
 
-	runLines.selectAll("circle")
-		.data(function(d) {return getNatlSplits(d);})
-		.enter()
-		...
+```
+runLines.selectAll("circle")
+    .data(function(d) {return getNatlSplits(d);})
+    .enter()
+    ...
+```
 
 But this is even clunkier. We need an auxiliary function, and we’re
 repeating the same nationality for all those elements. And does the
@@ -292,24 +314,26 @@ Let’s write our `plotRunner` function, and for the moment let’s
 not worry about how we get the selection into it. Let’s just assume
 it’s there, and call it `seln`.
 
-	var plotRunner = function(runner) {
-		// NOTE: incomplete. Future version to explain
-		// how we get the selection "seln"
+```
+var plotRunner = function(runner) {
+    // NOTE: incomplete. Future version to explain
+    // how we get the selection "seln"
 
-		seln.append("text")
-			.text(runner.name)
-			.attr("dy", 20);
+    seln.append("text")
+        .text(runner.name)
+        .attr("dy", 20);
 
-		seln.selectAll("circle")
-			.data(runner.splits)
-			.enter()
-			.append("circle")
-				.attr("r", 5)
-				.attr("cx", function(t) {return 100 + 5*t;})
-				.attr("cy", 10)
-				.style("stroke", "red")
-				.style("fill", "red");
-	}
+    seln.selectAll("circle")
+        .data(runner.splits)
+        .enter()
+        .append("circle")
+            .attr("r", 5)
+            .attr("cx", function(t) {return 100 + 5*t;})
+            .attr("cy", 10)
+            .style("stroke", "red")
+            .style("fill", "red");
+}
+```
 
 This is pretty much what we did previously, but there is one crucial
 difference: thanks to the function argument `runner`, we now have
@@ -319,20 +343,22 @@ Let’s go back to our color-by-nationality problem. We just need to
 codify the color assignments, and modify `plotRunner` to leverage
 them:
 
-	var nationalColor = {
-		"US": "red",
-		"UK": "blue",
-		"Spain": "green"};
+```
+var nationalColor = {
+    "US": "red",
+    "UK": "blue",
+    "Spain": "green"};
 
-	var plotRunner = function(runner) {
-		...
-		...
-		seln.selectAll("circle")
-			...
-			...
-				.style("stroke", nationalColor[runner.nationality])
-				.style("fill", nationalColor[runner.nationality]);
-	}
+var plotRunner = function(runner) {
+    ...
+    ...
+    seln.selectAll("circle")
+        ...
+        ...
+            .style("stroke", nationalColor[runner.nationality])
+            .style("fill", nationalColor[runner.nationality]);
+}
+```
 
 Easy as pie.
 
@@ -350,87 +376,97 @@ get the current selection with `d3.select(this)`.
 So, the `plotRunner` function will be called from an `.each()`
 loop, and we can now fill in the part we had left undefined.
 
-	var plotRunner = function(runner) {
+```
+var plotRunner = function(runner) {
 
-		var seln = d3.select(this);
+    var seln = d3.select(this);
 
-		seln.append("text")
-			...
-			...
+    seln.append("text")
+        ...
+        ...
+```
 
 Now we need to build the selection we will iterate over. We have seen
 this before. We bind the `runners` array to an empty selection,
 append `<g>` elements for each runner, and translate vertically.
 
-	var runnerLines = runnersFinal.selectAll("g")
-		.data(runners)
-		.enter()
-		.append("g")
-			.attr("transform",
-				function(ignore, k) {
-					return "translate(0," + (k*30) + ")";
-				}
-			);
+```
+var runnerLines = runnersFinal.selectAll("g")
+    .data(runners)
+    .enter()
+    .append("g")
+        .attr("transform",
+            function(ignore, k) {
+                return "translate(0," + (k*30) + ")";
+            }
+        );
+```
 
 And, finally, we tie it all together.
 
-	runnerLines.each(plotRunner);
+```
+runnerLines.each(plotRunner);
+```
 
 There we go.
 
 <div id="allAbstracted"></div>
 
 <script>
-	var nationalColor = {
-		"US": "red",
-		"UK": "blue",
-		"Spain": "green"};
+    var nationalColor = {
+        "US": "red",
+        "UK": "blue",
+        "Spain": "green"};
 
-	var plotRunner = function(runner) {
-		var seln = d3.select(this);
+    var plotRunner = function(runner) {
+        var seln = d3.select(this);
 
-		seln.append("text")
-			.text(runner.name)
-			.attr("dy", 20);
+        seln.append("text")
+            .text(runner.name)
+            .attr("dy", 20);
 
-		seln.selectAll("circle")
-			.data(runner.splits)
-			.enter()
-			.append("circle")
-				.attr("r", 5)
-				.attr("cx", function(t) {return 100 + 5*t;})
-				.attr("cy", 10)
-				.style("stroke", nationalColor[runner.nationality])
-				.style("fill", nationalColor[runner.nationality]);
-	}
+        seln.selectAll("circle")
+            .data(runner.splits)
+            .enter()
+            .append("circle")
+                .attr("r", 5)
+                .attr("cx", function(t) {return 100 + 5*t;})
+                .attr("cy", 10)
+                .style("stroke", nationalColor[runner.nationality])
+                .style("fill", nationalColor[runner.nationality]);
+    }
 
-	var runnersFinal = d3.select("#allAbstracted")
-		.append("svg")
-		.attr("width", 300)
-		.attr("height", 90);
+    var runnersFinal = d3.select("#allAbstracted")
+        .append("svg")
+        .attr("width", 300)
+        .attr("height", 90);
 
-	var runnerLines = runnersFinal.selectAll("g")
-		.data(runners)
-		.enter()
-		.append("g")
-			.attr("transform",
-				function(ignore, k) {
-					return "translate(0," + (k*30) + ")";
-				}
-			);
+    var runnerLines = runnersFinal.selectAll("g")
+        .data(runners)
+        .enter()
+        .append("g")
+            .attr("transform",
+                function(ignore, k) {
+                    return "translate(0," + (k*30) + ")";
+                }
+            );
 
-	runnerLines.each(plotRunner);
+    runnerLines.each(plotRunner);
 </script>
 
 Now, all this is very magical, in a bad way. Capturing selections
 inside of `.each()` by using `this` is flimsy.  And so, we
 rendered the plot by calling
 
-	runnerLines.each(plotRunner);
+```
+runnerLines.each(plotRunner);
+```
 
 but the following will not work:
 
-	runnerLines.each(function(d) {plotRunner(d);});
+```
+runnerLines.each(function(d) {plotRunner(d);});
+```
 
 How can this be? `this` depends on context, and in the second
 version, `plotRunner` gets it from the enclosing `function (d) {` rather than from `.each()`. There goes your referential transparency.
@@ -449,42 +485,44 @@ know enough JS yet, but I’m getting interested in D3’s internals.
 
 Final code listing:
 
-	var nationalColor = {
-		"US": "red",
-		"UK": "blue",
-		"Spain": "green"};
+```
+var nationalColor = {
+    "US": "red",
+    "UK": "blue",
+    "Spain": "green"};
 
-	var plotRunner = function(runner) {
-		var seln = d3.select(this);
+var plotRunner = function(runner) {
+    var seln = d3.select(this);
 
-		seln.append("text")
-			.text(runner.name)
-			.attr("dy", 20);
+    seln.append("text")
+        .text(runner.name)
+        .attr("dy", 20);
 
-		seln.selectAll("circle")
-			.data(runner.splits)
-			.enter()
-			.append("circle")
-				.attr("r", 5)
-				.attr("cx", function(t) {return 100 + 5*t;})
-				.attr("cy", 10)
-				.style("stroke", nationalColor[runner.nationality])
-				.style("fill", nationalColor[runner.nationality]);
-	}
+    seln.selectAll("circle")
+        .data(runner.splits)
+        .enter()
+        .append("circle")
+            .attr("r", 5)
+            .attr("cx", function(t) {return 100 + 5*t;})
+            .attr("cy", 10)
+            .style("stroke", nationalColor[runner.nationality])
+            .style("fill", nationalColor[runner.nationality]);
+}
 
-	var runnersFinal = d3.select("#allAbstracted")
-		.append("svg")
-		.attr("width", 300)
-		.attr("height", 90);
+var runnersFinal = d3.select("#allAbstracted")
+    .append("svg")
+    .attr("width", 300)
+    .attr("height", 90);
 
-	var runnerLines = runnersFinal.selectAll("g")
-		.data(runners)
-		.enter()
-		.append("g")
-			.attr("transform",
-				function(ignore, k) {
-					return "translate(0," + (k*30) + ")";
-				}
-			);
+var runnerLines = runnersFinal.selectAll("g")
+    .data(runners)
+    .enter()
+    .append("g")
+        .attr("transform",
+            function(ignore, k) {
+                return "translate(0," + (k*30) + ")";
+            }
+        );
 
-	runnerLines.each(plotRunner);
+runnerLines.each(plotRunner);
+```
