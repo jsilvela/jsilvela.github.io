@@ -9,7 +9,7 @@
 	}
 
 	pre, code {
-		font-size: 18px;
+		font-size: 17px;
 	}
 
 	a {
@@ -71,6 +71,20 @@
 	font-style: normal;
 }
 
+@font-face{
+	font-family: 'Gintronic';
+	src: url('../fonts/Gintronic-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face{
+	font-family: 'Gintronic';
+	src: url('../fonts/Gintronic-Medium.woff') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+
 @page {
 	margin: 1cm;
 }
@@ -80,18 +94,15 @@ body {
 	line-height: 1.6;
 }
 
-h1 { font-size: 1.2em; }
-h2 { font-size: 1.1em; }
-h3 { font-size: 1em; }
-h4,
-h5,
+h1 { font-size: 1.1em; }
+h2, h3, h4, h5,
 h6 { font-size: 1em; }
 
 h1, h2, h3, h4, h5, h6 {
 	margin-top: 0;
 	margin-bottom: 1.5rem;
-	font-weight: 600;
-	font-family: "Overpass Mono", Consolas, Menlo, monospace;
+	font-weight: 500;
+	font-family: "Gintronic", Consolas, Menlo, monospace;
 }
 
 a {
@@ -156,9 +167,9 @@ main {
 .entry-meta {
 	display: inline-block;
 	margin-bottom: 1.5rem;
-	font-size: 1em;
+	font-size: 1.1em;
 	font-variant: small-caps;
-	/* font-variant-caps: all-small-caps; breaks in Safari */
+	font-family: "Gintronic", "Source Serif Pro", "fira sans";
 	color: #666;
 }
 
@@ -174,6 +185,6 @@ main {
 
 pre, code {
 	background: #ECECEC;
-	font-family: "Overpass Mono", Consolas, Menlo, monospace;
+	font-family: "Gintronic", Consolas, Menlo, monospace;
 	line-height: 1.6;
 }
