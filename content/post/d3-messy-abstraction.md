@@ -29,7 +29,7 @@ and for each of them we have a list of splits.
 
 Take our first runner:
 
-``` nohighlight
+``` javascript
 {
     "name": "Alice",
     "nationality": "UK",
@@ -82,7 +82,7 @@ accretion. Start by putting a `<div>` in your HTML where you want
 the plot to render, and give it an ID so that we can locate it, for example,
 “single”. Then
 
-``` nohighlight
+``` javascript
 var plot = d3.select("#single")
     .append("svg")
     .attr("width", 300)
@@ -94,7 +94,7 @@ dimensions.  We want to show the runner’s name, so we add a
 `<text>` element. Bear in mind that our runner, Alice, lives in an
 array with other runners. She is `runner[0]`.
 
-``` nohighlight
+``` javascript
 plot.append("text")
     .text(runners[0].name)
     .attr("dy", 20);
@@ -109,7 +109,7 @@ main data type that D3 deals with. We now bind, to this empty selection, the
 array with the splits, and for each split, we shall add a red
 `<circle>`.
 
-``` nohighlight
+``` javascript
 plot.selectAll("circle")
     .data(runners[0].splits)
     .enter()
@@ -173,7 +173,7 @@ transforms, we can have a fresh canvas, with its own coordinate
 system, for each runner.  In the code below, `plotAll` is an empty `<svg>` element we have defined on an identified `<div>`, as we did before with
 `plot` in the single runner case.
 
-``` nohighlight
+``` javascript
 var runLines = plotAll.selectAll("g")
     .data(runners)
     .enter()
@@ -195,7 +195,7 @@ just need to pull the data we’re interested in from each
 runner. <br/> We can see here the rendering of the runner names. The
 rendering of the splits would work in the same way.
 
-``` nohighlight
+``` javascript
 runLines.append("text")
     .text(function(d) {return d.name;})
     .attr("dy", 20);
@@ -222,7 +222,7 @@ keep track of each runner’s nationality, as we saw above with Alice,
 who is British. Let’s imagine we’d like to color the dots for the
 splits according to the runner’s nationality.
 
-``` nohighlight
+``` javascript
 UK ==> blue
 US ==> red
 Spain ==> green
@@ -231,7 +231,7 @@ Spain ==> green
 In the fragment we use to plot the circles, it’s not apparent how we
 could get the nationality, given that we’re iterating over the splits.
 
-``` nohighlight
+``` javascript
 runLines.selectAll("circle")
     .data(function(d) {return d.splits;})
     .enter()
@@ -246,7 +246,7 @@ runLines.selectAll("circle")
 One thing we could do is assign a CSS class on each of the `runLines` we defined before.  We would add a line to the bottom of the
 definition of `runLines`.
 
-``` nohighlight
+``` javascript
 var runLines = plotAll.selectAll("g")
     .data(runners)
     .enter()
@@ -266,13 +266,13 @@ We could think of handing, to each circle in our splits code, not just
 the time, but the nationality. That is, we could define a procedure to
 convert the data.
 
-``` nohighlight
+``` javascript
 function getNatlSplits(runner) ==> [..., {nationality, time_i}, ...]
 ```
 
 Then do
 
-``` nohighlight
+``` javascript
 runLines.selectAll("circle")
     .data(function(d) {return getNatlSplits(d);})
     .enter()
@@ -314,7 +314,7 @@ Let’s write our `plotRunner` function, and for the moment let’s
 not worry about how we get the selection into it. Let’s just assume
 it’s there, and call it `seln`.
 
-``` nohighlight
+``` javascript
 var plotRunner = function(runner) {
     // NOTE: incomplete. Future version to explain
     // how we get the selection "seln"
@@ -343,7 +343,7 @@ Let’s go back to our color-by-nationality problem. We just need to
 codify the color assignments, and modify `plotRunner` to leverage
 them:
 
-``` nohighlight
+``` javascript
 var nationalColor = {
     "US": "red",
     "UK": "blue",
@@ -376,7 +376,7 @@ get the current selection with `d3.select(this)`.
 So, the `plotRunner` function will be called from an `.each()`
 loop, and we can now fill in the part we had left undefined.
 
-``` nohighlight
+``` javascript
 var plotRunner = function(runner) {
 
     var seln = d3.select(this);
@@ -390,7 +390,7 @@ Now we need to build the selection we will iterate over. We have seen
 this before. We bind the `runners` array to an empty selection,
 append `<g>` elements for each runner, and translate vertically.
 
-``` nohighlight
+``` javascript
 var runnerLines = runnersFinal.selectAll("g")
     .data(runners)
     .enter()
@@ -404,7 +404,7 @@ var runnerLines = runnersFinal.selectAll("g")
 
 And, finally, we tie it all together.
 
-``` nohighlight
+``` javascript
 runnerLines.each(plotRunner);
 ```
 
@@ -458,13 +458,13 @@ Now, all this is very magical, in a bad way. Capturing selections
 inside of `.each()` by using `this` is flimsy.  And so, we
 rendered the plot by calling
 
-``` nohighlight
+``` javascript
 runnerLines.each(plotRunner);
 ```
 
 but the following will not work:
 
-``` nohighlight
+``` javascript
 runnerLines.each(function(d) {plotRunner(d);});
 ```
 
@@ -485,7 +485,7 @@ know enough JS yet, but I’m getting interested in D3’s internals.
 
 Final code listing:
 
-``` nohighlight
+``` javascript
 var nationalColor = {
     "US": "red",
     "UK": "blue",

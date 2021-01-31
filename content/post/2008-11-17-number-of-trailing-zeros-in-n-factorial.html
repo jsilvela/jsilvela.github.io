@@ -39,17 +39,21 @@ author: Jaime Silvela
 <pre>fives-in-factorial(n) = n/5 + fives-in-factorial(n/5)</pre>
 <p>The base of the recursion is that for n &lt; 5, there are no fives in n!, hence fives-in-factorial(n) = 0</p>
 <p>Translated into code:</p>
-<pre>(define (fives-in-factorial n)
+<pre>
+(define (fives-in-factorial n)
   (if (&lt; n 5)
       0
       (+ (floor (/ n 5))
-         (fives-in-factorial (/ n 5)))))</pre>
+         (fives-in-factorial (/ n 5)))))
+</pre>
 <p>(In case you’re wondering about <q>floor</q>: given a number, it discards its decimal part). You can again introduce this code in a Scheme system and start getting some answers. We already know 32.</p>
-<pre>(factorial 32)           --&gt; 263130836933693530167218012160000000
-(fives-in-factorial 32)  --&gt; 7
+<pre>
+(factorial 32)           &rarr; 263130836933693530167218012160000000
+(fives-in-factorial 32)  &rarr; 7
 
-(factorial 6)            --&gt; 720
-(fives-in-factorial 6)   --&gt; 1
+(factorial 6)            &rarr; 720
+(fives-in-factorial 6)   &rarr; 1
 
-(factorial 46)           --&gt; 5502622159812088949850305428800254892961651752960000000000
-(fives-in-factorial 46)  --&gt; 10</pre>
+(factorial 46)           &rarr; 5502622159812088949850305428800254892961651752960000000000
+(fives-in-factorial 46)  &rarr; 10
+</pre>

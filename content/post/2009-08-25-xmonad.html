@@ -14,11 +14,12 @@ author: Jaime Silvela
 <p>I like <a href="http://xmonad.org/">Xmonad</a> much better than any other window manager (on any platform), but the default mod key is Alt, which interferes with Emacs and Conkeror.</p>
 <p>Here is how to <a href="http://haskell.org/haskellwiki/Xmonad/Frequently%5Fasked%5Fquestions#Rebinding%5Fthe%5Fmod%5Fkey%5F.28Alt%5Fconflicts%5Fwith%5Fother%5Fapps.3B%5FI%5Fwant%5Fthe%5F%5F%5F%5F%5Fkey.21.29">remap the mod key in Xmonad</a></p>
 <p>Or, locally copied on Aug 09:</p>
-<blockquote><p>
+
 Binding to the mod4 (often 'Win') key. Put this in yout xmonad.hs:</p>
-<p>import XMonad</p>
-<p>main = xmonad defaultConfig<br />
-         {<br />
-           modMask = mod4Mask<br />
-         }
-</p></blockquote>
+<pre>
+import XMonad
+main = xmonad defaultConfig
+    {
+      modMask = mod4Mask
+    }
+</pre>

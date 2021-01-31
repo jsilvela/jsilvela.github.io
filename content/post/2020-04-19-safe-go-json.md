@@ -35,7 +35,7 @@ slice of `Product` safely.
 1. Define a type for the slice: `type Products []Product`
 1. Write a custom marshaler for the new type (`Products`), like so:
 
-```
+``` go
 func (ps Products) MarshalJSON() ([]byte, error) {
     if len(ps) == 0 {
         empty := make([]Product, 0)
@@ -50,7 +50,7 @@ slices of `Product`.  If you did `json.Marshal(ps)` you'd have an infinite loop!
 
 You can verify:
 
-```
+``` go
 var safeEmpty Products
 safeJSON, _ := json.Marshal(safeEmpty)
 fmt.Println(string(safeJSON)) // => []
@@ -58,8 +58,10 @@ fmt.Println(string(safeJSON)) // => []
 
 For maps, the story is exactly the same:
 
-1. Define a type for your map:\
-  `type Phonebook map[string]Client`
-1. Write a custom\
-  `func (pb Phonebook) MarshalJSON() ([]byte, error)`\
-  that handles `nil` separately
+1. Define a type for your map
+1. Write a custom `MarshalJSON()` that handles `nil` separately
+
+``` go
+type Phonebook map[string]Client
+func (pb Phonebook) MarshalJSON() ([]byte, error)
+```
