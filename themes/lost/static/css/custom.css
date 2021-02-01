@@ -229,7 +229,8 @@ The [markup.highlight] section in site config must declare: noClasses = false
 /* NameDecorator */ .chroma .nd { color: #287088 }
 /* NameEntity */ .chroma .ni { color: #709030 }
 /* NameException */ .chroma .ne { color: #908828 }
-/* NameFunction */ .chroma .nf { color: #785840 }
+/* NameFunction */  /* deactivated by Jaime. Too much */
+/* .chroma .nf { color: #785840 } */
 /* NameFunctionMagic */ .chroma .fm { color: #b85820 }
 /* NameLabel */ .chroma .nl { color: #289870 }
 /* NameNamespace */ .chroma .nn { color: #289870 }

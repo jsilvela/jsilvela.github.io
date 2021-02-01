@@ -63,5 +63,11 @@ For maps, the story is exactly the same:
 
 ``` go
 type Phonebook map[string]Client
-func (pb Phonebook) MarshalJSON() ([]byte, error)
+func (pb Phonebook) MarshalJSON() ([]byte, error) {
+    if pb == nil {
+        empty := make(map[string]Client)
+        return json.Marshal(empty)
+    }
+    return json.Marshal(map[string]Client(pb))
+}
 ```

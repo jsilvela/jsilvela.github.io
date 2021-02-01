@@ -75,14 +75,14 @@ join factors using (bond, date);
 Let’s do an `explain analyze`:
 
 ``` sql
-Hash Join  (cost=535294.32..668778.20 rows=5000 width=23) […]
-Hash Cond: ((factors_1.bond = factors.bond) AND  […]
-->  HashAggregate  (cost=195209.37..195259.25 rows=4988 width=15) […]
+Hash Join  (cost=535294.32..668778.20 rows=5000 width=23) [...]
+Hash Cond: ((factors_1.bond = factors.bond) AND  [...]
+->  HashAggregate  (cost=195209.37..195259.25 rows=4988 width=15) [...]
       Group Key: factors_1.bond
-      ->  Seq Scan on factors factors_1   […]
-->  Hash  (cost=149534.58..149534.58 rows=9134958 width=23)  […]
+      ->  Seq Scan on factors factors_1   [...]
+->  Hash  (cost=149534.58..149534.58 rows=9134958 width=23)  [...]
       Buckets: 65536  Batches: 256  Memory Usage: 2456kB
-      ->  Seq Scan on factors  […]
+      ->  Seq Scan on factors  [...]
 Planning time: 0.516 ms
 Execution time: 6432.132 ms
 ```
@@ -113,14 +113,14 @@ that self-join idiom whenever we had time-series, which was often.
 Let’s `explain analyze`:
 
 ``` sql
-Hash Anti Join  (cost=308326.56..735885.05 rows=6089972 width=23) […]
+Hash Anti Join  (cost=308326.56..735885.05 rows=6089972 width=23) [...]
 Hash Cond: (f1.bond = f2.bond)
 Join Filter: (f1.date < f2.date)
 Rows Removed by Join Filter: 9135000
-->  Seq Scan on factors f1  […]
-->  Hash  (cost=149534.58..149534.58 rows=9134958 width=15) […]
+->  Seq Scan on factors f1  [...]
+->  Hash  (cost=149534.58..149534.58 rows=9134958 width=15) [...]
       Buckets: 131072  Batches: 256  Memory Usage: 2823kB
-      ->  Seq Scan on factors f2  […]
+      ->  Seq Scan on factors f2  [...]
 Planning time: 0.799 ms
 Execution time: 8273.339 ms
 ```
@@ -160,12 +160,12 @@ switches to use index scanning when joining the `latest` sub-query with the
 main table.
 
 ``` sql
-Nested Loop  (cost=195210.43..235393.18 rows=5000 width=23) […]
-->  HashAggregate  (cost=195210.00..195259.88 rows=4988 width=15) […]
+Nested Loop  (cost=195210.43..235393.18 rows=5000 width=23) [...]
+->  HashAggregate  (cost=195210.00..195259.88 rows=4988 width=15) [...]
       Group Key: factors_1.bond
-      ->  Seq Scan on factors factors_1  […]
-->  Index Scan using idx_bond_date on factors  […]
-      Index Cond: ((bond = factors_1.bond) AND (date = (max […]
+      ->  Seq Scan on factors factors_1  [...]
+->  Index Scan using idx_bond_date on factors  [...]
+      Index Cond: ((bond = factors_1.bond) AND (date = (max [...]
 Planning time: 0.785 ms
 Execution time: 2703.610 ms
 ```
