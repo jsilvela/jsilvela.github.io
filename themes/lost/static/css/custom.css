@@ -174,8 +174,11 @@ main {
 .entry-meta {
 	display: inline-block;
 	margin-bottom: 1.5rem;
+/*
 	font-variant: small-caps;
+ */
 	font-weight: 500;
+	font-size: 0.9em;
 	font-family: "Gintronic", "Source Serif Pro", "fira sans";
 	color: #666;
 }
