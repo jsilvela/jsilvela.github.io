@@ -2,18 +2,20 @@
 
 	<main role="main">
 
-	<h2>Tags</h2>
+	<b>Tags</b><br/>
 	<div class="tags">
-	{{range .Site.Taxonomies.tags -}} 
-		<a href={{ .Page.RelPermalink }}>
-			{{.Page.Title}}
-		</a><sup class=b>{{.Count}}</sup>
-	{{- end}}
+		{{range .Site.Taxonomies.tags -}} 
+			<a href={{ .Page.RelPermalink }}>
+				{{.Page.Title}}
+			</a><sup class=b>{{.Count}}</sup>
+		{{- end}}
 	</div>	
 
 	<!-- Posts -->
-	<h2>Posts</h2>
+	
 	{{ range where .Sections "Section" "=" "post" }}
+	<div class="posts">
+		<b>Posts</b><br/>
 		{{ range .Pages }}
 			<article>
 				<h2 class="entry-title">
@@ -26,6 +28,7 @@
 				</span>
 			</article>
 		{{ end }}
+	</div>
 	{{ end }}
 	
 	</main>

@@ -120,8 +120,9 @@ footer {
 }
 
 header table {
-	margin: 2rem 0;
+	margin: 2rem 0 0.5rem 0;
 	text-align: left;
+	font-size: 0.9rem;
 }
 
 blockquote {
@@ -133,12 +134,20 @@ main {
 }
 
 .tags {
-	font-size: 0.8em;
+	font-size: 0.9rem;
+}
+
+div.tags {
+	display: block;
+	text-align: left;
 }
 
 ul.tags {
 	list-style-type: none;
+	display: inline-block;
 	padding-left: 0;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 ul.tags > li {
@@ -191,7 +200,11 @@ ul.tags > li {
 	margin: 2rem 0;
 }
 
-.hr {
+div.posts {
+	margin-top: 1.5em;
+}
+
+hr {
 	height: 1px;
 	margin: 2rem 0;
 	background: #E1E1E1;

@@ -4,19 +4,12 @@
 	
 		<article itemscope itemtype="http://schema.org/BlogPosting">
 			<h1 class="entry-title" itemprop="headline">{{ .Title }}</h1>
-			<span class="entry-meta"><time itemprop="datePublished" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006, January 02" }}</time></span>
-
-			<ul class="tags">
-			{{ if .Params.tags }}
-				<li><b>Tags</b></li>
-			{{ end }}
-			{{ range .Params.tags }}
-				<li><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">
-					{{ . }}
-					</a>
-				</li>
-			{{ end }}
-			</ul>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="{{ .Date.Format "2006-01-02" }}">
+					{{ .Date.Format "2006, January 02" }}
+				</time>
+			</span>
 
 			<div itemprop="entry-text">
 			
@@ -26,8 +19,6 @@
 	</main>
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-
-<hr/>
 
 <!-- {{ template "_internal/disqus.html" . }} -->
 {{ partial "footer.html" . }}

@@ -23,6 +23,9 @@
 			<h2><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h2>
 		{{ end }}
 
+<!-- 
+		Navigation
+ -->
 		{{if eq "post" .Section}}
 		{{if or .PrevInSection .NextInSection}}
 		<table>
@@ -51,6 +54,24 @@
 			{{end}}
 		</table>
 		{{end}}
+
+<!-- 
+		tags
+ -->		
+		<div class="tags">
+		{{ if .Params.tags }}
+			<b>Tags:</b>
+		{{ end }}
+		<ul class="tags">
+		{{ range .Params.tags }}
+			<li><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">
+				{{ . }}
+				</a>
+			</li>
+		{{ end }}
+		</ul>
+		</div>
+
 	{{end}}
 
 	</header>
