@@ -1,7 +1,7 @@
 +++
 categories = []
 date = "2016-11-29T16:13:15+01:00"
-tags = ["commentary"]
+tags = ["commentary", "software"]
 title = "The Peter principle, for software"
 
 +++
@@ -20,4 +20,4 @@ abstract spaghetti code, which is even harder to understand than
 regular spaghetti code.
 
 I always try to keep my abstractions grounded enough. I know no
-recipes, other than vigilance, and correcting missteps.
+recipes, other than vigilance and correcting missteps.

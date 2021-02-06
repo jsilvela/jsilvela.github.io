@@ -136,11 +136,12 @@ main {
 	font-size: 0.8em;
 }
 
-.tags ul {
+ul.tags {
 	list-style-type: none;
+	padding-left: 0;
 }
 
-.tags ul > li {
+ul.tags > li {
     display: inline-block;
     margin-right: 0.4em;
 }
