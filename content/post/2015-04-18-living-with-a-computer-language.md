@@ -2,7 +2,7 @@
 title: Living with a computer language
 layout: post
 author: Jaime Silvela
-tags: ["coding", "commentary"]
+tags: ["coding", "commentary",  "go", "golang"]
 date: 2015-04-18 10:23:32.000000000 +02:00
 ---
 

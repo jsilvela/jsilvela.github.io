@@ -1,6 +1,6 @@
 +++
 title = "Object Oriented Programming with Go"
-tags = ["coding"]
+tags = ["coding", "go", "golang"]
 categories = [
 ]
 date = "2017-10-15T12:36:26+02:00"
