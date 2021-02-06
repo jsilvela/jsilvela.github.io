@@ -1,7 +1,7 @@
 +++
 categories = []
 date = "2016-12-02T21:45:19+01:00"
-tags = []
+tags = ["javascript", "d3", "visualization"]
 title = "D3’s Messy Abstraction Path"
 
 +++

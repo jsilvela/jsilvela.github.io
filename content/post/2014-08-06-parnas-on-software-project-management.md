@@ -1,7 +1,7 @@
 +++
 categories = []
 date = "2014-08-06T10:54:46+02:00"
-tags = []
+tags = ["software"]
 title = "Parnas on software project management"
 
 +++

@@ -1,5 +1,5 @@
 +++
-tags = []
+tags = ["commentary"]
 categories = []
 date="2020-04-19T09:58:11+02:00"
 title="Opinions matter"

@@ -1,6 +1,6 @@
 @media screen {
 	html {
-		font-size: 20px;
+		font-size: 18px;
 	}
 
 	body {
@@ -37,38 +37,24 @@
 }
 
 @font-face{
-	font-family: 'Source Serif Pro';
-	font-weight: 600;
-	font-style: normal;
-	src: url('../fonts/SourceSerifPro-Semibold.otf.woff') format('woff');
-}
-
-@font-face{
-	font-family: 'Source Serif Pro';
+	font-family: 'IBM Plex Serif';
 	font-weight: 400;
 	font-style: normal;
-	src: url('../fonts/SourceSerifPro-Regular.otf.woff') format('woff');
+	src: url('../fonts/IBMPlexSerif-Text.woff') format('woff');
 }
 
 @font-face{
-	font-family: 'Source Serif Pro';
+	font-family: 'IBM Plex Serif';
 	font-weight: 400;
 	font-style: italic;
-	src: url('../fonts/SourceSerifPro-It.otf.woff') format('woff');
+	src: url('../fonts/IBMPlexSerif-TextItalic.woff') format('woff');
 }
 
 @font-face{
-	font-family: 'Overpass Mono';
-	src: url('../fonts/overpass-mono-regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face{
-	font-family: 'Overpass Mono';
-	src: url('../fonts/overpass-mono-semibold.woff') format('woff');
-	font-weight: 600;
-	font-style: normal;
+	font-family: 'IBM Plex Serif';
+	font-weight: 700;
+	font-style: italic;
+	src: url('../fonts/IBMPlexSerif-Bold.woff') format('woff');
 }
 
 @font-face{
@@ -97,8 +83,12 @@
 }
 
 body {
-	font-family: "Source Serif Pro", Charter, "Bitstream Charter", Georgia, serif;
+	font-family: "ibm plex serif", Charter, "Bitstream Charter", Georgia, serif;
 	line-height: 1.6;
+}
+
+strong, b {
+	font-weight: 700;
 }
 
 h1 { font-size: 1.1em; }
@@ -106,7 +96,7 @@ h2, h3, h4, h5,
 h6 { font-size: 1em; }
 
 h1, h2, h3, h4, h5, h6 {
-	margin-top: 0;
+	margin-top: 1.5em;
 	margin-bottom: 0;
 	font-weight: 500;
 	font-family: "Gintronic", Consolas, Menlo, monospace;
@@ -142,6 +132,19 @@ main {
 	margin: 1.5rem 0;
 }
 
+.tags {
+	font-size: 0.8em;
+}
+
+.tags ul {
+	list-style-type: none;
+}
+
+.tags ul > li {
+    display: inline-block;
+    margin-right: 0.4em;
+}
+
 .container {
 	width: 90%;
 	max-width: 35em;
@@ -173,13 +176,13 @@ main {
 
 .entry-meta {
 	display: inline-block;
-	margin-bottom: 1.5rem;
+	margin-bottom: 0;
 /*
 	font-variant: small-caps;
  */
 	font-weight: 500;
 	font-size: 0.9em;
-	font-family: "Gintronic", "Source Serif Pro", "fira sans";
+	font-family: "Gintronic", Consolas, Menlo, monospace;
 	color: #666;
 }
 
@@ -198,7 +201,6 @@ pre, code {
 	font-family: "Gintronic", Consolas, Menlo, monospace;
 	line-height: 1.6;
 }
-
 
 /*  -------------------------------------
     -------------------------------------

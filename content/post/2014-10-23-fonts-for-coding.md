@@ -2,6 +2,7 @@
 title: Fonts for coding
 layout: post
 date: 2014-10-23 10:23:32.000000000 +02:00
+tags: ["coding", "typography"]
 author: Jaime Silvela
 ---
 

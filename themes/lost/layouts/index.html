@@ -2,7 +2,17 @@
 
 	<main role="main">
 
+	<h2>Tags</h2>
+	<div class="tags">
+	{{range .Site.Taxonomies.tags -}} 
+		<a href={{ .Page.RelPermalink }}>
+			{{.Page.Title}}
+		</a><sup class=b>{{.Count}}</sup>
+	{{- end}}
+	</div>	
+
 	<!-- Posts -->
+	<h2>Posts</h2>
 	{{ range where .Sections "Section" "=" "post" }}
 		{{ range .Pages }}
 			<article>
@@ -17,6 +27,7 @@
 			</article>
 		{{ end }}
 	{{ end }}
+	
 	</main>
 
 {{ partial "footer.html" . }}

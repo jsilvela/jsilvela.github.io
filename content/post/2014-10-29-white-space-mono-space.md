@@ -2,6 +2,7 @@
 title: White space in source code, or ditch monospace
 layout: post
 author: Jaime Silvela
+tags: ["coding", "typography"]
 date: 2014-10-29 10:23:32.000000000 +02:00
 ---
 

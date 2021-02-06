@@ -1,7 +1,7 @@
 +++
 categories = []
 date = "2016-11-29T16:13:15+01:00"
-tags = []
+tags = ["commentary"]
 title = "The Peter principle, for software"
 
 +++

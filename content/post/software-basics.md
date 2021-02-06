@@ -1,6 +1,5 @@
 +++
-tags = [
-]
+tags = ["coding"]
 date = "2017-10-15T12:18:47+02:00"
 title = "Software Basics - Presentation"
 categories = [

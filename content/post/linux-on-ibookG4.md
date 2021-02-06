@@ -1,7 +1,7 @@
 +++
 categories = []
 date = "2017-01-06T21:21:06+01:00"
-tags = []
+tags = ["linux"]
 title = "Linux on the iBook G4"
 
 +++

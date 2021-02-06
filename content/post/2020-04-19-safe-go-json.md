@@ -1,8 +1,8 @@
 +++
-tags = []
 categories = []
 date="2020-04-19T09:48:11+02:00"
 title="Making Go JSON safe (for JavaScript)"
+tags = ["golang", "go", "javascript"]
 +++
 
 Go has many things going for it. The marshalling package is generally one of
@@ -24,7 +24,7 @@ expecting an empty array. It's not JavaScript's responsibility to know that
 slices and maps are reference types in Go.
 
 My team at work was stumped by this. Now and then, a `null` array would break
-our JavaScript. We tried a few approaches, which were complex and incomplete.
+our JavaScript. We tried a few approaches which were complex and incomplete.
 
 However, there is a very simple solution: we can define a custom marshaler for
 any type we're interested in marshalling for JavaScript.
@@ -58,7 +58,7 @@ fmt.Println(string(safeJSON)) // => []
 
 For maps, the story is exactly the same:
 
-1. Define a type for your map
+1. Define a type for your map - say `map[string]Client`
 1. Write a custom `MarshalJSON()` that handles `nil` separately
 
 ``` go

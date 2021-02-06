@@ -1,6 +1,7 @@
 ---
 title: And the Oscar goes to
 layout: post
+tags: ["funny?"]
 date: 2016-03-06 06:52:29.000000000 +01:00
 author: Jaime Silvela
 ---

@@ -2,6 +2,7 @@
 title: Coding Comfort
 layout: post
 author: Jaime Silvela
+tags: ["coding", "typography"]
 date: 2015-08-14 10:23:32.000000000 +02:00
 ---
 

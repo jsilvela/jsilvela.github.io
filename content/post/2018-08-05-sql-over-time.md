@@ -1,8 +1,6 @@
 +++
-tags = [
-]
-categories = [
-]
+tags = ["sql", "database"]
+categories = []
 date = "2018-09-25T01:36:11+01:00"
 title = "SQL over time, or, Ditch your ORM"
 

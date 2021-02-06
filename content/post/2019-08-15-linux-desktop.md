@@ -1,5 +1,5 @@
 +++
-tags = []
+tags = ["linux"]
 categories = []
 date = "2019-08-15T15:45:19+02:00"
 title = "Linux on the Desktop, n-th try"

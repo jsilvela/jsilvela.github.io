@@ -2,6 +2,7 @@
 title: It’s all zeros and ones
 layout: post
 author: Jaime Silvela
+tags: ["coding", "commentary"]
 date: 2015-04-18 10:23:32.000000000 +02:00
 ---
 

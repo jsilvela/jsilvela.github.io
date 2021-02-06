@@ -2,6 +2,7 @@
 title: You Know How This Ends
 layout: post
 author: Jaime Silvela
+tags: ["funny?"]
 date: 2015-10-30 10:23:32.000000000 +02:00
 ---
 

@@ -1,7 +1,7 @@
 +++
 categories = []
 date = "2016-11-28T20:41:07+01:00"
-tags = []
+tags = ["linux"]
 title = "Linux on a DELL XPS 13 9350"
 
 +++
