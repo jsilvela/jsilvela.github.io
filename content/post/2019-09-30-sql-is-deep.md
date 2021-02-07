@@ -19,7 +19,8 @@ BY` clause gives you a bit more expressive power. Common Table Expressions (the
 forth.
 
 I’m not done with my learning, but it’s been enough to make me the go-to guy for
-SQL in some of the places I’ve worked at. \ I thought I might trace my stages of
+SQL in some of the places I’ve worked at. \
+I thought I might trace my stages of
 learning SQL. I’ve felt my skills revolutionized more times in SQL than in all
 other languages combined.
 
