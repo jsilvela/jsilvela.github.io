@@ -52,9 +52,9 @@
 
 @font-face{
 	font-family: 'IBM Plex Serif';
-	font-weight: 700;
+	font-weight: 600;
 	font-style: normal;
-	src: url('../fonts/IBMPlexSerif-Bold.woff') format('woff');
+	src: url('../fonts/IBMPlexSerif-SemiBold.woff') format('woff');
 }
 
 @font-face{
@@ -88,7 +88,7 @@ body {
 }
 
 strong, b {
-	font-weight: 700;
+	font-weight: 600;
 }
 
 h1 { font-size: 1.1em; }
