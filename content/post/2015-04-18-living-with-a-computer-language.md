@@ -14,7 +14,7 @@ pervade the software industry. I particularly hate the genre of the shootout
 article. It’s bad enough for web browser comparisons, but it’s terrible for
 everything else. When applied to languages, this philosophy gives rise to
 articles showing a strong preference for, say, Python over Ruby, on the grounds
-that a little toy project is 3 lines shorter, and 5% faster, in Python.
+that a little toy project is 3 lines shorter and 5% faster in Python.
 
 In some cases, a language is clearly junk, but more often than not, it is unwise
 to make a language choice based on performance for your pet toy program. I'd go

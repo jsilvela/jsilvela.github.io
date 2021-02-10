@@ -150,17 +150,17 @@ theory  where the Riemann integral always seemed rough and ad-hoc.
 ### Materials
 
 * My professor, who was brilliant, recommended Folland. I decided against that
-book, however, as I did not want to buy yet another analysis book.
+  book, however, as I did not want to buy yet another analysis book.
 * My main
-book ended up being Bartle's *The Elements of Integration and Lebesgue Measure*.
-This is a well-written book, with good exercise collections. A rarity. Highly
-recommended.
+  book ended up being Bartle's *The Elements of Integration and Lebesgue Measure*.
+  This is a well-written book, with good exercise collections. A rarity. Highly
+  recommended.
 * I also checked Terrence Tao's book on measure, which I found
-somewhat dry.
+  somewhat dry.
 * Stein & Shakarchi's *Real Analysis*. I loved the parts of
-Stein & Shakarchi I read, and will probably buy the book to have at home. Stein
-was more advanced than I needed, though, and Bartle was better suited for the
-class at hand.
+  Stein & Shakarchi I read, and will probably buy the book to have at home. Stein
+  was more advanced than I needed, though, and Bartle was better suited for the
+  class at hand.
 
 ## Probability with Measure Theory
 
@@ -265,10 +265,9 @@ to the subject matter and are greyer. To each his own.
 Additionally, I used two books:
 
 * Tu's *An Introduction to Manifolds*, which was most useful, and is, true to
-advertisement, self contained, and good for undergraduates. At times it feels
-almost too clear, like cheating. High praise.
-* Spivak's *A Comprehensive
-Introduction to Differential Geometry*. Spivak is one of the very best *writers*
-in math. While his book is at points obscure or messy, he keeps a great
-narrative thread. I only read a portion of Spivak, but it made a difference to
-my understanding. I will surely use it again next year.
+  advertisement, self contained, and good for undergraduates. At times it feels
+  almost too clear, like cheating. High praise.
+* Spivak's *A Comprehensive Introduction to Differential Geometry*.
+  Spivak is one of the very best *writers* in math. While his book is at points obscure or messy, he keeps a great
+  narrative thread. I only read a portion of Spivak, but it made a difference to
+  my understanding. I will surely use it again next year.
