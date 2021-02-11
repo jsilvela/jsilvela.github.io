@@ -19,7 +19,7 @@ just so much modern algebra to absorb. This subject was offered to junior and
 senior undergraduates that had taken a year of Algebraic Structures, where
 they’d have learned about rings, groups, fields and the like.
 
-The first month was a quick review of rings and ideals, which had me playing
+The first month was a quick review of rings and ideals which had me playing
 catch-up. I found ideals a very interesting mathematical object. A formalization
 of the properties of multiples (as in, the addition of multiples of 3 is a
 multiple of 3, and the multiplication of a multiple of 3 times any number is
@@ -67,22 +67,21 @@ by age 20, before his death in a duel.
 ### Materials
 
 * John Stillwell's *Elements of Algebra* was invaluable. This thin book has a
-narrative thread that motivates material. It is not formal, yet it is rigorous
-at the same time.
+  narrative thread that motivates material. It is not formal, yet it is rigorous
+  at the same time.
 
 * Serge Lang's *Undergraduate Algebra* was useful, as it was broader than
-Stillwell, and had a treatment closer to that of my professor. But I still went
-to Stillwell to really understand the concepts.
+  Stillwell, and had a treatment closer to that of my professor. But I still went
+  to Stillwell to really understand the concepts.
 
 * Michael Artin's *Algebra* I used for the background on groups, rings and
-ideals. It is great, but heavy-going if you just want to dip in for a casual
-reference.
+  ideals. It is great, but heavy-going if you just want to dip in for a casual
+  reference.
 
-* [Benedict Gross's Video
-Lectures](http://matterhorn.dce.harvard.edu/engage/ui/index.html#/1999/01/82345)
-were where I learned about group theory on my own a couple of years back. The
-lectures on rings and ideals were extremely useful this time around. As an added
-benefit, Michael Artin's book is followed.
+* [Benedict Gross's Video Lectures](http://matterhorn.dce.harvard.edu/engage/ui/index.html#/1999/01/82345)
+  were where I learned about group theory on my own a couple of years back. The
+  lectures on rings and ideals were extremely useful this time around. As an added
+  benefit, Michael Artin's book is followed.
 
 ## Topology
 
@@ -118,13 +117,14 @@ the definition.
 ### Materials
 
 * Munkres's *Topology* is the classic here, for good reason. It goes point by
-point over the definitions, and shows you why they work, and why something
-simpler won't cut it. Our professor followed Munkres closely, which made this an
-easy subject to study for.
-* Allen Hatcher's Topology Notes (available from [his
-website](http://pi.math.cornell.edu/~hatcher/Top/TopNotes.pdf)), are much more
-concise and livelier, recommended as additional reading. However, I think
-Munkres is not replaceable.
+  point over the definitions, and shows you why they work, and why something
+  simpler won't cut it. Our professor followed Munkres closely, which made this an
+  easy subject to study for.
+* Allen Hatcher's Topology Notes (available from
+  [his website](http://pi.math.cornell.edu/~hatcher/Top/TopNotes.pdf)),
+  are much more
+  concise and livelier, recommended as additional reading. However, I think
+  Munkres is not replaceable.
 
 ## Measure Theory and Integration
 
@@ -268,6 +268,7 @@ Additionally, I used two books:
   advertisement, self contained, and good for undergraduates. At times it feels
   almost too clear, like cheating. High praise.
 * Spivak's *A Comprehensive Introduction to Differential Geometry*.
-  Spivak is one of the very best *writers* in math. While his book is at points obscure or messy, he keeps a great
+  Spivak is one of the very best *writers* in math. While his book
+  is at points obscure or messy, he keeps a great
   narrative thread. I only read a portion of Spivak, but it made a difference to
   my understanding. I will surely use it again next year.
