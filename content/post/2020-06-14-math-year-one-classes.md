@@ -54,7 +54,7 @@ a solution of our equation, then so is $latex a - b \sqrt{2}$ (for equations wit
 coefficients).
 The mapping $latex a+b\sqrt{2} \to a-b\sqrt{2}$ is a transformation that maps the
 field extension to itself, and preserves algebraic operations. This mapping,
-then, belongs to the *Galois Group* of our equation.\
+then, belongs to the **Galois Group** of our equation.\
 Once he created groups,
 Galois saw that the group of symmetries of fields extended by adding roots
 always have sub-symmetries (normal subgroups.) And that some equations of degree
@@ -97,10 +97,10 @@ in modern math. Starting with the proximity relations used in calculus, you
 abstract them into collections of sets, and you build from there.
 
 In calculus you used $latex \epsilon  - \delta$ ("epsilon-delta") arguments, all about a
-*neighborhood* of points around a point
+**neighborhood** of points around a point
 $latex x$ that are less than $latex \delta$ away from
 it. In topology you cut straight to the set of points "near" $latex x$ and call them
-*neighborhoods*, then axiomatize back to the building blocks needed to define
+**neighborhoods**, then axiomatize back to the building blocks needed to define
 neighborhoods.
 
 Most of the work in point set topology is set reasoning, which is quite verbal.
@@ -134,7 +134,7 @@ continuity, Measure Theory takes on measure (duh).
 
 Another world-building subject.
 
-As it turns out, not all sets have a meaningful *measure* that can be assigned
+As it turns out, not all sets have a meaningful **measure** that can be assigned
 to them. This was proven by Vitali in 1905, and it's a good surprise.
 
 The first order of business then is to define which sets are measurable. Then
@@ -247,8 +247,8 @@ coordinates.
 The subject also bears the great influence of the set concept. If in topology,
 continuous applications inverse-map open sets to open sets, and in integration
 theory, measurable functions inverse-map measurable sets to measurable sets, in
-DG, *smooth maps* convert *smooth functions* back to smooth functions via
-*pullback*.
+DG, **smooth maps** convert **smooth functions** back to smooth functions via
+**pullback**.
 
 ### Materials
 
@@ -268,7 +268,7 @@ Additionally, I used two books:
   advertisement, self contained, and good for undergraduates. At times it feels
   almost too clear, like cheating. High praise.
 * Spivak's *A Comprehensive Introduction to Differential Geometry*.
-  Spivak is one of the very best *writers* in math. While his book
+  Spivak is one of the very best writers in math. While his book
   is at points obscure or messy, he keeps a great
   narrative thread. I only read a portion of Spivak, but it made a difference to
   my understanding. I will surely use it again next year.
