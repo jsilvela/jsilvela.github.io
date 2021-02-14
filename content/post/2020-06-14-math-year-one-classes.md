@@ -140,7 +140,7 @@ to them. This was proven by Vitali in 1905, and it's a good surprise.
 The first order of business then is to define which sets are measurable. Then
 which functions are measurable, and from then, you build the Lebesgue integral.
 
-This subject feels a bit finicky in the beginning. The Caratheodory construction
+This subject feels a bit finicky in the beginning. The Carathéodory construction
 of the outer measure seems like it's hanging by a thread. You need quite a bit
 of machinery just to get going.
 
