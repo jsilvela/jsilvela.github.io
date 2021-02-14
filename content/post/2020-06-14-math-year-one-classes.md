@@ -194,7 +194,7 @@ As is the custom in modern math, and especially algebra, a formalistic approach
 is taken, and proofs are squeaky clean, yet seem to spring from thin air. "My
 son, one day this will all make sense."
 
-### Material
+### Materials
 
 On my professor's advice, I bought Reid's *Commutative Algebra*. Interestingly,
 Reid complains about the un-motivated approach to algebra often taken... and
