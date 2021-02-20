@@ -2,8 +2,19 @@
 
 	<main role="main">
 
-	<b>Tags</b><br/>
+	{{ range where .Sections "Section" "=" "top" }}
+	<div class="meta">
+		<b>Meta</b>
+			{{ range .Pages }}
+			<a href={{ .Page.RelPermalink }}>
+				{{.Page.Title}}
+			</a>
+		{{ end }}
+	</div>
+	{{ end }}
+
 	<div class="tags">
+		<b>Tags</b><br/>
 		{{range .Site.Taxonomies.tags -}} 
 			<a href={{ .Page.RelPermalink }}>
 				{{.Page.Title}}

@@ -134,7 +134,7 @@ main {
 	margin: 1.5rem 0;
 }
 
-.tags {
+.tags, .meta, .posts b {
 	font-size: 0.9rem;
 }
 
@@ -201,7 +201,7 @@ ul.tags > li {
 	margin: 2rem 0;
 }
 
-div.posts {
+div.posts, div.tags {
 	margin-top: 1.5em;
 }
 

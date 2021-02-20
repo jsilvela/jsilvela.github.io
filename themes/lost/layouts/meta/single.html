@@ -1,0 +1,16 @@
+{{ partial "header.html" . }}
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">{{ .Title }}</h1>
+
+			<div itemprop="entry-text">
+			
+				{{ .Content }}
+			</div>
+		</article>
+	</main>
+
+<!-- {{ template "_internal/disqus.html" . }} -->
+{{ partial "footer.html" . }}

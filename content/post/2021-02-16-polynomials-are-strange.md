@@ -11,15 +11,16 @@ draft = false
 ## Two-headed things
 
 Polynomials are unexpectedly strange.
-They're familiar from primary school, but start studying abstract algebra or
-algebraic geometry and they turn into two-headed beasts.
+They're familiar from primary school, probably the first *functions* we study.
+But start studying abstract algebra or
+algebraic geometry, and they turn into two-headed beasts.
 
 In abstract algebra you start to emphasize the algebraic structure of polynomials.
 You define addition of two polynomials much like you define component-wise
 addition of vectors. Multiplication gives polynomials a **ring** structure.
 
 The textbook definition of the polynomial ring $latex K[x]$ over a
-field $latex K$ de-emphasizes the functional aspect.
+field $latex K$ de-emphasizes that polynomials are functions.
 You could use vector notation to make this even clearer.
 
 $latex a x^2 + b x + c \equiv (a, b, c) \in K[x] $
@@ -66,8 +67,8 @@ There you have it, the function-ness saves the day. Otherwise, proving that an
 ideal is radical may be no picnic.
 
 You noticed I said "*the* ideal of polynomials that are..." \
-There is generally more than one ideal whose functions are zero on a variety,
-but only one ideal that contains all the functions that are zero on the variety,
+There is generally more than one ideal whose polynomials are zero on a variety,
+but there is only one ideal that contains all the polynomials that are zero on the variety,
 and it happens to be radical.
 
 Nullstellensatz gives us
