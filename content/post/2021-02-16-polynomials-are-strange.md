@@ -42,7 +42,7 @@ sometimes that part comes to the rescue in surprising ways.
 
 This famous theorem of Hilbert left me a bit confused initially.
 
-Essentially, it says that the set of algebraic varieties in $latex \mathbb{C}^n$
+Essentially, it says that the set of **algebraic varieties** in $latex \mathbb{C}^n$
 is in 1-1 correspondence with the set of **radical ideals**
 in $latex \mathbb{C}[x_1,..,x_n]$.
 
@@ -135,7 +135,7 @@ We conclude that $latex (xy, xz)$ is *the* ideal for $latex V$, so it's radical.
 Note that:
 
 - The long division algorithm is algebraic, mostly
-- But we used the function values to anull remainders
+- But we used the function values to annul remainders
 
 It still surprises me to switch back and forth on polynomials,
 more so than with other objects of dual nature.

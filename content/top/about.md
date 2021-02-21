@@ -7,7 +7,7 @@ draft = false
 type = "meta"
 +++
 
-My name is Jaime Silvela. This is my techy/mathy blog where I post wonkish things.
+My name is Jaime Silvela. This is my techy/mathy blog where I post nerdy things.
 
 I'm a professional computer programmer, and during 2019-2021,
 a graduate student of math too.
