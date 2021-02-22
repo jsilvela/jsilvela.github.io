@@ -8,19 +8,19 @@ draft = false
 
 ### Parallel testing
 
-Go has good tooling for testing out of the box. To optimize speed, it generally
+Go has good tooling for testing out of the box. To increase speed, it generally
 runs tests in parallel.
 
-At work, we noticed that with our growing codebase, our test suite
-would have some failures due to database deadlocks. Rerunning the failed tests
-would fix this, and it wasn't happening that often anyway.
+At work, we noticed that with our growing codebase, our test suite would sometimes
+have failed tests due to database deadlocks. Rerunning the failed tests
+would fix this, and it wasn't happening that often anyway, so we didn't worry
+too much.
 
 Database deadlocks are not as bad as they sound, and databases have a good way
-of dealing with them. We were not concerned at first, especially as we were not
-seeing the problem in production.
+of dealing with them.
 
-But the problem was happening more and more, so we decided to get to the bottom
-of it. We were able to locate a single unit test that, if run in parallel with
+But the problem started to happen more and more, so we decided to investigate.
+We were able to locate a single unit test that, if run in parallel with
 itself, would lead to deadlock. Pretty unexpected.
 
 Now a brief aside: in a database, for data integrity, each single datum is
@@ -47,9 +47,9 @@ when run in parallel with itself. It looked something like this:
 ``` txt
 Create an Organization object, org1, with a set of images
 begin database transaction:
-	1. store org1 in the Database
-	2. delete any images in the DB associated with org1
-	3. for each image of org1, store it in the Database
+    1. store org1 in the Database
+    2. delete any images in the DB associated with org1
+    3. for each image of org1, store it in the Database
 end transaction
 Verify org1 can be retrieved from the Database
 ```
@@ -61,7 +61,7 @@ We said
 > Deadlocks can happen in certain cases when two parties both want to
 > modify two or more pieces of data at the same time.
 
-However, in this case, the parallel processes were each creating **a different**
+However, in our case, each process will create **a different**
 fake organization in the database. Why were they colliding?
 
 ### MySQL Transaction Isolation Levels
@@ -80,13 +80,13 @@ in comparison with *PostgreSQL*, which uses *Optimistic Concurrency*.
 In order to offer Repeatable Read with locks, MySQL deploys *next-key locks* and
 *gap locks*, when a query does not identify a single
 row by **unique** index. See the
-[documentation](https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html).
+[MySQL documentation.](https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html)
 
 In our case, in step 2 of the transaction, MySQL was putting a lock on the
 `organization_images` table, for the `organization_id` from the DB that we got
 in step 1. It was also locking adjacent rows with gap locks.
 
-So, when two test processes, say A and B, run in parallel, in step 2,
+So, when two test processes, say A and B, run in parallel, in step 2, to delete rows,
 A puts a lock on the `organization_images` table, for `organization_id`, say 245.
 On Repeatable Read, this means it will hold gap locks for neighboring indexes.
 Process B creates `organization_id` 246, tries to delete
@@ -103,7 +103,7 @@ We changed our test suite to use an isolation level of **Read Committed**
 that doesn't use next-key locks, and all our issues disappeared.
 
 NOTE: Read Committed transactions in MySQL may suffer from
-[Phantom Rows](https://dev.mysql.com/doc/refman/5.7/en/innodb-next-key-locking.html),
+[Phantom Rows,](https://dev.mysql.com/doc/refman/5.7/en/innodb-next-key-locking.html)
 so while we used this level for unit tests, running code was kept at the default
 Repeatable Read level.
 
@@ -116,7 +116,7 @@ And that's a good thing. The more similar our test environment is to real
 life, the better. Headaches during testing are better than headaches
 in production.
 
-The idea of transactions, and their practical implementation in databases, is
+The concept of transactions, and its practical implementation in databases, is
 a fascinating topic. I recommend the book
-[Designing Data-Intensive Applications](https://dataintensive.net/),
-by [Martin Kleppmann](https://martin.kleppmann.com/).
+[*Designing Data-Intensive Applications*,](https://dataintensive.net/)
+by [Martin Kleppmann.](https://martin.kleppmann.com/)
