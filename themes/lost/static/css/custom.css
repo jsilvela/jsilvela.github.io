@@ -1,6 +1,6 @@
 @media screen {
 	html {
-		font-size: 18px;
+		font-size: 19px;
 	}
 
 	body {
@@ -37,24 +37,24 @@
 }
 
 @font-face{
-	font-family: 'IBM Plex Serif';
+	font-family: 'Source Serif Pro';
 	font-weight: 400;
 	font-style: normal;
-	src: url('../fonts/IBMPlexSerif-Text.woff') format('woff');
+	src: url('../fonts/SourceSerifPro-Regular.otf.woff') format('woff');
 }
 
 @font-face{
-	font-family: 'IBM Plex Serif';
+	font-family: 'Source Serif Pro';
 	font-weight: 400;
 	font-style: italic;
-	src: url('../fonts/IBMPlexSerif-TextItalic.woff') format('woff');
+	src: url('../fonts/SourceSerifPro-It.otf.woff') format('woff');
 }
 
 @font-face{
-	font-family: 'IBM Plex Serif';
+	font-family: 'Source Serif Pro';
 	font-weight: 600;
 	font-style: normal;
-	src: url('../fonts/IBMPlexSerif-SemiBold.woff') format('woff');
+	src: url('../fonts/SourceSerifPro-Semibold.otf.woff') format('woff');
 }
 
 @font-face{
@@ -83,7 +83,7 @@
 }
 
 body {
-	font-family: "ibm plex serif", Charter, "Bitstream Charter", Georgia, serif;
+	font-family: "source serif pro", Charter, "Bitstream Charter", Georgia, serif;
 	line-height: 1.6;
 }
 
@@ -215,6 +215,7 @@ pre, code {
 	background: #ECECEC;
 	font-family: "Gintronic", Consolas, Menlo, monospace;
 	line-height: 1.6;
+	letter-spacing: -0.4px;
 }
 
 /*  -------------------------------------

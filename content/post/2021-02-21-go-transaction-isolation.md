@@ -6,7 +6,7 @@ date = 2021-02-21T09:49:18+01:00
 draft = false
 +++
 
-### Parallel testing
+## Parallel testing
 
 Go has good tooling for testing out of the box. To increase speed, it generally
 runs tests in parallel.
@@ -64,7 +64,7 @@ We said
 However, in our case, each process will create **a different**
 fake organization in the database. Why were they colliding?
 
-### MySQL Transaction Isolation Levels
+## MySQL Transaction Isolation Levels
 
 It turns out that the Transactions used most of the time in databases are not
 perfect. Perfect transactions would not be affected by any other transaction
@@ -107,7 +107,7 @@ NOTE: Read Committed transactions in MySQL may suffer from
 so while we used this level for unit tests, running code was kept at the default
 Repeatable Read level.
 
-### Conclusion
+## Conclusion
 
 Having our tests run in parallel uncovered a rather involved issue with
 our database implementation.
@@ -117,6 +117,7 @@ life, the better. Headaches during testing are better than headaches
 in production.
 
 The concept of transactions, and its practical implementation in databases, is
-a fascinating topic. I recommend the book
+a fascinating topic. The book
 [*Designing Data-Intensive Applications*,](https://dataintensive.net/)
-by [Martin Kleppmann.](https://martin.kleppmann.com/)
+by [Martin Kleppmann](https://martin.kleppmann.com/)
+is a great introduction.
