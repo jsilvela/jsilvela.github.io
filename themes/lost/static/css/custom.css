@@ -9,7 +9,7 @@
 	}
 
 	pre, code {
-		font-size: 17px;
+		font-size: 16px;
 	}
 
 	a {
@@ -58,22 +58,22 @@
 }
 
 @font-face{
-	font-family: 'TheSansMono';
-	src: url('../fonts/TheSansMonoOffice-Regular.woff') format('woff');
+	font-family: 'Roboto Mono';
+	src: url('../fonts/RobotoMono-Regular.ttf') format('truetype');
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face{
-	font-family: 'TheSansMono';
-	src: url('../fonts/TheSansMonoOffice-Bold.woff') format('woff');
-	font-weight: 700;
+	font-family: 'Roboto Mono';
+	src: url('../fonts/RobotoMono-Medium.ttf') format('truetype');
+	font-weight: 500;
 	font-style: normal;
 }
 
 @font-face{
-	font-family: 'TheSansMono';
-	src: url('../fonts/TheSansMonoOffice-Italic.woff') format('woff');
+	font-family: 'Roboto Mono';
+	src: url('../fonts/RobotoMono-Italic.ttf') format('truetype');
 	font-weight: 400;
 	font-style: italic;
 }
@@ -99,8 +99,8 @@ h6 { font-size: 0.9em; }
 h1, h2, h3, h4, h5, h6 {
 	margin-top: 1.5em;
 	margin-bottom: 0;
-	font-weight: 700;
-	font-family: "TheSansMono", Consolas, Menlo, monospace;
+	font-weight: 500;
+	font-family: "Roboto Mono", Consolas, Menlo, monospace;
 }
 
 a {
@@ -188,10 +188,10 @@ ul.tags > li {
 .entry-meta {
 	display: inline-block;
 	margin-bottom: 0;
-	/* font-variant: small-caps; */
-	font-weight: 700;
+	font-variant: small-caps;
+	font-weight: 500;
 	font-size: 0.9em;
-	font-family: "TheSansMono", Consolas, Menlo, monospace;
+	font-family: "Roboto Mono", Consolas, Menlo, monospace;
 	color: #666;
 }
 
@@ -211,7 +211,7 @@ hr {
 
 pre, code {
 	background: #ECECEC;
-	font-family: "TheSansMono", Consolas, Menlo, monospace;
+	font-family: "Roboto Mono", Consolas, Menlo, monospace;
 	line-height: 1.6;
 }
 
