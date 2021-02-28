@@ -9,7 +9,7 @@
 	}
 
 	pre, code {
-		font-size: 16px;
+		font-size: 17px;
 	}
 
 	a {
@@ -58,22 +58,22 @@
 }
 
 @font-face{
-	font-family: 'Roboto Mono';
-	src: url('../fonts/RobotoMono-Regular.ttf') format('truetype');
+	font-family: 'Source Code Pro';
+	src: url('../fonts/SourceCodePro-Regular.otf.woff') format('woff');
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face{
-	font-family: 'Roboto Mono';
-	src: url('../fonts/RobotoMono-Medium.ttf') format('truetype');
-	font-weight: 500;
+	font-family: 'Source Code Pro';
+	src: url('../fonts/SourceCodePro-Semibold.otf.woff') format('woff');
+	font-weight: 600;
 	font-style: normal;
 }
 
 @font-face{
-	font-family: 'Roboto Mono';
-	src: url('../fonts/RobotoMono-Italic.ttf') format('truetype');
+	font-family: 'Source Code Pro';
+	src: url('../fonts/SourceCodePro-It.otf.woff') format('woff');
 	font-weight: 400;
 	font-style: italic;
 }
@@ -99,8 +99,8 @@ h6 { font-size: 0.9em; }
 h1, h2, h3, h4, h5, h6 {
 	margin-top: 1.5em;
 	margin-bottom: 0;
-	font-weight: 500;
-	font-family: "Roboto Mono", Consolas, Menlo, monospace;
+	font-weight: 600;
+	font-family: "Source Code Pro", Consolas, Menlo, monospace;
 }
 
 a {
@@ -188,10 +188,10 @@ ul.tags > li {
 .entry-meta {
 	display: inline-block;
 	margin-bottom: 0;
-	font-variant: small-caps;
-	font-weight: 500;
+	/* font-variant: small-caps; */
+	font-weight: 600;
 	font-size: 0.9em;
-	font-family: "Roboto Mono", Consolas, Menlo, monospace;
+	font-family: "Source Code Pro", Consolas, Menlo, monospace;
 	color: #666;
 }
 
@@ -211,7 +211,7 @@ hr {
 
 pre, code {
 	background: #ECECEC;
-	font-family: "Roboto Mono", Consolas, Menlo, monospace;
+	font-family: "Source Code Pro", Consolas, Menlo, monospace;
 	line-height: 1.6;
 }
 
