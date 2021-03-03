@@ -9,7 +9,7 @@
 	}
 
 	pre, code {
-		font-size: 19px;
+		font-size: 16px;
 	}
 
 	a {
@@ -28,7 +28,7 @@
 	}
 
 	pre, code {
-		font-size: 11pt;
+		font-size: 10pt;
 	}
 
 	a {
@@ -58,17 +58,24 @@
 }
 
 @font-face{
-	font-family: 'Inconsolata';
-	src: url('../fonts/Inconsolata-Regular.ttf') format('truetype');
+	font-family: 'TheSansMono';
+	src: url('../fonts/TheSansMonoOffice-Regular.woff') format('woff');
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face{
-	font-family: 'Inconsolata';
-	src: url('../fonts/Inconsolata-SemiBold.ttf') format('truetype');
-	font-weight: 600;
+	font-family: 'TheSansMono';
+	src: url('../fonts/TheSansMonoOffice-Bold.woff') format('woff');
+	font-weight: 700;
 	font-style: normal;
+}
+
+@font-face{
+	font-family: 'TheSansMono';
+	src: url('../fonts/TheSansMonoOffice-Italic.woff') format('woff');
+	font-weight: 400;
+	font-style: italic;
 }
 
 @page {
@@ -84,16 +91,16 @@ strong, b {
 	font-weight: 600;
 }
 
-h1 { font-size: 1.2em; }
-h2 { font-size: 1.1em; }
+h1 { font-size: 1.1em; }
+h2 { font-size: 1em; }
 h3, h4, h5,
-h6 { font-size: 1em; }
+h6 { font-size: 0.9em; }
 
 h1, h2, h3, h4, h5, h6 {
 	margin-top: 1.5em;
 	margin-bottom: 0;
-	font-weight: 600;
-	font-family: "Inconsolata", Consolas, Menlo, monospace;
+	font-weight: 700;
+	font-family: "TheSansMono", Consolas, Menlo, monospace;
 }
 
 a {
@@ -182,9 +189,9 @@ ul.tags > li {
 	display: inline-block;
 	margin-bottom: 0;
 	/* font-variant: small-caps; */
-	font-weight: 600;
-	font-size: 1em;
-	font-family: "Inconsolata", Consolas, Menlo, monospace;
+	font-weight: 700;
+	font-size: 0.9em;
+	font-family: "TheSansMono", Consolas, Menlo, monospace;
 	color: #666;
 }
 
@@ -204,7 +211,7 @@ hr {
 
 pre, code {
 	background: #ECECEC;
-	font-family: "Inconsolata", Consolas, Menlo, monospace;
+	font-family: "TheSansMono", Consolas, Menlo, monospace;
 	line-height: 1.6;
 }
 
@@ -227,18 +234,18 @@ The [markup.highlight] section in site config must declare: noClasses = false
 /* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
 /* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
 /* Keyword */ .chroma .k { color: #2838b0 }
-/* KeywordConstant */ .chroma .kc { color: #444444; }
-/* KeywordDeclaration */ .chroma .kd { color: #2838b0; }
+/* KeywordConstant */ .chroma .kc { color: #444444; font-style: italic }
+/* KeywordDeclaration */ .chroma .kd { color: #2838b0; font-style: italic }
 /* KeywordNamespace */ .chroma .kn { color: #2838b0 }
 /* KeywordPseudo */ .chroma .kp { color: #2838b0 }
 /* KeywordReserved */ .chroma .kr { color: #2838b0 }
-/* KeywordType */ .chroma .kt { color: #2838b0; }
+/* KeywordType */ .chroma .kt { color: #2838b0; font-style: italic }
 /* Name */ .chroma .n {  }
 /* NameAttribute */ /* deactivated by Jaime. Too much */
 /* .chroma .na { color: #388038 } */
 /* NameBuiltin */ /* deactivated by Jaime. Too much */
 /* .chroma .nb { color: #388038 } */
-/* NameBuiltinPseudo */ .chroma .bp { }
+/* NameBuiltinPseudo */ .chroma .bp { font-style: italic }
 /* NameClass */ .chroma .nc { color: #287088 }
 /* NameConstant */ .chroma .no { color: #b85820 }
 /* NameDecorator */ .chroma .nd { color: #287088 }
@@ -264,7 +271,7 @@ The [markup.highlight] section in site config must declare: noClasses = false
 /* LiteralStringBacktick */ .chroma .sb { color: #b83838 }
 /* LiteralStringChar */ .chroma .sc { color: #a848a8 }
 /* LiteralStringDelimiter */ .chroma .dl { color: #b85820 }
-/* LiteralStringDoc */ .chroma .sd { color: #b85820; }
+/* LiteralStringDoc */ .chroma .sd { color: #b85820; font-style: italic }
 /* LiteralStringDouble */ .chroma .s2 { color: #b83838 }
 /* LiteralStringEscape */ .chroma .se { color: #709030 }
 /* LiteralStringHeredoc */ .chroma .sh { color: #b83838 }
@@ -283,16 +290,16 @@ The [markup.highlight] section in site config must declare: noClasses = false
 /* Operator */ .chroma .o { color: #666666 }
 /* OperatorWord */ .chroma .ow { color: #a848a8 }
 /* Punctuation */ .chroma .p { color: #888888 }
-/* Comment */ .chroma .c { color: #888888; }
-/* CommentHashbang */ .chroma .ch { color: #287088; }
-/* CommentMultiline */ .chroma .cm { color: #888888; }
-/* CommentSingle */ .chroma .c1 { color: #888888; }
-/* CommentSpecial */ .chroma .cs { color: #888888; }
+/* Comment */ .chroma .c { color: #888888; font-style: italic }
+/* CommentHashbang */ .chroma .ch { color: #287088; font-style: italic }
+/* CommentMultiline */ .chroma .cm { color: #888888; font-style: italic }
+/* CommentSingle */ .chroma .c1 { color: #888888; font-style: italic }
+/* CommentSpecial */ .chroma .cs { color: #888888; font-style: italic }
 /* CommentPreproc */ .chroma .cp { color: #289870 }
 /* CommentPreprocFile */ .chroma .cpf { color: #289870 }
 /* Generic */ .chroma .g {  }
 /* GenericDeleted */ .chroma .gd { color: #c02828 }
-/* GenericEmph */ .chroma .ge { }
+/* GenericEmph */ .chroma .ge { font-style: italic }
 /* GenericError */ .chroma .gr { color: #c02828 }
 /* GenericHeading */ .chroma .gh { color: #666666 }
 /* GenericInserted */ .chroma .gi { color: #388038 }
