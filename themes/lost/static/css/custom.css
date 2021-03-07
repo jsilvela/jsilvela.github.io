@@ -207,12 +207,22 @@ ul.tags > li {
 	color: #666;
 }
 
+footer {
+	font-size: 0.8em;
+	font-variation-settings: "opsz" 16;
+}
+
 .footer-link {
 	margin: 2rem 0;
 }
 
 div.posts, div.tags {
 	margin-top: 1.5em;
+}
+
+div.license {
+	font-size: 0.7em;
+	font-variation-settings: "opsz" 12;
 }
 
 hr {
