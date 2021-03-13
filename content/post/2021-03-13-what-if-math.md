@@ -226,7 +226,7 @@ Putting these two motions back together, we get a parabola.
 
 [^1]: the technical details mentioned before may be seen here. If we make
   $latex h = 0$, and we go back to the original fraction
-  $$\frac{d(t_0+0) - d(t0)}{0}$$ ... how do we get around the division by 0?
+  $$\frac{d(t_0+0) - d(t_0)}{0} = \frac{0}{0}$$ ... what does this mean?
   And, are we not getting into Zeno paradox territory here? (yes we are...)
 
 [^2]: in the absence of air resistance
@@ -256,9 +256,10 @@ So, $latex s(t_0+h) < s(t_0)$, so ... **acceleration is negative**.
 At some time $latex t_1$, the shell stops going up, so $latex s(t_1) = 0$.
 What happens next?
 
-Again, acceleration is approximately $$ \frac{s(t1+h) - s(t1)}{h} = \frac{s(t1+h)}{h}$$
+Again, acceleration is approximately
+$$ \frac{s(t_1+h) - s(t_1)}{h} = \frac{s(t_1+h)}{h}$$
 
-So, $latex s(t1+h) \approx a h $ where $latex a$ is acceleration.
+So, $latex s(t_1+h) \approx a h $ where $latex a$ is acceleration.
 
 We said acceleration was negative, and that acceleration was uniform (constant) ... so this really means that the **speed is negative** on the way down.
 
