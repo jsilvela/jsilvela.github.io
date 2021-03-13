@@ -100,7 +100,7 @@ then ..."
 
 A well known bit of basic math is that the lengths of the two smaller sides of a
 triangle generally don't add up to equal the length of the big side. In the case
-of triangles with a straight angle, the Pythagorean theorem applies, but that's
+of triangles with a right angle, the Pythagorean theorem applies, but that's
 about as good as it gets.
 
 ![Triangle with coordinates](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Distance_Formula.svg/300px-Distance_Formula.svg.png)
