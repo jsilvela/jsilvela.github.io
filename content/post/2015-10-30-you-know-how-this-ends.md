@@ -30,10 +30,9 @@ you add a FIX annotation on the source code.
 You get the picture. Inevitably, the next day, or the next week or month,
 something bad will happen. Something will break. And when you’ve gone through
 all the investigation and fixed several bugs, you’ll end up staring back at that
-oddity, which was at the root of everything. There might even be a TODO or FIX
+oddity, which was at the root of everything. There might even be a TO-DO or FIX
 annotation next to it.
 
 And you’ll see it with new eyes. The bug will speak now. “Ah, we meet again!
 We’re not so different, you and I.” And you just know exactly how it’s going to
 end.
-

@@ -77,7 +77,7 @@ add the Totals, and you're done.
 The Romans didn't have negative numbers available. In fact, the negative
 numbers, and zero, [originated in India and China](https://en.wikipedia.org/wiki/Negative_number),
 and were brought to the West
-by the arabs in the middle ages.
+by the Arabs in the middle ages.
 
 ## Coordinates and vectors
 
@@ -147,7 +147,7 @@ Say you're taking a road trip, and your child in the back seat is jotting down
 the mileage markers, and the time, on a sheet of paper, or on a shiny device.
 The trip takes 4 hours, and by the end, you've traveled 200km. So, you did an
 average of 50km/h. Easy. But you know you paused for lunch 40 minutes, and there
-were road-blocks in such a section of the trip, and a traffic jam in another
+were road-blocks in one section of the trip, and a traffic jam in another
 section. So, to get a more detailed idea of your journey, the kid hands you the
 mileage readings and their time.
 
@@ -206,7 +206,7 @@ From our second example, we know that if your speed is growing uniformly with
 time, the distance traveled grows like $latex t^2$.
 
 Uniformly accelerated motion happens all the time to us, due to gravity.
-If you fire a shell from a canon, going back to coordinates and vectors,
+If you fire a shell from a cannon, going back to coordinates and vectors,
 you can study the horizontal motion and the vertical motion of the shell
 independently, and then put them together.
 
@@ -261,10 +261,14 @@ $$ \frac{s(t_1+h) - s(t_1)}{h} = \frac{s(t_1+h)}{h}$$
 
 So, $latex s(t_1+h) \approx a h $ where $latex a$ is acceleration.
 
-We said acceleration was negative, and that acceleration was uniform (constant) ... so this really means that the **speed is negative** on the way down.
+We said acceleration was negative, and that acceleration was uniform (constant)
+... so this really means that the **speed is negative** on the way down.
 
-Here again, the negative numbers simplify our thinking and our computations. If speed up is positive, speed down is negative. And gravity doesn't "decelerate" upward motion but "accelerate" downward motion. Gravity always accelerates motion towards the ground. If upward distances are positive, the acceleration of gravity is negative.
-Let the rules of algebra handle the case analysis.
+Here again, the negative numbers simplify our thinking and our computations. If
+speed up is positive, speed down is negative. And gravity doesn't "decelerate"
+upward motion but "accelerate" downward motion. Gravity always accelerates
+motion towards the ground. If upward distances are positive, the acceleration of
+gravity is negative. Let the rules of algebra handle the case analysis.
 
 ## You can't handle the truth
 
