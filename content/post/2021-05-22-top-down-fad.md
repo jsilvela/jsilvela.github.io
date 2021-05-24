@@ -1,5 +1,5 @@
 +++
-tags = ["coding"]
+tags = ["coding", "commentary"]
 categories = []
 title = "The programmer as a Non-Fungible Artisan"
 date = 2021-05-23T09:29:18+01:00
@@ -92,19 +92,19 @@ buzzword compliance leads to a sense that your hires are fungible. \
 I wonder if the people paying the bills are comforted when told "our engineers
 follow Agile practices and TDD."
 
-I'm dismayed when I see engineers calling for reductive methodologies and use
-them to label themselves and others.
+I'm dismayed when I see engineers calling for reductive methodologies and using
+them as labels to declare who is and who is not "professional."
 
 And I find the dilemma of skilled artist vs. fungible disciplined soldier a false
-one.  There is no reason a skilled system builder should be un-disciplined or
+one.  There is no reason a skilled artisan should be un-disciplined or
 unable to play well with others, any more than there is assurance that a loyal
 practitioner of TDD will write solid code or be the colleague your team needed.
 
 This is all personal, of course. I've met engineers who were fans of Bob Martin,
 for instance. \
-For me, a great recent book on building software is John Ousterhout's
+A recent book I love on building software is John Ousterhout's
 *A Philosophy of Software Design* [^4].
-This is the kind of book you'd take to a desert island to hone your programming.
+This is the kind of book you'd take to a desert island to hone your coding.
 Like good art, it asks more questions than it answers.
 
 [^1]: *Structure and Interpretation of Computer Programs, Second Edition*,
