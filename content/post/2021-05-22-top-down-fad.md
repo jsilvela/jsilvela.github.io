@@ -1,7 +1,7 @@
 +++
 tags = ["coding", "commentary"]
 categories = []
-title = "The programmer as a Non-Fungible Artisan"
+title = "The Programmer as a Non-Fungible Artisan"
 date = 2021-05-23T09:29:18+01:00
 draft = false
 +++
