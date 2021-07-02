@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	A Simple Reusable Scheduler in Go
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2021-05-22-top-down-fad/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>The Programmer as a Non-Fungible Artisan</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/go">
+				go
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/golang">
+				golang
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">A Simple Reusable Scheduler in Go</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2021-05-29">
+					2021, May 29
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<p>Tagline: You (still) don&rsquo;t need a queueing service.</p>
+<p>I recently needed a module that would schedule work for a future time on behalf
+of users, and would execute it at said time. After some thought, I came to an
+easy design that leveraged the Go standard library.</p>
+<p>Some constraints I wanted satisfied:</p>
+<ol>
+<li>The scheduling should be driven from the database (a relational DB in my case.)</li>
+<li>Users should be able to update their desired scheduled times.</li>
+<li>The schedule updates should be picked up regularly, but not necessarily
+to-the-minute. Say, every 15 minutes.</li>
+<li>The starting time of the scheduled work should be honored to the minute.</li>
+</ol>
+<p>These last two items are not in conflict. Think of an airport updating the
+schedule of departures once every hour on the hour, though planes may be slated
+to leave at any time.</p>
+<p>I also didn&rsquo;t want any busy-waiting loops in my design.</p>
+<p>I was confident that leveraging Go&rsquo;s goroutines would make it unnecessary to
+rely on a queueing service plus yet another binary / microservice to deploy.</p>
+<h2 id="representing-future-work">Representing future work</h2>
+<p>Scheduled work is represented using Go&rsquo;s timers.<br>
+Specifically <code>func AfterFunc(d Duration, f func()) *Timer</code> does just
+what we want: after duration <code>d</code>, a goroutine will execute function <code>f</code>.
+Note that the signature <code>func ()</code> is as reusable as could be.</p>
+<p>Since we want to be able to change the scheduled time of a task, we need to
+represent the triggering time too.</p>
+<p>Here is the basic type I defined:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// FutureAction represents some action to be taken
+</span><span class="c1">// at a specified future time
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">FutureAction</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">TriggerTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">Action</span>      <span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Timer</span>
+<span class="p">}</span>
+</code></pre></div><p>With this structure, we can schedule, execute, and delay work.</p>
+<h2 id="scheduling-work">Scheduling work</h2>
+<p>As mentioned at the beginning, the schedule should be driven from the Database,
+so we created a goroutine sitting in a loop, waiting for the tick of a
+<code>time.Ticker</code> to query the database for new tasks or updated execution times.</p>
+<p>The fact that a task has been scheduled should not be written into the Database,
+though, but be kept in memory as part of our scheduler. This makes it much
+easier to reason about crash recovery or process restarts.</p>
+<p>So, our scheduler should do, roughly (in Go-inspired pseudocode):</p>
+<pre><code class="language-pseudocode" data-lang="pseudocode">for {
+  // on new tick from the master Ticker
+  WorkToSchedule ← read work to schedule from the DB
+  for work in WorkToSchedule {
+    if work is overdue {
+      Do work
+    } else if work already scheduled &amp;&amp; new trigger time {
+      Reschedule work
+    } else if work not scheduled {
+      Schedule work
+    }
+  }
+}
+</code></pre><p>The nature of the actual work is not important for the structure of the loop,
+which means that if we represent it in a reusable manner, we have ourselves a
+re-targetable scheduler.</p>
+<p>Go&rsquo;s interfaces are just the thing to use:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Work represents a task that may be
+</span><span class="c1">// done now, or scheduled for later
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Work</span> <span class="kd">interface</span> <span class="p">{</span>
+   <span class="nf">DoIt</span><span class="p">()</span>
+   <span class="nf">ScheduleIt</span><span class="p">()</span>
+   <span class="nf">ResetTimer</span><span class="p">(</span><span class="nx">triggerTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span>
+   <span class="nf">GetTriggerTime</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+   <span class="nf">IsScheduled</span><span class="p">()</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="the-implementation-specific-parts">The implementation specific parts</h2>
+<p>What are the implementation-specific bits of this design?</p>
+<ol>
+<li>The actual work to be performed</li>
+<li>How we find/store <strong>scheduled</strong> work</li>
+</ol>
+<p>As we mentioned before, the fact that some particular task has already been
+scheduled by our scheduler should not be written into the database. Rather, it
+is information that the scheduler should keep.</p>
+<p>Imagine that the work to be done is a wake-up call in a hotel. We should be able
+to check whether <em>Room 121-B</em>’s wake-up call has been scheduled. It makes sense
+for the scheduler to keep a <code>map[string]FutureAction</code> to represent scheduled
+work.</p>
+<p>We could define:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Room</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">PhoneExtension</span> <span class="kt">string</span>
+    <span class="nx">Number</span>         <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="c1">// WakeUpCall is the Work of giving a wake-up call to a room
+</span><span class="c1">//
+</span><span class="c1">// roomRepo is the Room database interface
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">WakeUpCall</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">room</span>          <span class="nx">Room</span>
+    <span class="nx">phoneSchedule</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">FutureAction</span>
+    <span class="nx">phoneService</span>  <span class="nx">services</span><span class="p">.</span><span class="nx">Phone</span>
+    <span class="nx">roomRepo</span>      <span class="nx">room</span><span class="p">.</span><span class="nx">Repository</span>
+<span class="p">}</span>
+</code></pre></div><p>For instance, to implement the <code>IsScheduled</code> method of <code>Work</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">wuc</span> <span class="nx">WakeUpCall</span><span class="p">)</span> <span class="nf">IsScheduled</span><span class="p">()</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">action</span><span class="p">,</span> <span class="nx">found</span> <span class="o">:=</span> <span class="nx">wuc</span><span class="p">.</span><span class="nx">phoneSchedule</span><span class="p">[</span><span class="nx">wuc</span><span class="p">.</span><span class="nx">room</span><span class="p">.</span><span class="nx">Number</span><span class="p">]</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">found</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">{}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">action</span><span class="p">.</span><span class="nx">TriggerTime</span>
+<span class="p">}</span>
+</code></pre></div><p>Performing the Work is easy. We should ensure that once it has been done,
+it is taken out of the schedule.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">wuc</span> <span class="nx">WakeUpCall</span><span class="p">)</span> <span class="nf">DoIt</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">done</span> <span class="o">:=</span> <span class="nx">wuc</span><span class="p">.</span><span class="nx">phoneService</span><span class="p">.</span><span class="nf">WakeUpCall</span><span class="p">(</span><span class="nx">wuc</span><span class="p">.</span><span class="nx">room</span><span class="p">.</span><span class="nx">PhoneExtension</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">done</span> <span class="p">{</span>
+        <span class="nb">delete</span><span class="p">(</span><span class="nx">wuc</span><span class="p">.</span><span class="nx">phoneSchedule</span><span class="p">,</span> <span class="nx">wuc</span><span class="p">.</span><span class="nx">room</span><span class="p">.</span><span class="nx">Number</span><span class="p">)</span>
+        <span class="nx">wuc</span><span class="p">.</span><span class="nx">roomRepo</span><span class="p">.</span><span class="nf">ClearWakeUpCall</span><span class="p">(</span><span class="nx">wuc</span><span class="p">.</span><span class="nx">room</span><span class="p">.</span><span class="nx">Number</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>This design is simple and reusable, as advertised. It can be easily deployed as
+an extra goroutine in your existing service(s).</p>
+<p>It is not trying to solve the issue of scalability; it is not trying to schedule
+work among EC2 instances in a server farm, for example. But it could be a
+starting point for a more scalable design.</p>
+<p>Intentionally, the design does not use queues pub-sub or any such scheme. Those
+are used too often already. It is always a good idea to read
+<a href="https://programmingisterrible.com/post/162346490883/how-do-you-cut-a-monolith-in-half"><em>How do you cut a monolith in half?</em></a></p>
+<blockquote>
+<p>Using a message broker is a tradeoff. Use them freely knowing they work well
+on the edges of your system as buffers.</p>
+</blockquote>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

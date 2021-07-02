@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	SQL is deep - a personal journey
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2020-04-19-safe-go-json/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>Making Go JSON safe (for JavaScript)</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2019-08-15-linux-desktop/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>Linux on the Desktop, n-th try</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/sql">
+				sql
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/database">
+				database
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">SQL is deep - a personal journey</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2019-10-01">
+					2019, October 01
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<p>Some time ago I was trying to advise a junior colleague who said he “knew” SQL:
+SQL is a bit like chess. You can learn the rules quickly; that doesn’t mean you
+know how to play well.</p>
+<p>I love SQL. I’ve been using it professionally since 2005. A great thing about it
+is a counterpoint to the previous remark on depth: you can start getting useful
+and correct results with just a little knowledge.</p>
+<p>For many people, <code>SELECT</code> / <code>WHERE</code> statements are more than enough. The <code>GROUP BY</code> clause gives you a bit more expressive power. Common Table Expressions (the
+<code>WITH</code> statement) will allow you to modularize your queries, and so on and so
+forth.</p>
+<p>I’m not done with my learning, but it’s been enough to make me the go-to guy for
+SQL in some of the places I’ve worked at.<br>
+I thought I might trace my stages of
+learning SQL. I’ve felt my skills revolutionized more times in SQL than in all
+other languages combined.</p>
+<ul>
+<li>
+<p><code>SELECT</code> / <code>JOIN</code> / <code>GROUP BY</code>. 2005. My first few months employed in Wall
+Street, in the now defunct <em>Bear Stearns</em>. I had not taken Databases in
+university, and had almost no exposure to SQL. This thing was fun, and a bit
+tricky to get right. Cool!</p>
+</li>
+<li>
+<p>Views and triggers. At our group in <em>Bear Stearns</em> we had a nightly update of
+of data for all the bonds in our fund. Lots of integrity checks and alert
+conditions managed with triggers. Interesting, though triggers do get overused.</p>
+</li>
+<li>
+<p>Cursors. The Ruby driver for SQL was trying to get all results from the DB at
+once, and things improved so much when I started using cursors for everything.</p>
+</li>
+<li>
+<p>Indexes and <code>EXPLAIN ANALYZE</code>. Wow, indexes make such a difference. And what a
+wonderful way to spend a couple of hours studying performance. B-trees, man,
+B-trees.</p>
+</li>
+<li>
+<p>Transactions: 2010. I knew about transactions but had not had that much of a
+call to use them at Bear. Most of our updates were from a single-thread process.
+At Amazon I led the design of a piece of infrastructure that was used by
+multiple people, with requests that were composed of smaller units. I learned
+the hard way that it is hard to reason about success/failure on composite
+operations without transactions.</p>
+</li>
+<li>
+<p><code>GROUPING SETS</code>, <code>ROLLUP</code>. 2015. At <em>Guy Carpenter</em>, writing software to study
+catastrophe models, I need to populate choice menus with a set of parameters
+that combined into huge data sets. <code>GROUPING SETs</code> allowed me to boil the
+datasets down to these components - How cool is that?</p>
+</li>
+<li>
+<p>PL/pgSQL. Dataset importing into the DB is so much better if you just dump
+your data into an <code>UNLOGGED</code> staging table, and from there on do your
+transformations in SQL or PL/pgSQL, sever-side.</p>
+</li>
+<li>
+<p><code>WITH</code> (aka Common Table Expressions). At Guy Carpenter. Wait, so you can
+modularize your gigantic multi-JOIN SQL query into named parts, and control the
+flow of execution? How did I not know this!</p>
+</li>
+<li>
+<p><em>PostGIS</em>. Wow, a simple extension, and I can compute Gutenberg-Richter curves
+for earthquakes across the whole US in 20-seconds, outperforming several of the
+tools used by the analysts at Guy Carpenter. Thank you <em>Postgres/PostGIS</em>, for
+making me look so good.</p>
+</li>
+<li>
+<p>Recursive CTE’s to handle a graph data structure to represent addresses. This
+might be a crossing of the Rubicon, for me.</p>
+</li>
+<li>
+<p>Window functions, <code>LATERAL JOIN</code>. Woah, these transform some of my clunky SQL
+clauses into short and pithy poems.</p>
+</li>
+<li>
+<p>MySQL procedures. 2019. At <em>Consentio</em>, we use MySQL. Miss PostgreSQL. But,
+server-side procedures work quite well in this thing.</p>
+</li>
+<li>
+<p>Transaction Isolation levels. At Consentio, our parallel test suites were
+running into strange deadlocks where they should not. I read up on Transaction
+Isolation levels in Martin Kleppmann’s great book. MySQL 5.7 does some strange
+stuff to get Repeatable Reads. The whole thing is solved by putting the tests on
+Read-Committed level.</p>
+</li>
+</ul>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

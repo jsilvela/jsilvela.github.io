@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>typography on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/typography/</link>
+    <description>Recent content in typography on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Jan 2021 20:49:18 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/typography/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A few bits about text on screens</title>
+      <link>https://blog.silvela.org/post/2021-01-14-musings/</link>
+      <pubDate>Thu, 14 Jan 2021 20:49:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-01-14-musings/</guid>
+      <description>The madness of font rendering in macOS macOS font rendering is getting worse and worse for non-Retina screens.
+The iPad renders crisp text, so can&amp;rsquo;t comment on iOS/iPadOS, but on my respectable 2560x1440 monitor, using macOS Big Sur, text seemed somewhat fuzzy. To the point where I was thinking I&amp;rsquo;d have to buy a 4K monitor. On Windows and Linux, the same monitor rendered text like a champ, so the problem was not the screen.</description>
+    </item>
+    
+    <item>
+      <title>Coding Comfort</title>
+      <link>https://blog.silvela.org/post/2015-08-14-coding-comfort/</link>
+      <pubDate>Fri, 14 Aug 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-08-14-coding-comfort/</guid>
+      <description>In the last year or so I&amp;rsquo;ve made a number of changes to my coding habits that have had a positive impact on my comfort.
+Touch typing Some years ago, I read Steve Yegge&amp;rsquo;s popular post about touch-typing. His thesis was that good programmers must be fast typists. As with much in his blog, I thought it was self-indulgent crap. If your coding speed is limited by your typing speed, something is very wrong with the way you work.</description>
+    </item>
+    
+    <item>
+      <title>White space in source code, or ditch monospace</title>
+      <link>https://blog.silvela.org/post/2014-10-29-white-space-mono-space/</link>
+      <pubDate>Wed, 29 Oct 2014 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-10-29-white-space-mono-space/</guid>
+      <description>White space is very important for readability in general, and for readability of code in particular. If you look at a book on typography, you’ll see discussions on line spacing, kerning, double spacing and other spatial concerns. For example, check Butterick’s Practical Typography.
+Code is less dense on page than regular prose, but it is very compressed in comparison. Each and every letter and punctuation mark is important, each character must be clearly identifiable.</description>
+    </item>
+    
+    <item>
+      <title>Fonts for coding</title>
+      <link>https://blog.silvela.org/post/2014-10-23-fonts-for-coding/</link>
+      <pubDate>Thu, 23 Oct 2014 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-10-23-fonts-for-coding/</guid>
+      <description>I’ve been on a typography bender lately. This is a quick summary of my findings.
+Size matters Some coders have a bit of a macho attitude about making their coding font as small as possible, on the theory that the more lines of code you fit on a screen, the better. One often sees posts from coders claiming that Monaco, DejaVu, Consolas etc. at 9–10pt is their font of choice.</description>
+    </item>
+    
+    <item>
+      <title>Tabs,  spaces, fonts</title>
+      <link>https://blog.silvela.org/post/2014-08-06-tabs-spaces-fonts/</link>
+      <pubDate>Wed, 06 Aug 2014 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-08-06-tabs-spaces-fonts/</guid>
+      <description>Spaces advantages:
+ read the same everywhere high precision in character placement  Tabs advantages:
+ fewer keystrokes users can tailor display to their liking  Either choice can be defended. They should not be mixed, however, as that destroys the advantages of both.
+Note that if we use proportional fonts, the advantages of spaces disappear. Spaces still give us more precision, but it’s not enough to guarantee proper vertical alignment.</description>
+    </item>
+    
+  </channel>
+</rss>

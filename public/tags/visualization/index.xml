@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>visualization on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/visualization/</link>
+    <description>Recent content in visualization on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 02 Dec 2016 21:45:19 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>D3’s Messy Abstraction Path</title>
+      <link>https://blog.silvela.org/post/d3-messy-abstraction/</link>
+      <pubDate>Fri, 02 Dec 2016 21:45:19 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/d3-messy-abstraction/</guid>
+      <description>D3 is a wonderful idea. A graphing library in Javascript that uses functional programming idioms, outputs SVG and is chock full of contributions from the community. No wonder it’s so popular.
+And yet, D3 code has a tendency to grow unwieldy very quickly. As happens in SQL, the means of abstraction in the language (in our case in the library) are obscure, and details in “normal” code tend to pile up.</description>
+    </item>
+    
+  </channel>
+</rss>

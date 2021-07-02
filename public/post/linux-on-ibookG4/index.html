@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	Linux on the iBook G4
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/software-basics/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>Software Basics - Presentation</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/d3-messy-abstraction/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>D3’s Messy Abstraction Path</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/linux">
+				linux
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Linux on the iBook G4</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2017-01-06">
+					2017, January 06
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<h2 id="installing-debian-jessie-on-an-ibook-g4">Installing Debian Jessie on an iBook G4</h2>
+<p>There is some good information out there, but scattered.  Thought I
+might put something together.</p>
+<h3 id="wireless">Wireless</h3>
+<p>The wireless modules are in the <code>non-free</code> and <code>contrib</code>
+repositories.  You&rsquo;ll have to add them to <code>/etc/apt/sources.list</code>.</p>
+<p>After that, install <code>firmware-b43-installer</code>. After reboot, you
+should see wireless networks being picked up in the network manger.</p>
+<p>References:
+<a href="http://powerpcliberation.blogspot.com.es/2015/04/debian-testing-for-my-ibook-g4.html">Debian Testing on iBook G4</a></p>
+<h3 id="battery-indicator">Battery indicator</h3>
+<p>Add <code>pmu_battery</code> to <code>/etc/modules</code> and reload/reboot.  You
+may need to tweak your desktop or window manager to get a battery
+meter icon displayed.</p>
+<p>References:
+<a href="http://powerpcliberation.blogspot.com.es/2015/04/debian-testing-for-my-ibook-g4.html">Debian Testing on iBook G4</a></p>
+<h3 id="sound">Sound</h3>
+<p>The biggest pain. Debian came with some default configurations that
+need to be unset.</p>
+<ol>
+<li>Delete or comment out <code>snd-powermac</code> from <code>/etc/modules</code>.</li>
+<li>Remove blacklisted lines <code>snd-aoa*</code> from
+<code>/etc/modprobe.d/blacklist.local.conf</code>.</li>
+<li>Reload the modules or reboot.</li>
+<li>Execute <code>alsamixer</code>. Select your soundcard, and ensure the PCM
+and Speaker channels have some volume on them, in addition to
+Master.</li>
+</ol>
+<p>References:
+<a href="https://lists.debian.org/debian-powerpc/2013/02/msg00007.html">Debian mailing list thread</a></p>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

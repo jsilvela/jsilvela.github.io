@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>math on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/math/</link>
+    <description>Recent content in math on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Mar 2021 09:29:18 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>What-if&#39;s in basic Mathematics</title>
+      <link>https://blog.silvela.org/post/2021-03-13-what-if-math/</link>
+      <pubDate>Sat, 13 Mar 2021 09:29:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-03-13-what-if-math/</guid>
+      <description>MathJax = { loader: { load: [&#39;input/tex-base&#39;, &#39;output/svg&#39;, &#39;ui/menu&#39;, &#39;[tex]/require&#39;] }, tex: { packages: [&#39;base&#39;, &#39;require&#39;], inlineMath: [[&#39;$latex&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], } };   Who was the first person to think of eating lobster? Who invented the wheel? Some of the best ideas seem to have come after a simple What-if? moment.
+Some what-if experiments are wayward, and when they work it&amp;rsquo;s just funny.
+Think of Eli Cash, the not-a-genius novelist in The Royal Tenenbaums, who says about his hit novel Old Custer:</description>
+    </item>
+    
+    <item>
+      <title>Polynomials are strange</title>
+      <link>https://blog.silvela.org/post/2021-02-16-polynomials-are-strange/</link>
+      <pubDate>Fri, 19 Feb 2021 20:49:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-02-16-polynomials-are-strange/</guid>
+      <description>MathJax = { loader: { load: [&#39;input/tex-base&#39;, &#39;output/svg&#39;, &#39;ui/menu&#39;, &#39;[tex]/require&#39;] }, tex: { packages: [&#39;base&#39;, &#39;require&#39;], inlineMath: [[&#39;$latex&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], } };   Two-headed things Polynomials are unexpectedly strange. They&amp;rsquo;re familiar from primary school, probably the first functions we study. But start studying abstract algebra or algebraic geometry, and they turn into two-headed beasts.
+In abstract algebra you start to emphasize the algebraic structure of polynomials. You define addition of two polynomials much like you define component-wise addition of vectors.</description>
+    </item>
+    
+    <item>
+      <title>Math year one. Classes</title>
+      <link>https://blog.silvela.org/post/2020-06-14-math-year-one-classes/</link>
+      <pubDate>Sun, 14 Jun 2020 15:49:18 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2020-06-14-math-year-one-classes/</guid>
+      <description>MathJax = { loader: { load: [&#39;input/tex-base&#39;, &#39;output/svg&#39;, &#39;ui/menu&#39;, &#39;[tex]/require&#39;] }, tex: { packages: [&#39;base&#39;, &#39;require&#39;], inlineMath: [[&#39;$latex&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], } };   I’ve started a Master’s degree in Mathematics. This post is a summary of the classes I’ve taken in the prequel year. The 2020 / 2021 session will be &amp;ldquo;the master proper&amp;rdquo;. There’s a higher level post on my personal blog.
+Galois Theory This was my greatest fear and my biggest challenge.</description>
+    </item>
+    
+    <item>
+      <title>Scalar product and direction cosines</title>
+      <link>https://blog.silvela.org/post/2008-12-08-scalar-product-and-direction-cosines/</link>
+      <pubDate>Mon, 08 Dec 2008 09:12:17 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2008-12-08-scalar-product-and-direction-cosines/</guid>
+      <description>MathJax = { loader: { load: [&#39;input/tex-base&#39;, &#39;output/svg&#39;, &#39;ui/menu&#39;, &#39;[tex]/require&#39;] }, tex: { packages: [&#39;base&#39;, &#39;require&#39;], inlineMath: [[&#39;$latex&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], } };   When I learned about the scalar product in high school, I was somewhat surprised by how lucky its properties are.
+The treatment is usually this: define $latex x \cdot y = |x| |y| \cos \theta $, where $latex \theta $ is the angle between $latex x $ and $latex y $.</description>
+    </item>
+    
+    <item>
+      <title>Number of trailing zeros in n factorial</title>
+      <link>https://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</link>
+      <pubDate>Mon, 17 Nov 2008 06:52:29 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</guid>
+      <description>I was asked this question in my first job interview in the US. I was completely unprepared for this type of interview, and I did badly. But it’s a nice problem to think about and it’s easy to solve.
+In case you don’t know, n factorial is the multiplication of all positive integers less than or equal to n. By convention, 0 factorial is taken as 1. The factorial is typically represented with “!</description>
+    </item>
+    
+  </channel>
+</rss>

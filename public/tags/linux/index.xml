@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/linux/</link>
+    <description>Recent content in linux on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 15 Aug 2019 15:45:19 +0200</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux on the Desktop, n-th try</title>
+      <link>https://blog.silvela.org/post/2019-08-15-linux-desktop/</link>
+      <pubDate>Thu, 15 Aug 2019 15:45:19 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2019-08-15-linux-desktop/</guid>
+      <description>I love Linux. I&amp;rsquo;ve been using it at home since 1996 (togeter with macs). How far we&amp;rsquo;ve come in 20+ years.
+Desktop environment I used to be against desktop environments, which I saw as bloated, but since getting a HiDPI laptop in 2015, I have changed my mind. Having services and DPI settings taken care of in one place is too nice to pass up.
+As of mid-August, I have settled on KDE Plasma.</description>
+    </item>
+    
+    <item>
+      <title>Linux on the iBook G4</title>
+      <link>https://blog.silvela.org/post/linux-on-ibookG4/</link>
+      <pubDate>Fri, 06 Jan 2017 21:21:06 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/linux-on-ibookG4/</guid>
+      <description>Installing Debian Jessie on an iBook G4 There is some good information out there, but scattered. Thought I might put something together.
+Wireless The wireless modules are in the non-free and contrib repositories. You&amp;rsquo;ll have to add them to /etc/apt/sources.list.
+After that, install firmware-b43-installer. After reboot, you should see wireless networks being picked up in the network manger.
+References: Debian Testing on iBook G4
+Battery indicator Add pmu_battery to /etc/modules and reload/reboot.</description>
+    </item>
+    
+    <item>
+      <title>Linux on a DELL XPS 13 9350</title>
+      <link>https://blog.silvela.org/post/linux-dell-xps-9350/</link>
+      <pubDate>Mon, 28 Nov 2016 20:41:07 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/linux-dell-xps-9350/</guid>
+      <description>My preferred Linux distro is Debian, but currently, stable won&amp;rsquo;t support the Skybridge chipset. I&amp;rsquo;ll switch to Debian when the new version comes out, but at the moment, Ubuntu 16.04 is fine.
+Installation was easy, after changing a couple of the UEFI settings. Access them by pressing F2 during the boot sequence.
+ Set SATA Operation to Disable, or to AHCI, not RAID On, which came configured on my laptop with Win 10.</description>
+    </item>
+    
+    <item>
+      <title>Xmonad &#43; GNOME</title>
+      <link>https://blog.silvela.org/post/2010-09-19-xmonad-gnome/</link>
+      <pubDate>Sun, 19 Sep 2010 06:07:06 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2010-09-19-xmonad-gnome/</guid>
+      <description>I’m positively impressed with Linux lately, as I learn more.
+By combining the tiling window manager Xmonad with the GNOME environment, I’ve found my favorite windowing system on any platform.
+I used these basic instructions, but configured Xmonad to use the Window key (aka. Super key) as modifier instead of Alt, so that it doesn’t interfere with the Emacs keybindings. This is how it looks.
+ import XMonad import XMonad.Config.Gnome main = xmonad gnomeConfig { modMask = mod4Mask }  </description>
+    </item>
+    
+    <item>
+      <title>Xmonad</title>
+      <link>https://blog.silvela.org/post/2009-08-25-xmonad/</link>
+      <pubDate>Tue, 25 Aug 2009 06:00:14 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2009-08-25-xmonad/</guid>
+      <description>I like Xmonad much better than any other window manager (on any platform), but the default mod key is Alt, which interferes with Emacs and Conkeror.
+Here is how to remap the mod key in Xmonad
+Or, locally copied on Aug 09:
+Binding to the mod4 (often &#39;Win&#39;) key. Put this in yout xmonad.hs:
+ import XMonad main = xmonad defaultConfig { modMask = mod4Mask }  </description>
+    </item>
+    
+  </channel>
+</rss>

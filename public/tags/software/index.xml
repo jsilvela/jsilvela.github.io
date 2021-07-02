@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>software on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/software/</link>
+    <description>Recent content in software on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 29 Nov 2016 16:13:15 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/software/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Peter principle, for software</title>
+      <link>https://blog.silvela.org/post/peter-principle/</link>
+      <pubDate>Tue, 29 Nov 2016 16:13:15 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/peter-principle/</guid>
+      <description>The famous Peter principle lives large for computer programming abstractions.
+It can be in a positive way: operations that are well understood, and routine, are abstracted into a higher level that one must actually think about.
+But very often it&amp;rsquo;s in a pathological way: raising abstraction for the purpose of raising abstraction, until you end up with a pile of abstract spaghetti code, which is even harder to understand than regular spaghetti code.</description>
+    </item>
+    
+    <item>
+      <title>Parnas on software project management</title>
+      <link>https://blog.silvela.org/post/2014-08-06-parnas-on-software-project-management/</link>
+      <pubDate>Wed, 06 Aug 2014 10:54:46 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-08-06-parnas-on-software-project-management/</guid>
+      <description>From Software Fundamentals. Collected Papers by David L. Parnas page 604
+ One of Mills’s most important lessons had to do with the difference between management and engineering. He did not try to tell us how to make unmanageable projects manageable. He showed us how to make projects manageable. He understood that only well-designed and well-documented projects could be managed properly; he taught us how to design products in ways that made management easier.</description>
+    </item>
+    
+  </channel>
+</rss>

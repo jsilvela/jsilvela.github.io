@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vectors on Lost Among Notes</title>
+    <link>https://blog.silvela.org/categories/vectors/</link>
+    <description>Recent content in vectors on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 08 Dec 2008 09:12:17 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/categories/vectors/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Scalar product and direction cosines</title>
+      <link>https://blog.silvela.org/post/2008-12-08-scalar-product-and-direction-cosines/</link>
+      <pubDate>Mon, 08 Dec 2008 09:12:17 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2008-12-08-scalar-product-and-direction-cosines/</guid>
+      <description>MathJax = { loader: { load: [&#39;input/tex-base&#39;, &#39;output/svg&#39;, &#39;ui/menu&#39;, &#39;[tex]/require&#39;] }, tex: { packages: [&#39;base&#39;, &#39;require&#39;], inlineMath: [[&#39;$latex&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], } };   When I learned about the scalar product in high school, I was somewhat surprised by how lucky its properties are.
+The treatment is usually this: define $latex x \cdot y = |x| |y| \cos \theta $, where $latex \theta $ is the angle between $latex x $ and $latex y $.</description>
+    </item>
+    
+  </channel>
+</rss>

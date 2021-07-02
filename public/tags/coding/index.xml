@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>coding on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/coding/</link>
+    <description>Recent content in coding on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 23 May 2021 09:29:18 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/coding/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Programmer as a Non-Fungible Artisan</title>
+      <link>https://blog.silvela.org/post/2021-05-22-top-down-fad/</link>
+      <pubDate>Sun, 23 May 2021 09:29:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-05-22-top-down-fad/</guid>
+      <description>Is it possible that software is not like anything else, that it is meant to be discarded: that the whole point is to always see it as a soap bubble?
+ Alan J. Perlis
+Oh, the fads affecting the practice of programming: I&amp;rsquo;ve witnessed the rise or/and fall of Object-Oriented Design, Patterns, TDD, AOP, &amp;ldquo;scripting languages&amp;rdquo;, JVM, Hadoop, XML/SOAP, REST, etc.
+Probably the original programming fad is Top-Down Design.</description>
+    </item>
+    
+    <item>
+      <title>Presentations, 2017</title>
+      <link>https://blog.silvela.org/post/presentations-2017/</link>
+      <pubDate>Sat, 16 Dec 2017 11:36:11 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/presentations-2017/</guid>
+      <description>In 2017 I gave my first ever talk at a public conference, dotGo in Paris. You can view the video and the slides. I&amp;rsquo;m on youtube, mom!
+I got a speakerdeck account too; here are other presentations.</description>
+    </item>
+    
+    <item>
+      <title>Object Oriented Programming with Go</title>
+      <link>https://blog.silvela.org/post/oo-with-go/</link>
+      <pubDate>Sun, 15 Oct 2017 12:36:26 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/oo-with-go/</guid>
+      <description>A presentation I delivered about the basics of Object Oriented Programming, and why Go is a great language for OO.
+OO with Go</description>
+    </item>
+    
+    <item>
+      <title>Software Basics - Presentation</title>
+      <link>https://blog.silvela.org/post/software-basics/</link>
+      <pubDate>Sun, 15 Oct 2017 12:18:47 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/software-basics/</guid>
+      <description>This is the PDF for a presentation I delivered at work to various engineers and data analysts who write programs as part of their job.
+Software Guidelines</description>
+    </item>
+    
+    <item>
+      <title>You Know How This Ends</title>
+      <link>https://blog.silvela.org/post/2015-10-30-you-know-how-this-ends/</link>
+      <pubDate>Fri, 30 Oct 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-10-30-you-know-how-this-ends/</guid>
+      <description>I’m not much into superhero movies, but there is a particular plot device they use that I find fun: in the typical superhero movie, somewhere in the first half, the hero will get a chance to kill the bad guy, and he will not take it. Maybe he doesn’t yet grasp how dangerous this guy is.
+And you just know there will be a second act where the bad guy will wreak havoc, and then a final act where the hero will kill the villain, or send him to jail so that there can be a sequel.</description>
+    </item>
+    
+    <item>
+      <title>Coding Comfort</title>
+      <link>https://blog.silvela.org/post/2015-08-14-coding-comfort/</link>
+      <pubDate>Fri, 14 Aug 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-08-14-coding-comfort/</guid>
+      <description>In the last year or so I&amp;rsquo;ve made a number of changes to my coding habits that have had a positive impact on my comfort.
+Touch typing Some years ago, I read Steve Yegge&amp;rsquo;s popular post about touch-typing. His thesis was that good programmers must be fast typists. As with much in his blog, I thought it was self-indulgent crap. If your coding speed is limited by your typing speed, something is very wrong with the way you work.</description>
+    </item>
+    
+    <item>
+      <title>It’s all zeros and ones</title>
+      <link>https://blog.silvela.org/post/2015-04-18-zeros-and-ones/</link>
+      <pubDate>Sat, 18 Apr 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-04-18-zeros-and-ones/</guid>
+      <description>That look of half-confusion, half-familiarity, when you tell people you’re a computer programmer. In the popular imagination, we programmers are “good with computers”. Perhaps some think that we have to do math to write programs. Others may have seen movies where the programmer is an over-caffeinated man-boy who types, and switches windows, at ludicrous speed. Of course, we’re all tired of friends asking us to fix their PowerPoint presentation.
+Then there are people with friends or family who program for a living.</description>
+    </item>
+    
+    <item>
+      <title>Living with a computer language</title>
+      <link>https://blog.silvela.org/post/2015-04-18-living-with-a-computer-language/</link>
+      <pubDate>Sat, 18 Apr 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-04-18-living-with-a-computer-language/</guid>
+      <description>I’m not a big fan of David Lean’s movie “Doctor Zhivago”, but it contains a line I love: “He approved of us, but for reasons which were subtle, like his verse.”
+The older I get, the more I become averse to the snap judgements that seem to pervade the software industry. I particularly hate the genre of the shootout article. It’s bad enough for web browser comparisons, but it’s terrible for everything else.</description>
+    </item>
+    
+    <item>
+      <title>White space in source code, or ditch monospace</title>
+      <link>https://blog.silvela.org/post/2014-10-29-white-space-mono-space/</link>
+      <pubDate>Wed, 29 Oct 2014 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-10-29-white-space-mono-space/</guid>
+      <description>White space is very important for readability in general, and for readability of code in particular. If you look at a book on typography, you’ll see discussions on line spacing, kerning, double spacing and other spatial concerns. For example, check Butterick’s Practical Typography.
+Code is less dense on page than regular prose, but it is very compressed in comparison. Each and every letter and punctuation mark is important, each character must be clearly identifiable.</description>
+    </item>
+    
+    <item>
+      <title>Fonts for coding</title>
+      <link>https://blog.silvela.org/post/2014-10-23-fonts-for-coding/</link>
+      <pubDate>Thu, 23 Oct 2014 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-10-23-fonts-for-coding/</guid>
+      <description>I’ve been on a typography bender lately. This is a quick summary of my findings.
+Size matters Some coders have a bit of a macho attitude about making their coding font as small as possible, on the theory that the more lines of code you fit on a screen, the better. One often sees posts from coders claiming that Monaco, DejaVu, Consolas etc. at 9–10pt is their font of choice.</description>
+    </item>
+    
+    <item>
+      <title>Tabs,  spaces, fonts</title>
+      <link>https://blog.silvela.org/post/2014-08-06-tabs-spaces-fonts/</link>
+      <pubDate>Wed, 06 Aug 2014 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-08-06-tabs-spaces-fonts/</guid>
+      <description>Spaces advantages:
+ read the same everywhere high precision in character placement  Tabs advantages:
+ fewer keystrokes users can tailor display to their liking  Either choice can be defended. They should not be mixed, however, as that destroys the advantages of both.
+Note that if we use proportional fonts, the advantages of spaces disappear. Spaces still give us more precision, but it’s not enough to guarantee proper vertical alignment.</description>
+    </item>
+    
+    <item>
+      <title>Number of trailing zeros in n factorial</title>
+      <link>https://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</link>
+      <pubDate>Mon, 17 Nov 2008 06:52:29 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</guid>
+      <description>I was asked this question in my first job interview in the US. I was completely unprepared for this type of interview, and I did badly. But it’s a nice problem to think about and it’s easy to solve.
+In case you don’t know, n factorial is the multiplication of all positive integers less than or equal to n. By convention, 0 factorial is taken as 1. The factorial is typically represented with “!</description>
+    </item>
+    
+  </channel>
+</rss>

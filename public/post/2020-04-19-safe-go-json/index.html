@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	Making Go JSON safe (for JavaScript)
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2020-04-19-opinions-matter/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>Opinions matter</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2019-09-30-sql-is-deep/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>SQL is deep - a personal journey</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/golang">
+				golang
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/go">
+				go
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/javascript">
+				javascript
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Making Go JSON safe (for JavaScript)</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2020-04-19">
+					2020, April 19
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<p>Go has many things going for it. The marshalling package is generally one of
+them. Very well thought out and easy to use.</p>
+<p>This package holds a surprise, though, when shipping JSON to software built with
+other languages: nil Go slices marshal to <code>null</code> rather than the empty array
+<code>[]</code>, and nil maps marshal to <code>null</code> rather than the empty map <code>{}</code>.</p>
+<p>These are not bugs. Indeed, in Go, <code>nil</code> is the zero value for slices as well as
+for maps. They&rsquo;re reference types, pointer-like, and <code>null</code> is the right choice
+to encode <code>nil</code>.</p>
+<p>If you&rsquo;re shipping JSON back and forth between two Go programs, the <code>null</code>s for
+empty slices or maps are perfectly reasonable.</p>
+<p>However, those <code>null</code>s wreak havoc on, say, your JavaScript frontend code
+expecting an empty array. It&rsquo;s not JavaScript&rsquo;s responsibility to know that
+slices and maps are reference types in Go.</p>
+<p>My team at work was stumped by this. Now and then, a <code>null</code> array would break
+our JavaScript. We tried a few approaches which were complex and incomplete.</p>
+<p>However, there is a very simple solution: we can define a custom marshaler for
+any type we&rsquo;re interested in marshalling for JavaScript.</p>
+<p>So let&rsquo;s say we have a <code>type Product struct {...}</code> and we want to marshal a
+slice of <code>Product</code> safely.</p>
+<ol>
+<li>Define a type for the slice: <code>type Products []Product</code></li>
+<li>Write a custom marshaler for the new type (<code>Products</code>), like so:</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">ps</span> <span class="nx">Products</span><span class="p">)</span> <span class="nf">MarshalJSON</span><span class="p">()</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">ps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nx">empty</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">Product</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">empty</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">([]</span><span class="nf">Product</span><span class="p">(</span><span class="nx">ps</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div><p>Note that the marshaler for <code>Products</code> dispatches to the default marshaler for
+slices of <code>Product</code>.  If you did <code>json.Marshal(ps)</code> you&rsquo;d have an infinite loop!</p>
+<p>You can verify:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">safeEmpty</span> <span class="nx">Products</span>
+<span class="nx">safeJSON</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">safeEmpty</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">safeJSON</span><span class="p">))</span> <span class="c1">// =&gt; []
+</span></code></pre></div><p>For maps, the story is exactly the same:</p>
+<ol>
+<li>Define a type for your map - say <code>map[string]Client</code></li>
+<li>Write a custom <code>MarshalJSON()</code> that handles <code>nil</code> separately</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Phonebook</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Client</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">pb</span> <span class="nx">Phonebook</span><span class="p">)</span> <span class="nf">MarshalJSON</span><span class="p">()</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">pb</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">empty</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Client</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">empty</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nf">Client</span><span class="p">(</span><span class="nx">pb</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	Linux on the Desktop, n-th try
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2019-09-30-sql-is-deep/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>SQL is deep - a personal journey</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2019-07-27-security/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>Improving net privacy</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/linux">
+				linux
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Linux on the Desktop, n-th try</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2019-08-15">
+					2019, August 15
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<p>I love Linux. I&rsquo;ve been using it at home since 1996 (togeter with macs).
+How far we&rsquo;ve come in 20+ years.</p>
+<h2 id="desktop-environment">Desktop environment</h2>
+<p>I used to be against desktop environments, which I saw as bloated, but since getting
+a HiDPI laptop in 2015, I have changed my mind. Having services and DPI
+settings taken care of in one place is too nice to pass up.</p>
+<p>As of mid-August, I have settled on KDE Plasma. I&rsquo;m running Debian 10 Buster at home
+and at work.<br>
+I find KDE very polished, and in some ways I like the UX better than mac or windows. The
+font smoothing and rendering is great.<br>
+In others areas it needs work, and in particlular, it lacks a per-monitor DPI/scale setting.</p>
+<h2 id="firmware-upgrades">Firmware upgrades</h2>
+<p>As I was having some issues with my home laptop, I looked at its firmware/BIOS, and noticed
+the firmware was out of date.</p>
+<p>I was about to follow instructions on installation, and I saw references to
+<a href="https://fwupd.org/">Linux Vendor Firmware Service</a>, and how it automates
+upgrades via the
+<a href="https://wiki.archlinux.org/index.php/Fwupd#Setup_for_UEFI_BIOS_upgrade"><code>fwupd</code> daemon</a>.</p>
+<p>My computer was supported by this magic.
+All I had to do was install <code>fwupd</code>, get a listing of devices (<code>fwupdmgr get-devices</code>),
+which listed my BIOS, and unlock it (<code>fwupdmgr unlock &lt;device-id&gt;</code>),
+then do <code>fwupdmgr update</code>.</p>
+<p>This is an enormous improvement over messing with FAT32-formatted USB thumb-drives.</p>
+<h2 id="current-issues-with-wifi">Current issues with wifi</h2>
+<p>At the moment, my personal laptop, a
+<a href="https://wiki.archlinux.org/index.php/Dell_XPS_13_(9350)">Dell XPS 13 9350</a>,
+is having problems with the wifi card driver. After some time, becomes unresponsive.</p>
+<p>When that happens, this has been happening on <code>systemd</code>:</p>
+<pre><code class="language-log" data-lang="log">[...] kernel: brcmfmac: brcmf_msgbuf_get_pktid: Invalid packet id 588 (not in use)
+[...] kernel: brcmfmac: brcmf_msgbuf_get_pktid: Invalid packet id 294 (not in use)
+[...] kernel: brcmfmac: brcmf_msgbuf_get_pktid: Invalid packet id 579 (not in use)
+[...] kernel: brcmfmac: brcmf_msgbuf_get_pktid: Invalid packet id 337 (not in use)
+[...] kernel: brcmfmac: brcmf_msgbuf_query_dcmd: Timeout on response for query command
+[...] kernel: brcmfmac: brcmf_cfg80211_get_station: GET STA INFO failed, -5
+[...] kernel: brcmfmac: brcmf_msgbuf_query_dcmd: Timeout on response for query command
+[...] kernel: brcmfmac: brcmf_msgbuf_query_dcmd: Timeout on response for query command
+[...] kernel: brcmfmac: brcmf_cfg80211_get_station: GET STA INFO failed, -5
+...
+...
+[...] kernel: brcmfmac: brcmf_msgbuf_tx_ioctl: Failed to reserve space in commonring
+[...] kernel: brcmfmac: brcmf_run_escan: error (-12)
+[...] kernel: brcmfmac: brcmf_cfg80211_scan: scan error (-12)
+[...] kernel: brcmfmac: brcmf_msgbuf_tx_ioctl: Failed to reserve space in commonring
+[...] kernel: brcmfmac: brcmf_run_escan: error (-12)
+[...] kernel: brcmfmac: brcmf_cfg80211_scan: scan error (-12)
+[...] kernel: brcmfmac: brcmf_msgbuf_tx_ioctl: Failed to reserve space in commonring
+[...] kernel: brcmfmac: brcmf_run_escan: error (-12)
+</code></pre><p>(get the above from <code>sudo journalctl -k -f | grep -i brcmfmac</code>)</p>
+<p>The issue has been reported already.</p>
+<ul>
+<li><a href="https://bbs.archlinux.org/viewtopic.php?id=242382">Archlinux on XPS 13 wifi</a></li>
+<li><a href="https://bugzilla.kernel.org/show_bug.cgi?id=201853">Linux kernel bug</a></li>
+</ul>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

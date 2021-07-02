@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sql on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/sql/</link>
+    <description>Recent content in sql on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2021 09:49:18 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go tests and MySQL Transactions</title>
+      <link>https://blog.silvela.org/post/2021-02-21-go-transaction-isolation/</link>
+      <pubDate>Sun, 21 Feb 2021 09:49:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-02-21-go-transaction-isolation/</guid>
+      <description>Parallel testing Go has good tooling for testing out of the box. To increase speed, it generally runs tests in parallel.
+At work, we noticed that with our growing codebase, our test suite would sometimes have failed tests due to database deadlocks. Rerunning the failed tests would fix this, and it wasn&amp;rsquo;t happening that often anyway, so we didn&amp;rsquo;t worry too much.
+Database deadlocks are not as bad as they sound, and databases have a good way of dealing with them.</description>
+    </item>
+    
+    <item>
+      <title>SQL is deep - a personal journey</title>
+      <link>https://blog.silvela.org/post/2019-09-30-sql-is-deep/</link>
+      <pubDate>Tue, 01 Oct 2019 09:58:11 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2019-09-30-sql-is-deep/</guid>
+      <description>Some time ago I was trying to advise a junior colleague who said he “knew” SQL: SQL is a bit like chess. You can learn the rules quickly; that doesn’t mean you know how to play well.
+I love SQL. I’ve been using it professionally since 2005. A great thing about it is a counterpoint to the previous remark on depth: you can start getting useful and correct results with just a little knowledge.</description>
+    </item>
+    
+    <item>
+      <title>SQL over time, or, Ditch your ORM</title>
+      <link>https://blog.silvela.org/post/2018-08-05-sql-over-time/</link>
+      <pubDate>Tue, 25 Sep 2018 01:36:11 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2018-08-05-sql-over-time/</guid>
+      <description>Here I&amp;rsquo;m telling a story of PostgreSQL performance over time, and the point of it, for me, is that given the richness of SQL, and the steady improvement of implementations, it is foolish to trust your querying to an ORM. SQL is very much worth learning, and learning well. There are many gains to be made, in efficiency and in code quality.
+ Years ago, I worked at a financial firm in New York City.</description>
+    </item>
+    
+  </channel>
+</rss>

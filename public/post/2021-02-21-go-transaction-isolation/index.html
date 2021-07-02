@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	Go tests and MySQL Transactions
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2021-03-13-what-if-math/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>What-if&#39;s in basic Mathematics</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2021-02-16-polynomials-are-strange/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>Polynomials are strange</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/go">
+				go
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/golang">
+				golang
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/sql">
+				sql
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/database">
+				database
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Go tests and MySQL Transactions</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2021-02-21">
+					2021, February 21
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<h2 id="parallel-testing">Parallel testing</h2>
+<p>Go has good tooling for testing out of the box. To increase speed, it generally
+runs tests in parallel.</p>
+<p>At work, we noticed that with our growing codebase, our test suite would sometimes
+have failed tests due to database deadlocks. Rerunning the failed tests
+would fix this, and it wasn&rsquo;t happening that often anyway, so we didn&rsquo;t worry
+too much.</p>
+<p>Database deadlocks are not as bad as they sound, and databases have a good way
+of dealing with them.</p>
+<p>But the problem started to happen more and more, so we decided to investigate.
+We were able to locate a single unit test that, if run in parallel with
+itself, would lead to deadlock. Pretty unexpected.</p>
+<p>Now a brief aside: in a database, for data integrity, each single datum is
+protected against simultaneous modification by two parties (processes).
+Think of a bank account: if both you and your partner try to withdraw money
+from your joint account at the same time, the final account balance needs to
+make sense, with no money created or destroyed.</p>
+<p>Databases deal with this all the time, with the help of <strong>Transactions</strong>,
+constructs which
+allow us to aggregate a collection of operations we want to perform, and ensure
+that either they all succeed, or they all get “rolled back”.
+A transaction might be: <em>read the current balance from account A,
+subtract X from it, add X to account B</em>.
+You clearly don’t want this process to be half-done.</p>
+<p>Deadlocks can happen in certain cases when two parties (transactions) both want
+to modify two or more pieces of shared data at the same time.
+Again, databases can cope well, and can enforce that the data remain consistent.</p>
+<p>Back to our tests. As mentioned, there was a test that would lead to deadlocks
+when run in parallel with itself. It looked something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">Create an Organization object, org1, with a set of images
+begin database transaction:
+    1. store org1 in the Database
+    2. delete any images in the DB associated with org1
+    3. for each image of org1, store it in the Database
+end transaction
+Verify org1 can be retrieved from the Database
+</code></pre></div><p>When this test runs in parallel with itself, it means two processes each create a
+fake organization and store it in the Database using a transaction.</p>
+<p>We said</p>
+<blockquote>
+<p>Deadlocks can happen in certain cases when two parties both want to
+modify two or more pieces of data at the same time.</p>
+</blockquote>
+<p>However, in our case, each process will create <strong>a different</strong>
+fake organization in the database. Why were they colliding?</p>
+<h2 id="mysql-transaction-isolation-levels">MySQL Transaction Isolation Levels</h2>
+<p>It turns out that the Transactions used most of the time in databases are not
+perfect. Perfect transactions would not be affected by any other transaction
+running concurrently.
+Perfect transactions do exist, but are very expensive to compute, so databases
+offer Transactions that are faster to compute, and are quite good, not perfect.
+In fact, databases offer several levels of <strong>Transaction Isolation</strong> with different
+cost–quality tradeoffs.</p>
+<p>Our database, <em>MySQL</em>, uses <strong>Repeatable Read</strong> Transactions by default, unless
+explicitly asked for some other type. MySQL produces Transactions by locking,
+in comparison with <em>PostgreSQL</em>, which uses <em>Optimistic Concurrency</em>.
+In order to offer Repeatable Read with locks, MySQL deploys <em>next-key locks</em> and
+<em>gap locks</em>, when a query does not identify a single
+row by <strong>unique</strong> index. See the
+<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html">MySQL documentation.</a></p>
+<p>In our case, in step 2 of the transaction, MySQL was putting a lock on the
+<code>organization_images</code> table, for the <code>organization_id</code> from the DB that we got
+in step 1. It was also locking adjacent rows with gap locks.</p>
+<p>So, when two test processes, say A and B, run in parallel, in step 2, to delete rows,
+A puts a lock on the <code>organization_images</code> table, for <code>organization_id</code>, say 245.
+On Repeatable Read, this means it will hold gap locks for neighboring indexes.
+Process B creates <code>organization_id</code> 246, tries to delete
+the associated images in <code>organization_images</code> and places gap locks on neighbors.
+Meanwhile, process A gets to step 3, and it can&rsquo;t progress because process B
+holds a gap lock, while B itself can&rsquo;t progress because of A&rsquo;s gap lock &hellip;
+and that is how deadlock is reached.</p>
+<p>Databases can detect a deadlock and will reject the transaction
+that took the database into this state. Data will not be corrupted.</p>
+<p>But our test suite was becoming more and more prone to deadlock failures.<br>
+We changed our test suite to use an isolation level of <strong>Read Committed</strong>
+that doesn&rsquo;t use next-key locks, and all our issues disappeared.</p>
+<p>NOTE: Read Committed transactions in MySQL may suffer from
+<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-next-key-locking.html">Phantom Rows,</a>
+so while we used this level for unit tests, running code was kept at the default
+Repeatable Read level.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Having our tests run in parallel uncovered a rather involved issue with
+our database implementation.</p>
+<p>And that&rsquo;s a good thing. The more similar our test environment is to real
+life, the better. Headaches during testing are better than headaches
+in production.</p>
+<p>The concept of transactions, and its practical implementation in databases, is
+a fascinating topic. The book
+<a href="https://dataintensive.net/"><em>Designing Data-Intensive Applications</em>,</a>
+by <a href="https://martin.kleppmann.com/">Martin Kleppmann</a>
+is a great introduction.</p>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

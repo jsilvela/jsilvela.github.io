@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	A few bits about text on screens
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2021-02-16-polynomials-are-strange/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>Polynomials are strange</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2020-06-14-math-year-one-classes/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>Math year one. Classes</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/commentary">
+				commentary
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/typography">
+				typography
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">A few bits about text on screens</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2021-01-14">
+					2021, January 14
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<h2 id="the-madness-of-font-rendering-in-macos">The madness of font rendering in macOS</h2>
+<p><em>macOS</em> font rendering is getting worse and worse for non-Retina screens.</p>
+<p>The iPad renders crisp text, so can&rsquo;t comment on <em>iOS/iPadOS</em>, but on my
+respectable 2560x1440 monitor, using <em>macOS Big Sur</em>, text seemed somewhat fuzzy. To the
+point where I was thinking I&rsquo;d have to buy a 4K monitor. On Windows and Linux,
+the same monitor rendered text like a champ, so the problem was not
+the screen.</p>
+<p>Apple have been gradually dropping the smoothing configuration
+options they used to offer, and now they
+offer none. It seems they expect everyone to have 4K screens.
+See the <a href="https://arstechnica.com/features/2018/09/macos-10-14-mojave-the-ars-technica-review/12/#h3">ArsTechnica article.</a></p>
+<p>You can find some command-line hacks to tweak
+the font smoothing to work better for low-mid resolutions,
+but hacks like that are bound to be dropped silently, sooner rather
+than later.</p>
+<p>There is good material in the web about the various forms of text anti-aliasing,
+and their use in different operating systems.
+I recommend <a href="https://www.smashingmagazine.com/2009/11/the-ails-of-typographic-anti-aliasing/">The Ails of Typographic Anti-Aliasing.</a></p>
+<p>The article mentions that the <strong>Firefox</strong>
+browser handles rendering itself, rather than use the OS&rsquo;s directly,
+in an effort to render text sharper. And to
+my eyes, the <strong>Visual Studio Code</strong> editor renders a bit better than <strong>XCode</strong>
+or <strong>BBEdit</strong>.</p>
+<p>Aside from hunting for programs that subvert macOS, you may want to try out
+different fonts at different weights. Some font combinations render very well.
+Which brings me to:</p>
+<h2 id="monospaced-fonts-i-recommend">Monospaced fonts I recommend</h2>
+<p>Font choice is personal, but you should watch for a couple of font
+characteristics that affect how well it renders on screen.</p>
+<p><strong>Color/Thickness.</strong> Some fonts are thicker/darker, some thinner/lighter.
+For example, <em>Consolas</em> is on the
+thick side, <em>IBM Plex Mono</em> is light. Aside from your personal
+taste, thinner fonts may render better in software like Safari or, generally,
+<em>macOS</em>, whereas Windows tends to thin fonts, so light fonts may appear
+washed out. Not all programs in the same computer render text the same.</p>
+<p><strong>Letter-spacing and rhythm.</strong> The fixed width corset forces the strokes
+to be thin and spidery in many designs. There&rsquo;s an inherent waste of space when
+the letters <code>i</code> and <code>m</code> are allocated the same width,
+and some font designs combat this by stretching
+the letterforms to the max, leaving little space between letters, while others
+embrace the irregular spacing.<br>
+Aside from taste, font rendering may alter the spacing of letterforms. On some
+programs or systems, a particular font may become crowded or spacey.<br>
+In my experience, relaxed letter-spacing makes for more comfortable reading.</p>
+<p>Given the variety of screens, resolutions, operating systems, and rendering
+tweaks, it&rsquo;s good that we have several good fonts to choose from.</p>
+<p>My personal favorites offer various weights, and relaxed letter-spacing. And
+they render well on mac, even with a non-retina display.</p>
+<p>Commercial</p>
+<ul>
+<li><a href="https://commercialtype.com/catalog/atlas_typewriter/">Atlas Typewriter</a> - based
+on the grotesque model, like <em>Helvetica</em>. Just right, clean, understated.</li>
+<li><a href="https://www.lucasfonts.com/fonts/the-sans-mono">TheSansMono</a> - lots of weights.
+Relaxed letter-spacing. From the same designer as
+<a href="https://docs.microsoft.com/en-us/typography/font-list/consolas">Consolas</a>,
+which it resembles, but with wider spacing and more weights available.
+<em>Consolas</em>, which is an excellent monospaced font, perhaps the best, renders a
+bit fuzzy on the mac. Shame on <em>macOS</em>.</li>
+<li><a href="https://bboxtype.com/typefaces/Gintronic/">Gintronic</a> - wide letter-spacing.
+A total rethink of what a coding font should be. Every character is distinct
+and calls for attention.</li>
+</ul>
+<p>Free</p>
+<ul>
+<li><a href="https://fonts.google.com/specimen/Roboto+Mono">Roboto Mono</a> - lots of weights,
+relaxed letter-spacing. Clean.<br>
+Roboto is, like <em>Atlas Typewriter</em> and Apple&rsquo;s <a href="https://developer.apple.com/fonts/"><em>San Francisco,</em></a>
+a grotesque. Of the three, <em>SF Mono</em> is my least favorite, but
+it renders extremely well on <em>macOS</em>.</li>
+<li><a href="https://bboxtype.com/typefaces/FiraMono/">Fira Mono</a> -
+light. Relaxed letter-spacing. No italics.</li>
+<li><a href="https://input.fontbureau.com/">Input</a> - lots of weights. Relaxed letter-spacing.
+A large family of fonts designed specifically for coding.</li>
+</ul>
+<h2 id="configuration-is-for-suckers">Configuration is for suckers</h2>
+<p>I used to keep my configuration files for Emacs, and for various Linux window
+managers, and carried them with me, like a turtle.
+That was foolish. I have mended my ways.</p>
+<p>Today, on the various text editors I use, I just configure font and size, and a few
+other prominent adjustments.
+On Linux I use desktop environments, and barely configure them.</p>
+<p>Linux is still a bit behind on support for HiDPI and switching between resolutions.
+Some programs respect GNOME&rsquo;s settings, some don&rsquo;t.
+Still, how far we&rsquo;ve come.</p>
+<p>I have come to think that a tell-tale sign of poor design is the over-abundance
+of configuration options.</p>
+<h2 id="the-16px-standard-for-web-and-bless-the-ipad">The 16px standard for web, and, Bless the iPad</h2>
+<p>As a gentleman website-owner, I&rsquo;m aware of the difficulty designing web pages. You
+cannot know where your pages are going to be read. Font size, in particular, is maddening:
+you might think that setting your font size in terms of percentages or <em>ems</em> will
+ensure good rendering in most conditions, but I don&rsquo;t recommend it.</p>
+<p>For some strange reason, 16px has become the baseline of font sizes on the web. Phones,
+tablets, laptops: they all try to ensure 16px size is readable on their screens.
+Desktop computers, what with the variety of screen sizes, resolutions,
+scaling settings, are chaos.</p>
+<p>But today, most good web designers will try to make sure their site renders well
+on iPads.</p>
+<p>iPads have an interesting feature. Since we hold them at book distance, we get
+a better idea of the size of text on them.</p>
+<p>And, here&rsquo;s the thing, 16px is small. Like 9pt, text in 16px is readable, but
+not as comfortably readable as text set in 10pt or 11pt.</p>
+<p>For comfortable reading on web, choose 18-22px.</p>
+<p>The iPad may help you realize that you are, likely, reading text on your
+computer screens at very small sizes.</p>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

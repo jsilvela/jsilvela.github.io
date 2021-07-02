@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	SQL over time, or, Ditch your ORM
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2018-08-25-musings-first/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>Musings, the first of many</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/presentations-2017/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>Presentations, 2017</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/sql">
+				sql
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/database">
+				database
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">SQL over time, or, Ditch your ORM</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2018-09-25">
+					2018, September 25
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<p>Here I&rsquo;m telling a story of PostgreSQL performance over time, and the point
+of it, for me, is that given the richness of SQL, and the steady improvement of
+implementations, it is foolish
+to trust your querying to an ORM.
+SQL is very much worth learning, and learning
+well. There are many gains to be made, in efficiency and in code quality.</p>
+<hr>
+<p>Years ago, I worked at a financial firm in New York City. The system we were
+building had a Postgres database — version 8, I think.</p>
+<p>There was a particular situation that made many of our queries slow:
+we had a large
+pool of bonds, each of which would be updated, often daily, with new <em>factors</em>.
+We held all bond  factors in one table, which was append-only,
+i.e. we did not <code>UPDATE</code> or <code>DELETE</code>,
+we only added new factors. This is generally good design, and especially so in
+contexts like the financial industry that may be audited, and held to the
+Sarbanes-Oxley act.</p>
+<p>We often needed to know the most recent factor for each of our bonds.
+Conceptually, this involved some kind of a self-join.</p>
+<p>First, let’s create a dummy table for our data, with daily factors for
+5000 bonds over 5 years, which I think gives an idea of our old work set:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">factors</span> <span class="k">as</span>
+<span class="k">with</span> <span class="n">dates</span> <span class="k">as</span> <span class="p">(</span>
+      <span class="k">SELECT</span> <span class="n">generate_series</span> <span class="k">as</span> <span class="nb">date</span>
+      <span class="k">FROM</span> <span class="n">generate_series</span><span class="p">(</span><span class="s1">&#39;2013-01-01 00:00&#39;</span><span class="p">::</span><span class="k">timestamp</span><span class="p">,</span>
+            <span class="s1">&#39;2018-01-01 00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;24 hours&#39;</span><span class="p">)</span>
+<span class="p">),</span> <span class="n">bonds</span> <span class="k">as</span> <span class="p">(</span>
+      <span class="k">select</span> <span class="s1">&#39;bn_&#39;</span> <span class="o">||</span> <span class="n">generate_series</span> <span class="k">as</span> <span class="n">bond</span>
+      <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="k">select</span> <span class="n">bond</span><span class="p">,</span> <span class="nb">date</span><span class="p">,</span> <span class="n">random</span><span class="p">()</span> <span class="k">as</span> <span class="n">factor</span>
+<span class="k">from</span> <span class="n">bonds</span> <span class="k">cross</span> <span class="k">join</span> <span class="n">dates</span><span class="p">;</span>
+</code></pre></div><p>To get the latest factor, we can think of first getting the latest time
+each bond was updated:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">bond</span><span class="p">,</span> <span class="k">max</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span> <span class="k">as</span> <span class="nb">date</span>
+<span class="k">from</span> <span class="n">factors</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">bond</span><span class="p">;</span>
+</code></pre></div><p>Unfortunately, we can’t get the factor from the same row
+that had the <code>max date</code>.
+We need an extra join:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">bond</span><span class="p">,</span> <span class="nb">date</span><span class="p">,</span> <span class="n">factor</span>
+<span class="k">from</span> <span class="p">(</span>
+      <span class="k">select</span> <span class="n">bond</span><span class="p">,</span> <span class="k">max</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span> <span class="k">as</span> <span class="nb">date</span>
+      <span class="k">from</span> <span class="n">factors</span>
+      <span class="k">group</span> <span class="k">by</span> <span class="n">bond</span>
+<span class="p">)</span> <span class="n">latest</span>
+<span class="k">join</span> <span class="n">factors</span> <span class="k">using</span> <span class="p">(</span><span class="n">bond</span><span class="p">,</span> <span class="nb">date</span><span class="p">);</span>
+</code></pre></div><p>Let’s do an <code>explain analyze</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">Hash</span> <span class="k">Join</span>  <span class="p">(</span><span class="n">cost</span><span class="o">=</span><span class="mi">535294</span><span class="p">.</span><span class="mi">32</span><span class="p">..</span><span class="mi">668778</span><span class="p">.</span><span class="mi">20</span> <span class="k">rows</span><span class="o">=</span><span class="mi">5000</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span> <span class="p">[...]</span>
+<span class="n">Hash</span> <span class="n">Cond</span><span class="p">:</span> <span class="p">((</span><span class="n">factors_1</span><span class="p">.</span><span class="n">bond</span> <span class="o">=</span> <span class="n">factors</span><span class="p">.</span><span class="n">bond</span><span class="p">)</span> <span class="k">AND</span>  <span class="p">[...]</span>
+<span class="o">-&gt;</span>  <span class="n">HashAggregate</span>  <span class="p">(</span><span class="n">cost</span><span class="o">=</span><span class="mi">195209</span><span class="p">.</span><span class="mi">37</span><span class="p">..</span><span class="mi">195259</span><span class="p">.</span><span class="mi">25</span> <span class="k">rows</span><span class="o">=</span><span class="mi">4988</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span> <span class="p">[...]</span>
+      <span class="k">Group</span> <span class="k">Key</span><span class="p">:</span> <span class="n">factors_1</span><span class="p">.</span><span class="n">bond</span>
+      <span class="o">-&gt;</span>  <span class="n">Seq</span> <span class="n">Scan</span> <span class="k">on</span> <span class="n">factors</span> <span class="n">factors_1</span>   <span class="p">[...]</span>
+<span class="o">-&gt;</span>  <span class="n">Hash</span>  <span class="p">(</span><span class="n">cost</span><span class="o">=</span><span class="mi">149534</span><span class="p">.</span><span class="mi">58</span><span class="p">..</span><span class="mi">149534</span><span class="p">.</span><span class="mi">58</span> <span class="k">rows</span><span class="o">=</span><span class="mi">9134958</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>  <span class="p">[...]</span>
+      <span class="n">Buckets</span><span class="p">:</span> <span class="mi">65536</span>  <span class="n">Batches</span><span class="p">:</span> <span class="mi">256</span>  <span class="n">Memory</span> <span class="k">Usage</span><span class="p">:</span> <span class="mi">2456</span><span class="n">kB</span>
+      <span class="o">-&gt;</span>  <span class="n">Seq</span> <span class="n">Scan</span> <span class="k">on</span> <span class="n">factors</span>  <span class="p">[...]</span>
+<span class="n">Planning</span> <span class="n">time</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">516</span> <span class="n">ms</span>
+<span class="n">Execution</span> <span class="n">time</span><span class="p">:</span> <span class="mi">6432</span><span class="p">.</span><span class="mi">132</span> <span class="n">ms</span>
+</code></pre></div><p>This was a core query for us — many queries depended on the latest value of
+our bonds. My friend Tom and I would agonize over how this operation slowed
+down all else. We had a system of triggers and keys that didn’t work too
+well. Materialized views were still years away.</p>
+<p>The above query time of 6 seconds is on better hardware, and way more RAM than
+we had available in 2005, and also, on a more modern version of Postgres (9.6).
+So, the core query, which was a subquery in many other queries, would compound,
+and we ended with multi-minute queries.</p>
+<p>We wanted to do better, and Tom found some advice to use another query,
+which both of us found un-intuitive:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">f1</span><span class="p">.</span><span class="n">bond</span><span class="p">,</span> <span class="n">f1</span><span class="p">.</span><span class="nb">date</span><span class="p">,</span> <span class="n">f1</span><span class="p">.</span><span class="n">factor</span>
+<span class="k">from</span> <span class="n">factors</span> <span class="n">f1</span>
+<span class="k">left</span> <span class="k">join</span> <span class="n">factors</span> <span class="n">f2</span> <span class="k">on</span> <span class="n">f1</span><span class="p">.</span><span class="n">bond</span> <span class="o">=</span> <span class="n">f2</span><span class="p">.</span><span class="n">bond</span> <span class="k">and</span> <span class="n">f1</span><span class="p">.</span><span class="nb">date</span> <span class="o">&lt;</span> <span class="n">f2</span><span class="p">.</span><span class="nb">date</span>
+<span class="k">where</span> <span class="n">f2</span><span class="p">.</span><span class="nb">date</span> <span class="k">is</span> <span class="k">NULL</span><span class="p">;</span>
+</code></pre></div><p>The query was better than our first try, by quite a bit. We ended up using
+that self-join idiom whenever we had time-series, which was often.</p>
+<p>Let’s <code>explain analyze</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">Hash</span> <span class="n">Anti</span> <span class="k">Join</span>  <span class="p">(</span><span class="n">cost</span><span class="o">=</span><span class="mi">308326</span><span class="p">.</span><span class="mi">56</span><span class="p">..</span><span class="mi">735885</span><span class="p">.</span><span class="mi">05</span> <span class="k">rows</span><span class="o">=</span><span class="mi">6089972</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span> <span class="p">[...]</span>
+<span class="n">Hash</span> <span class="n">Cond</span><span class="p">:</span> <span class="p">(</span><span class="n">f1</span><span class="p">.</span><span class="n">bond</span> <span class="o">=</span> <span class="n">f2</span><span class="p">.</span><span class="n">bond</span><span class="p">)</span>
+<span class="k">Join</span> <span class="n">Filter</span><span class="p">:</span> <span class="p">(</span><span class="n">f1</span><span class="p">.</span><span class="nb">date</span> <span class="o">&lt;</span> <span class="n">f2</span><span class="p">.</span><span class="nb">date</span><span class="p">)</span>
+<span class="k">Rows</span> <span class="n">Removed</span> <span class="k">by</span> <span class="k">Join</span> <span class="n">Filter</span><span class="p">:</span> <span class="mi">9135000</span>
+<span class="o">-&gt;</span>  <span class="n">Seq</span> <span class="n">Scan</span> <span class="k">on</span> <span class="n">factors</span> <span class="n">f1</span>  <span class="p">[...]</span>
+<span class="o">-&gt;</span>  <span class="n">Hash</span>  <span class="p">(</span><span class="n">cost</span><span class="o">=</span><span class="mi">149534</span><span class="p">.</span><span class="mi">58</span><span class="p">..</span><span class="mi">149534</span><span class="p">.</span><span class="mi">58</span> <span class="k">rows</span><span class="o">=</span><span class="mi">9134958</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span> <span class="p">[...]</span>
+      <span class="n">Buckets</span><span class="p">:</span> <span class="mi">131072</span>  <span class="n">Batches</span><span class="p">:</span> <span class="mi">256</span>  <span class="n">Memory</span> <span class="k">Usage</span><span class="p">:</span> <span class="mi">2823</span><span class="n">kB</span>
+      <span class="o">-&gt;</span>  <span class="n">Seq</span> <span class="n">Scan</span> <span class="k">on</span> <span class="n">factors</span> <span class="n">f2</span>  <span class="p">[...]</span>
+<span class="n">Planning</span> <span class="n">time</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">799</span> <span class="n">ms</span>
+<span class="n">Execution</span> <span class="n">time</span><span class="p">:</span> <span class="mi">8273</span><span class="p">.</span><span class="mi">339</span> <span class="n">ms</span>
+</code></pre></div><p>Interestingly, in my current Linux machine running PostgreSQL 9.6, this second
+query is slower, and uses more disk for the internal hashing previous to the <code>JOIN</code>.</p>
+<p>Now let&rsquo;s see another approach using window functions:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">bond</span><span class="p">,</span> <span class="nb">date</span><span class="p">,</span> <span class="n">factor</span>
+<span class="k">from</span> <span class="p">(</span>
+      <span class="k">select</span> <span class="n">bond</span><span class="p">,</span> <span class="n">rank</span><span class="p">()</span> <span class="n">over</span> <span class="n">wd</span> <span class="k">as</span> <span class="n">rank</span><span class="p">,</span>
+            <span class="n">first_value</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span> <span class="n">over</span> <span class="n">wd</span> <span class="k">as</span> <span class="nb">date</span><span class="p">,</span>
+            <span class="n">first_value</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span> <span class="n">over</span> <span class="n">wd</span> <span class="k">as</span> <span class="n">factor</span>
+      <span class="k">from</span> <span class="n">factors</span>
+      <span class="n">window</span> <span class="n">wd</span> <span class="k">as</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">bond</span> <span class="k">order</span> <span class="k">by</span> <span class="nb">date</span> <span class="k">desc</span><span class="p">)</span>
+<span class="p">)</span> <span class="k">as</span> <span class="n">latest</span> <span class="k">where</span> <span class="n">rank</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div><p>In a way, this is conceptually the cleanest approach. We partition our table
+by bond, and rank members of each partition by date. We then just need to
+get the top ranked entry in each partition.</p>
+<p>However, performance is not very good.</p>
+<p>Up to now, we have not used indexing, and so all our <code>JOIN</code>s have required
+sorting/hashing. Let&rsquo;s create an index:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">index</span> <span class="n">idx_bond_date</span> <span class="k">on</span> <span class="n">factors</span> <span class="p">(</span><span class="n">bond</span><span class="p">,</span> <span class="nb">date</span><span class="p">);</span>
+</code></pre></div><p>The index speeds up the first query very much. As you can see below,
+the query plan
+switches to use index scanning when joining the <code>latest</code> sub-query with the
+main table.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">Nested</span> <span class="n">Loop</span>  <span class="p">(</span><span class="n">cost</span><span class="o">=</span><span class="mi">195210</span><span class="p">.</span><span class="mi">43</span><span class="p">..</span><span class="mi">235393</span><span class="p">.</span><span class="mi">18</span> <span class="k">rows</span><span class="o">=</span><span class="mi">5000</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span> <span class="p">[...]</span>
+<span class="o">-&gt;</span>  <span class="n">HashAggregate</span>  <span class="p">(</span><span class="n">cost</span><span class="o">=</span><span class="mi">195210</span><span class="p">.</span><span class="mi">00</span><span class="p">..</span><span class="mi">195259</span><span class="p">.</span><span class="mi">88</span> <span class="k">rows</span><span class="o">=</span><span class="mi">4988</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span> <span class="p">[...]</span>
+      <span class="k">Group</span> <span class="k">Key</span><span class="p">:</span> <span class="n">factors_1</span><span class="p">.</span><span class="n">bond</span>
+      <span class="o">-&gt;</span>  <span class="n">Seq</span> <span class="n">Scan</span> <span class="k">on</span> <span class="n">factors</span> <span class="n">factors_1</span>  <span class="p">[...]</span>
+<span class="o">-&gt;</span>  <span class="k">Index</span> <span class="n">Scan</span> <span class="k">using</span> <span class="n">idx_bond_date</span> <span class="k">on</span> <span class="n">factors</span>  <span class="p">[...]</span>
+      <span class="k">Index</span> <span class="n">Cond</span><span class="p">:</span> <span class="p">((</span><span class="n">bond</span> <span class="o">=</span> <span class="n">factors_1</span><span class="p">.</span><span class="n">bond</span><span class="p">)</span> <span class="k">AND</span> <span class="p">(</span><span class="nb">date</span> <span class="o">=</span> <span class="p">(</span><span class="k">max</span> <span class="p">[...]</span>
+<span class="n">Planning</span> <span class="n">time</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">785</span> <span class="n">ms</span>
+<span class="n">Execution</span> <span class="n">time</span><span class="p">:</span> <span class="mi">2703</span><span class="p">.</span><span class="mi">610</span> <span class="n">ms</span>
+</code></pre></div><p>For the other methods, the index does not improve the query plan.</p>
+<p>The Postgres query planner is improved release after release, and some
+version-to-version comparisons have shown significant speedups over time.</p>
+<p>But to reap the benefits of the improved planner, it&rsquo;s good to write idiomatic
+SQL. Idiomaitic SQL is what planner improvements target. Leaving your SQL
+to an ORM, what control do you hope to exert? If you want to get good performance,
+you are likely to need to learn the internals of the ORM, on top of SQL, and
+negate the economy of effort you were hoping for.</p>
+<p>Now, about the query for latest factors: today I would use a materialized view,
+and refresh it daily. Looking for the latest factors would be a simple table
+scan. Your ORM won&rsquo;t tell you that!</p>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

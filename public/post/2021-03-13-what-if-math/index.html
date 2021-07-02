@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	What-if&#39;s in basic Mathematics
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2021-05-22-top-down-fad/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>The Programmer as a Non-Fungible Artisan</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2021-02-21-go-transaction-isolation/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>Go tests and MySQL Transactions</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/math">
+				math
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">What-if&#39;s in basic Mathematics</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2021-03-13">
+					2021, March 13
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<script>
+MathJax = {
+  loader: {
+    load: ['input/tex-base', 'output/svg', 'ui/menu', '[tex]/require']
+  },
+  tex: {
+    packages: ['base', 'require'],
+    inlineMath: [['$latex', '$'], ['\\(', '\\)']],
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js">
+</script>
+<p>Who was the first person to think of eating lobster? Who invented the wheel?
+Some of the best ideas seem to have come after a simple <em>What-if?</em> moment.</p>
+<p>Some what-if experiments are wayward, and when they work it&rsquo;s just funny.</p>
+<p>Think of Eli Cash, the not-a-genius novelist in <em>The Royal Tenenbaums</em>, who
+<a href="https://youtu.be/XeKjKWXWZOE">says about his hit novel <em>Old Custer</em></a>:</p>
+<blockquote>
+<p>Well, everyone knows Custer died at Little Bighorn. What this book presupposes
+is&hellip; maybe he didn&rsquo;t?</p>
+</blockquote>
+<p>Basic math has some examples of simple what-if&rsquo;s with big payoffs.</p>
+<h2 id="zero-and-negative-numbers">Zero and negative numbers</h2>
+<p>I imagine some figure of antiquity flashing an Owen Wilson smile and saying</p>
+<blockquote>
+<p>Well, everyone knows you can&rsquo;t subtract a number from a smaller number.
+What I presuppose is &hellip; maybe you can?</p>
+</blockquote>
+<p>You can choose not to use negative numbers for day to day arithmetic tasks, but
+already in some simple scenarios, they&rsquo;re too convenient to do without.</p>
+<p>An example:</p>
+<p>Corporation BigBucks would like to find out their net balance over 2020.
+They have offices in 30 countries, with at least 100 offices in each country.</p>
+<p>Imagine negative numbers haven&rsquo;t been invented. We can&rsquo;t subtract a number from
+a smaller number.</p>
+<p>Each office gets the instructions:</p>
+<ul>
+<li>For each inbound flow of money, add the amount to a running sum: <strong>Profit</strong></li>
+<li>For each outbound flow, add the amount to a running sum: <strong>Loss</strong></li>
+<li>Once all cashflows have been accounted for:
+<ul>
+<li>If Profit = Loss, say <strong>Net Neutral</strong></li>
+<li>If Profit &gt; Loss, say <strong>Net Profit = Profit - Loss</strong></li>
+<li>If Profit &lt; Loss, say <strong>Net Loss = Loss - Profit</strong></li>
+</ul>
+</li>
+</ul>
+<p>The country managers get the instructions:
+For each of the offices in the country</p>
+<ul>
+<li>If Net Neutral, ignore</li>
+<li>If Net Profit, add amount to running sum <strong>Profit</strong></li>
+<li>If Net Loss, add amount to running sum <strong>Loss</strong></li>
+<li>Once all country offices have been accounted for:<br>
+just like each office did, figure which of Profit / Loss is bigger,
+and do the required subtraction to summarize the result.</li>
+</ul>
+<p>Perhaps, there are area managers, say Americas, AsiaPac, EMEA
+(Europe, Middle-East, Africa).
+They each get similar instructions.</p>
+<p>At some final level, the net balance is computed, but each level needs to treat
+Losses and Profits separately.</p>
+<p>Imagine the same scenario, but now we have negative numbers available.</p>
+<p>Each office gets the instructions:</p>
+<ul>
+<li>For each inbound flow of money, add it to a running Total.</li>
+<li>For each outbound flow, add its negative to the running Total.</li>
+<li>When all cashflows are accounted for, you&rsquo;re done: the result is in Total.</li>
+</ul>
+<p>The country managers, and each level above them, get the instruction:
+add the Totals, and you&rsquo;re done.</p>
+<p>The Romans didn&rsquo;t have negative numbers available. In fact, the negative
+numbers, and zero, <a href="https://en.wikipedia.org/wiki/Negative_number">originated in India and China</a>,
+and were brought to the West
+by the Arabs in the middle ages.</p>
+<h2 id="coordinates-and-vectors">Coordinates and vectors</h2>
+<p>In the 17th century, two French gentlemen, Descartes and Fermat, thought of
+using numerical coordinates to represent points in space, and thus initiated the
+field of analytic geometry.</p>
+<p>Cartographic maps existed quite a bit earlier than that, so in retrospect, it
+wasn&rsquo;t a huge mental leap. Then again, we&rsquo;re on the topic of simple ideas with a
+big payoff.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/TabulaRogeriana_upside-down.jpg/1200px-TabulaRogeriana_upside-down.jpg" alt="Tabula Rogeriana">
+<span class="caption">
+<a href="https://commons.wikimedia.org/wiki/File:TabulaRogeriana_upside-down.jpg#/media/File:TabulaRogeriana_upside-down.jpg">Tabula Rogeriana, 1154</a>
+</span></p>
+<p>In pirate movies, there&rsquo;s always some treasure map with obscure instructions to
+&ldquo;go North 10 paces, then face East, jump forward with your left leg 5 times,
+then &hellip;&rdquo;</p>
+<p>A well known bit of basic math is that the lengths of the two smaller sides of a
+triangle generally don&rsquo;t add up to equal the length of the big side. In the case
+of triangles with a right angle, the Pythagorean theorem applies, but that&rsquo;s
+about as good as it gets.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Distance_Formula.svg/300px-Distance_Formula.svg.png" alt="Triangle with coordinates">
+<span class="caption">
+<a href="https://commons.wikimedia.org/wiki/File:Distance_Formula.svg#/media/File:Distance_Formula.svg%22">Triangle with coordinates</a></p>
+</caption>
+<p>In the above image $latex d^2 = (y_2 - y_1)^2 + (x_2 - x_1)^2 $</p>
+<p>What if we had a &ldquo;kind of number&rdquo; to measure displacement in space? What if we
+could &ldquo;add&rdquo; them in a meaningful way?</p>
+<p>We&rsquo;re using coordinate pairs to represent points, but,
+think of representing each <strong>side</strong> of our triangle with a pair of numbers giving
+the side&rsquo;s projections (shadows) on the coordinate axes.
+The horizontal side would be $latex (x_2 - x_1, 0) $, the vertical side would be
+$latex (0, y_2 - y_1)$, the hypothenuse would be $latex (x_2 - x_1, y_2 - y_1) $.</p>
+<p>What if we defined the addition of these &ldquo;projection
+pairs&rdquo; as the sum of the components?<br>
+You can see that if we did that,<br>
+<strong>hypothenuse</strong> = <strong>horizontal side</strong> + <strong>vertical side</strong><br>
+That&rsquo;s what you call vector algebra.</p>
+<p>The coordinates (components) of vectors can also be negative numbers. Again, you
+could do without the negatives, but you&rsquo;d need to handle the
+<strong>four</strong> orientation combinations separately.<br>
+&ldquo;<em>(10, 45) Northeast, followed by (23, 12) Southeast, me mateys!</em>&rdquo;</p>
+<p>Like negative numbers, vector algebra helps simplify ideas and processes. You
+could do without vectors, but everything would be clunkier. The benefit of
+good notation and good concepts is cumulative.</p>
+<p>Now you know, when you see a pirate movie, that those instructions on the
+treasure map sound silly because they don&rsquo;t use vectors. Not even negative
+numbers. That&rsquo;s what happens when you don&rsquo;t get a proper mathematical education.</p>
+<h2 id="calculus">Calculus</h2>
+<p>Calculus, that nightmare of the math-fearing.
+At a fundamental level, derivatives and integrals are very simple.</p>
+<p>Say you&rsquo;re taking a road trip, and your child in the back seat is jotting down
+the mileage markers, and the time, on a sheet of paper, or on a shiny device.
+The trip takes 4 hours, and by the end, you&rsquo;ve traveled 200km. So, you did an
+average of 50km/h. Easy. But you know you paused for lunch 40 minutes, and there
+were road-blocks in one section of the trip, and a traffic jam in another
+section. So, to get a more detailed idea of your journey, the kid hands you the
+mileage readings and their time.</p>
+<p>Between two consecutive readings, say reading <strong>n</strong> and reading <strong>n+1</strong>, you
+take the difference in mileage, and divide it by the difference in time, and
+that&rsquo;s your average speed between those two readings.</p>
+<p>We introduce a bit of notation:</p>
+<ul>
+<li>distance at reading n: $latex d(n)$</li>
+<li>time at reading n: $latex t(n)$</li>
+</ul>
+<p>With this notation:</p>
+<p>$$ \text{speed} = \frac{d(n+1) - d(n)}{t(n+1) - t(n)}$$</p>
+<p>Calculus asks, <em>What if you had readings that were arbitrarily close?</em>
+There are technicalities involved that fill up many pages, if you want to be rigorous.
+But they are not necessary if you just want to get the gist of things.</p>
+<p>If we can get readings arbitrarily close, we can compute the &ldquo;instantaneous speed&rdquo;.
+Here&rsquo;s how we compute the instantaneous speed at time $latex t_0$:</p>
+<ul>
+<li>Get the readings at time $latex t_0$ and a little, later,
+say time $latex t_0 + h$.
+$latex \text{speed} \approx \frac{d(t_0+h) - d(t_0)}{h}$</li>
+<li>What if we make h a very small number? What if we make it 0?</li>
+</ul>
+<p><strong>First example</strong>. Imagine we had a formula giving us the distance traveled at time t.
+In our case: $latex d(t) = 50t$.</p>
+<p>then, $$s(t_0) = \frac{50(t_0+h) - 50(t_0)}{h} = 50$$
+We already have our final answer. No need to imagine that $latex h=0$.</p>
+<p><strong>A second example</strong>. Imagine we have a different formula for
+distance traveled at time t: $$ d(t) = t^2$$</p>
+<p>Then</p>
+<p>$$s(t_0) \approx \frac{(t_0+h)^2 - t_0^2}{h} = \frac{(t_0^2 + 2t_0 h + h^2 - t_0^2)}{h} = 2t_0 + h$$</p>
+<p>Now imagine $latex h = 0$ <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Then $$s(t_0) = 2t_0$$
+Our speed is proportional to time. That&rsquo;s <em>uniformly accelerated motion</em>.</p>
+<p>The derivative is about figuring out &ldquo;instantaneous speed&rdquo; or &ldquo;instantaneous
+rate of change&rdquo; given some quantity. Speed is the derivative of the distance
+traveled.</p>
+<p>The integral moves in the opposite direction. Imagine that on the road trip, you
+had a bunch of measurements of speed taken from your car&rsquo;s speedometer, but
+there were no road mileage markers. To calculate the distance traveled, you&rsquo;d
+multiply the speed readings by the time between readings, and you&rsquo;d add all that
+up. In the integral, you ask, <em>What if we had speed readings arbitrarily close?</em></p>
+<p>From our second example, we know that if your speed is growing uniformly with
+time, the distance traveled grows like $latex t^2$.</p>
+<p>Uniformly accelerated motion happens all the time to us, due to gravity.
+If you fire a shell from a cannon, going back to coordinates and vectors,
+you can study the horizontal motion and the vertical motion of the shell
+independently, and then put them together.</p>
+<p>The horizontal component of motion is easy. The horizontal speed of the shell
+is constant<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. This was our first example. We know that the distance traveled
+grows proportionally to time.</p>
+<p>The vertical component is uniformly accelerated motion, with gravity pulling
+the shell down to earth. We know from our second example that that motion is
+proportional to $latex t^2$.</p>
+<p>Putting these two motions back together, we get a parabola.
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ferde_hajitas2.svg/320px-Ferde_hajitas2.svg.png" alt="Parabolic motion">
+<span class="caption">
+<a href="https://commons.wikimedia.org/wiki/File:Ferde_hajitas2.svg%22">Parabolic motion</a></p>
+</caption>
+<h2 id="negative-numbers-in-calculus">Negative numbers in calculus</h2>
+<p>In the vertical component, the shell starts going up quickly, but gravity starts
+decelerating it, reducing its speed. At some point, the shell stops climbing
+higher, and then it starts to fall. Gravity now starts accelerating it. The
+shell falls faster and faster towards the ground.</p>
+<p>Complicated business, where gravity first decelerates the motion, then
+accelerates it.</p>
+<p>Zero and negative numbers come to the rescue once again.</p>
+<p>It&rsquo;s probably not a surprise that the acceleration is the derivative of the
+speed, just as the speed is the derivative of the distance traveled.</p>
+<p>Acceleration at $latex t_0$ is approximately
+$$\frac{s(t_0+h) - s(t_0)}{h}$$</p>
+<p>For our projectile, on the way up, the vertical speed is decreasing.</p>
+<p>So, $latex s(t_0+h) &lt; s(t_0)$, so &hellip; <strong>acceleration is negative</strong>.</p>
+<p>At some time $latex t_1$, the shell stops going up, so $latex s(t_1) = 0$.
+What happens next?</p>
+<p>Again, acceleration is approximately
+$$ \frac{s(t_1+h) - s(t_1)}{h} = \frac{s(t_1+h)}{h}$$</p>
+<p>So, $latex s(t_1+h) \approx a h $ where $latex a$ is acceleration.</p>
+<p>We said acceleration was negative, and that acceleration was uniform (constant)
+&hellip; so this really means that the <strong>speed is negative</strong> on the way down.</p>
+<p>Here again, the negative numbers simplify our thinking and our computations. If
+speed up is positive, speed down is negative. And gravity doesn&rsquo;t &ldquo;decelerate&rdquo;
+upward motion but &ldquo;accelerate&rdquo; downward motion. Gravity always accelerates
+motion towards the ground. If upward distances are positive, the acceleration of
+gravity is negative. Let the rules of algebra handle the case analysis.</p>
+<h2 id="you-cant-handle-the-truth">You can&rsquo;t handle the truth</h2>
+<p>There&rsquo;s a famous quote about mathematics that has been attributed to several
+famous mathematicians, among them John von Neumann.</p>
+<blockquote>
+<p>Young man, in mathematics you don&rsquo;t understand things. You just get used to them.</p>
+</blockquote>
+<p>There&rsquo;s something to it.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>the technical details mentioned before may be seen here. If we make
+$latex h = 0$, and we go back to the original fraction
+$$\frac{d(t_0+0) - d(t_0)}{0} = \frac{0}{0}$$ &hellip; what does this mean?
+And, are we not getting into Zeno paradox territory here? (yes we are&hellip;) <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>in the absence of air resistance <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

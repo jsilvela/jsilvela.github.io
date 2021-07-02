@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/golang/</link>
+    <description>Recent content in golang on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 29 May 2021 09:29:18 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A Simple Reusable Scheduler in Go</title>
+      <link>https://blog.silvela.org/post/2021-05-29-scheduler-in-go/</link>
+      <pubDate>Sat, 29 May 2021 09:29:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-05-29-scheduler-in-go/</guid>
+      <description>Tagline: You (still) don&amp;rsquo;t need a queueing service.
+I recently needed a module that would schedule work for a future time on behalf of users, and would execute it at said time. After some thought, I came to an easy design that leveraged the Go standard library.
+Some constraints I wanted satisfied:
+ The scheduling should be driven from the database (a relational DB in my case.) Users should be able to update their desired scheduled times.</description>
+    </item>
+    
+    <item>
+      <title>Go tests and MySQL Transactions</title>
+      <link>https://blog.silvela.org/post/2021-02-21-go-transaction-isolation/</link>
+      <pubDate>Sun, 21 Feb 2021 09:49:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-02-21-go-transaction-isolation/</guid>
+      <description>Parallel testing Go has good tooling for testing out of the box. To increase speed, it generally runs tests in parallel.
+At work, we noticed that with our growing codebase, our test suite would sometimes have failed tests due to database deadlocks. Rerunning the failed tests would fix this, and it wasn&amp;rsquo;t happening that often anyway, so we didn&amp;rsquo;t worry too much.
+Database deadlocks are not as bad as they sound, and databases have a good way of dealing with them.</description>
+    </item>
+    
+    <item>
+      <title>Making Go JSON safe (for JavaScript)</title>
+      <link>https://blog.silvela.org/post/2020-04-19-safe-go-json/</link>
+      <pubDate>Sun, 19 Apr 2020 09:48:11 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2020-04-19-safe-go-json/</guid>
+      <description>Go has many things going for it. The marshalling package is generally one of them. Very well thought out and easy to use.
+This package holds a surprise, though, when shipping JSON to software built with other languages: nil Go slices marshal to null rather than the empty array [], and nil maps marshal to null rather than the empty map {}.
+These are not bugs. Indeed, in Go, nil is the zero value for slices as well as for maps.</description>
+    </item>
+    
+    <item>
+      <title>Presentations, 2017</title>
+      <link>https://blog.silvela.org/post/presentations-2017/</link>
+      <pubDate>Sat, 16 Dec 2017 11:36:11 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/presentations-2017/</guid>
+      <description>In 2017 I gave my first ever talk at a public conference, dotGo in Paris. You can view the video and the slides. I&amp;rsquo;m on youtube, mom!
+I got a speakerdeck account too; here are other presentations.</description>
+    </item>
+    
+    <item>
+      <title>Object Oriented Programming with Go</title>
+      <link>https://blog.silvela.org/post/oo-with-go/</link>
+      <pubDate>Sun, 15 Oct 2017 12:36:26 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/oo-with-go/</guid>
+      <description>A presentation I delivered about the basics of Object Oriented Programming, and why Go is a great language for OO.
+OO with Go</description>
+    </item>
+    
+    <item>
+      <title>Living with a computer language</title>
+      <link>https://blog.silvela.org/post/2015-04-18-living-with-a-computer-language/</link>
+      <pubDate>Sat, 18 Apr 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-04-18-living-with-a-computer-language/</guid>
+      <description>I’m not a big fan of David Lean’s movie “Doctor Zhivago”, but it contains a line I love: “He approved of us, but for reasons which were subtle, like his verse.”
+The older I get, the more I become averse to the snap judgements that seem to pervade the software industry. I particularly hate the genre of the shootout article. It’s bad enough for web browser comparisons, but it’s terrible for everything else.</description>
+    </item>
+    
+  </channel>
+</rss>

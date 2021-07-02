@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>commentary on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/commentary/</link>
+    <description>Recent content in commentary on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 23 May 2021 09:29:18 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/commentary/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Programmer as a Non-Fungible Artisan</title>
+      <link>https://blog.silvela.org/post/2021-05-22-top-down-fad/</link>
+      <pubDate>Sun, 23 May 2021 09:29:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-05-22-top-down-fad/</guid>
+      <description>Is it possible that software is not like anything else, that it is meant to be discarded: that the whole point is to always see it as a soap bubble?
+ Alan J. Perlis
+Oh, the fads affecting the practice of programming: I&amp;rsquo;ve witnessed the rise or/and fall of Object-Oriented Design, Patterns, TDD, AOP, &amp;ldquo;scripting languages&amp;rdquo;, JVM, Hadoop, XML/SOAP, REST, etc.
+Probably the original programming fad is Top-Down Design.</description>
+    </item>
+    
+    <item>
+      <title>A few bits about text on screens</title>
+      <link>https://blog.silvela.org/post/2021-01-14-musings/</link>
+      <pubDate>Thu, 14 Jan 2021 20:49:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-01-14-musings/</guid>
+      <description>The madness of font rendering in macOS macOS font rendering is getting worse and worse for non-Retina screens.
+The iPad renders crisp text, so can&amp;rsquo;t comment on iOS/iPadOS, but on my respectable 2560x1440 monitor, using macOS Big Sur, text seemed somewhat fuzzy. To the point where I was thinking I&amp;rsquo;d have to buy a 4K monitor. On Windows and Linux, the same monitor rendered text like a champ, so the problem was not the screen.</description>
+    </item>
+    
+    <item>
+      <title>Opinions matter</title>
+      <link>https://blog.silvela.org/post/2020-04-19-opinions-matter/</link>
+      <pubDate>Sun, 19 Apr 2020 09:58:11 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2020-04-19-opinions-matter/</guid>
+      <description>Opinions and feelings matter. Even in technical fields.
+I live overwhelmed by all the things I should be learning, by the incessant din of new fads in my industry. To help me make choices, I often look for personal opinions or experiences.
+Say I&amp;rsquo;m thinking of learning a new programming language; I want to know, How does it feel? Is it easy to read? Easy to modify? Does it feel heavy?</description>
+    </item>
+    
+    <item>
+      <title>The Peter principle, for software</title>
+      <link>https://blog.silvela.org/post/peter-principle/</link>
+      <pubDate>Tue, 29 Nov 2016 16:13:15 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/peter-principle/</guid>
+      <description>The famous Peter principle lives large for computer programming abstractions.
+It can be in a positive way: operations that are well understood, and routine, are abstracted into a higher level that one must actually think about.
+But very often it&amp;rsquo;s in a pathological way: raising abstraction for the purpose of raising abstraction, until you end up with a pile of abstract spaghetti code, which is even harder to understand than regular spaghetti code.</description>
+    </item>
+    
+    <item>
+      <title>SDE</title>
+      <link>https://blog.silvela.org/post/2015-10-31-SDE/</link>
+      <pubDate>Sat, 31 Oct 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-10-31-SDE/</guid>
+      <description>Software Development Engineer: Development to make it sound more like management. Engineer so people don’t think you’re in IT (gross!)</description>
+    </item>
+    
+    <item>
+      <title>It’s all zeros and ones</title>
+      <link>https://blog.silvela.org/post/2015-04-18-zeros-and-ones/</link>
+      <pubDate>Sat, 18 Apr 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-04-18-zeros-and-ones/</guid>
+      <description>That look of half-confusion, half-familiarity, when you tell people you’re a computer programmer. In the popular imagination, we programmers are “good with computers”. Perhaps some think that we have to do math to write programs. Others may have seen movies where the programmer is an over-caffeinated man-boy who types, and switches windows, at ludicrous speed. Of course, we’re all tired of friends asking us to fix their PowerPoint presentation.
+Then there are people with friends or family who program for a living.</description>
+    </item>
+    
+    <item>
+      <title>Living with a computer language</title>
+      <link>https://blog.silvela.org/post/2015-04-18-living-with-a-computer-language/</link>
+      <pubDate>Sat, 18 Apr 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-04-18-living-with-a-computer-language/</guid>
+      <description>I’m not a big fan of David Lean’s movie “Doctor Zhivago”, but it contains a line I love: “He approved of us, but for reasons which were subtle, like his verse.”
+The older I get, the more I become averse to the snap judgements that seem to pervade the software industry. I particularly hate the genre of the shootout article. It’s bad enough for web browser comparisons, but it’s terrible for everything else.</description>
+    </item>
+    
+  </channel>
+</rss>

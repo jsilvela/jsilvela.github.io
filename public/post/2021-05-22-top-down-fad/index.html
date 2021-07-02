@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	The Programmer as a Non-Fungible Artisan
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2021-05-29-scheduler-in-go/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>A Simple Reusable Scheduler in Go</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2021-03-13-what-if-math/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>What-if&#39;s in basic Mathematics</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/coding">
+				coding
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/commentary">
+				commentary
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">The Programmer as a Non-Fungible Artisan</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2021-05-23">
+					2021, May 23
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<blockquote>
+<p>Is it possible that software is not like anything else, that it is meant to be
+discarded: that the whole point is to always see it as a soap bubble?</p>
+</blockquote>
+<p>Alan J. Perlis</p>
+<p>Oh, the fads affecting the practice of programming: I&rsquo;ve witnessed the rise
+or/and fall of Object-Oriented Design, Patterns, TDD, AOP, &ldquo;scripting
+languages&rdquo;, JVM, Hadoop, XML/SOAP, REST, etc.</p>
+<p>Probably the original programming fad is <em>Top-Down Design</em>.<br>
+Paul Krugman would call it a zombie idea: it never quite dies. I had a
+colleague at Amazon who was constantly evangelizing Top-Down design. Any issue
+with a project had him flying into an accusation that you had not worshipped at
+the altar of Top-Down design.</p>
+<p>This is the problem with these mantras: each one may be an interesting
+idea, perhaps a worthy tool for your arsenal. Top-Down thinking certainly has
+its place. But the software industry prizes stars and winners and &ldquo;best
+practices.&rdquo; Once an idea is found to have value, there is pressure to apply it
+everywhere, always.</p>
+<p>On the issue of Top-Down design, I love this critique from Hal Abelson in
+<a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/3a-henderson-escher-example/">the 1986 lectures on <em>Structure and Interpretation of Computer Programs</em></a>
+(quoted text begins at the 1:08:20 mark):</p>
+<blockquote>
+<p>Right, you end up with a marvelous tree, where you&rsquo;ve broken your task into
+sub-tasks and broken each of these into sub-tasks and broken those into
+sub-tasks, right. And each of these nodes is exactly and precisely defined to do
+the wonderful, beautiful task to make it fit into the whole edifice, right.
+That&rsquo;s this mythology. See, only a computer scientist could possibly believe
+that you build a complex system like that.</p>
+<p>[…] so if you go and change your specifications a little bit,</p>
+<p>[…] a design like this is not going to be robust,
+because if I go and change something that&rsquo;s in here, that might affect the
+entire way that I decomposed everything down, further down the tree.&rdquo;</p>
+</blockquote>
+<p>The whole lecture series, and the book it&rsquo;s based on (aka SICP <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>,)
+espouses a different way of building
+software: viewing your task as building a set of linguistic layers of increasing
+sophistication. You might call this <em>bottom-up</em> design.</p>
+<p>David Parnas&rsquo;s 1972 paper on module decomposition <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>
+doesn&rsquo;t attack Top-Down design explicitly, but it proposes an <em>information-hiding</em>
+criterium to modularize systems, which stands in contrast with (then) conventional
+wisdom. Comparing the modularization he proposes with another one
+that has clearly inferior properties, he notes about the latter:</p>
+<blockquote>
+<p>Experience on a small scale indicates that this is approximately the
+decomposition that would be proposed by most programmers for the task
+specified</p>
+</blockquote>
+<p>SICP&rsquo;s linguistic layers and Parnas&rsquo;s information hiding point to a similar
+philosophy of programming. Neither the book nor the paper are easy
+to reduce to a mantra. They&rsquo;re too rich for that.</p>
+<p>Thinking about top-down design, I am reminded of the way artists draw. If you
+watch an artist drawing, you&rsquo;ll notice that <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> at any
+stage of the process, they&rsquo;re working at different levels of detail
+simultaneously. They probably begin with a rough outline of a portrait, then
+start adding some background color. At one point perhaps they&rsquo;re giving a
+lot of detail to an ear, while the nose is still just a pencil stroke. They look
+at the proportions again, adjust the outline. Perhaps the chin is looking too
+bulky, they concentrate on it for a while; re-evaluate, readjust, repeat.</p>
+<p>This is, I think, the natural way to build systems and to program. It is the way most
+programmers code, if they&rsquo;re not trying to impress someone. It&rsquo;s a simple recipe:
+outline, build, step back, re-evaluate, correct.</p>
+<p>I&rsquo;m skeptical of the specific prescriptions I&rsquo;ve seen proposed. &ldquo;You begin
+by writing a failing test&rdquo; … oh don&rsquo;t make me laugh.</p>
+<p>I wonder about the desire for these mantras.</p>
+<p>Perhaps there is an esthetic yearning for a single silver bullet, rather
+than a collection of techniques that don&rsquo;t work universally.</p>
+<p>I think an important factor is that the industry is wary of
+&ldquo;unruly coders&rdquo;, and prefers an army of disciplined foot soldiers. It may also
+be easier to look for &ldquo;front-end coder with TDD and Agile&rdquo; than for
+&ldquo;talented builder of systems.&rdquo; And, to boot, searching and hiring based on
+buzzword compliance leads to a sense that your hires are fungible.<br>
+I wonder if the people paying the bills are comforted when told &ldquo;our engineers
+follow Agile practices and TDD.&rdquo;</p>
+<p>I&rsquo;m dismayed when I see engineers calling for reductive methodologies and using
+them as labels to declare who is and who is not &ldquo;professional.&rdquo;</p>
+<p>And I find the dilemma of skilled artist vs. fungible disciplined soldier a false
+one.  There is no reason a skilled artisan should be un-disciplined or
+unable to play well with others, any more than there is assurance that a loyal
+practitioner of TDD will write solid code or be the colleague your team needed.</p>
+<p>This is all personal, of course. I&rsquo;ve met engineers who were fans of Bob Martin,
+for instance.<br>
+A recent book I love on building software is John Ousterhout&rsquo;s
+<em>A Philosophy of Software Design</em> <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.
+This is the kind of book you&rsquo;d take to a desert island to hone your coding.
+Like good art, it asks more questions than it answers.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><em>Structure and Interpretation of Computer Programs, Second Edition</em>,
+Harold Abelson and Gerald Jay Sussman, MIT Press, 1996<br>
+<a href="https://mitpress.mit.edu/sites/default/files/sicp/index.html">Free online version</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><em>On the criteria to be used in decomposing systems into modules</em>,
+David L. Parnas, Communications of the ACM, Vol. 15 (12),1972 pp. 1053-1058 <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>Bob Ross notwithstanding <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p><em>A Philosophy of Software Design</em>, John Oustherhout, Yaknyam Press, 2018 <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

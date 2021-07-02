@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>funny? on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/funny/</link>
+    <description>Recent content in funny? on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 06 Mar 2016 06:52:29 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/funny/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>And the Oscar goes to</title>
+      <link>https://blog.silvela.org/post/2016-03-06-and-the-oscar-goes-to/</link>
+      <pubDate>Sun, 06 Mar 2016 06:52:29 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2016-03-06-and-the-oscar-goes-to/</guid>
+      <description>In order to prepare myself to write a program for clustering of numeric arrays, I lived for two months in a numeric array.
+I got to understand the difficulties numbers face, being bunched into clusters, and how they try to maintain their individual identities and their dignity.
+Above all, my JavaScript code is an homage to them. Thank you.</description>
+    </item>
+    
+    <item>
+      <title>SDE</title>
+      <link>https://blog.silvela.org/post/2015-10-31-SDE/</link>
+      <pubDate>Sat, 31 Oct 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-10-31-SDE/</guid>
+      <description>Software Development Engineer: Development to make it sound more like management. Engineer so people don’t think you’re in IT (gross!)</description>
+    </item>
+    
+    <item>
+      <title>You Know How This Ends</title>
+      <link>https://blog.silvela.org/post/2015-10-30-you-know-how-this-ends/</link>
+      <pubDate>Fri, 30 Oct 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-10-30-you-know-how-this-ends/</guid>
+      <description>I’m not much into superhero movies, but there is a particular plot device they use that I find fun: in the typical superhero movie, somewhere in the first half, the hero will get a chance to kill the bad guy, and he will not take it. Maybe he doesn’t yet grasp how dangerous this guy is.
+And you just know there will be a second act where the bad guy will wreak havoc, and then a final act where the hero will kill the villain, or send him to jail so that there can be a sequel.</description>
+    </item>
+    
+  </channel>
+</rss>

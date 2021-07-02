@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	Scalar product and direction cosines
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2009-08-25-xmonad/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>Xmonad</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>Number of trailing zeros in n factorial</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/math">
+				math
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Scalar product and direction cosines</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2008-12-08">
+					2008, December 08
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				
+<script>
+MathJax = {
+  loader: {
+    load: ['input/tex-base', 'output/svg', 'ui/menu', '[tex]/require']
+  },
+  tex: {
+    packages: ['base', 'require'],
+    inlineMath: [['$latex', '$'], ['\\(', '\\)']],
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js">
+</script>
+
+<p>When I learned about the scalar product in high school, I was somewhat
+surprised by how lucky its properties are.<br /> The treatment is usually this:
+define $latex  x \cdot y = |x| |y| \cos \theta $, where $latex \theta $ is the
+angle between $latex x $ and $latex y $. Then deduce that $latex x \cdot y $ is
+linear on the left and right arguments. Then, deduce that $latex (x_1 \vec i +
+x_2 \vec j + x_3 \vec k) \cdot (y_1 \vec i + y_2 \vec j + y_3 \vec k)  = x_1 y_1
++ x_2 y_2 + x_3 y_3 $</p>
+
+<p>Now, define the direction cosines of a vector $latex x $ as the cosines of
+the angles the vector forms with the basis vectors. By definition: $latex x =
+|x| (\cos \phi_1, \cos \phi_2, \cos \phi_3) $.<br /> If we define $latex \theta
+$ as the angle between $latex x $ and $latex y $, $latex \alpha_i $ as the
+angles between $latex x $ and the axis, and $latex \beta_i $ as the angles
+between $latex y $ and the axis, we have: $latex \cos \theta = \sum_i \cos
+\alpha_i \cos \beta_i $.</p>
+
+<p>This last formula mystified me. The deduction was so purely algebraic that I
+found it unsatisfactory. I wanted to see the geometric meaning.</p>
+
+<p>A more geometric deduction follows: $latex (\cos \alpha_1, \cos \alpha_2,
+\cos \alpha_3) $ is a point $latex a $ on the unit sphere. If we take another
+point $latex b $ on the unit sphere, the subtend an angle $latex \theta $:<br />
+
+<img src="https://blog.silvela.org/images/432576072_eyeTJ-S.jpg" alt="On the unit sphere" /></p>
+
+<p>On the unit sphere, we can find the angle $latex \theta $ subtended by $latex
+a $ and $latex b $, by calculating the distance $latex l $ between them:<br />
+
+<img src="https://blog.silvela.org/images/432576073_8QviV-S.jpg" alt="Calculating the angle" /></p>
+
+<p>As you can see in the picture, $latex l = 2 \sin \frac{\theta}{2} $.
+Therefore:
+$$ 2 \sin \frac{\theta}{2} = \sqrt{\sum (\cos \alpha_i - \cos \beta_i)^2}$$
+
+By basic trigonometry:
+$$ \sin \frac{\theta}{2} = \sqrt{\frac{1 - \cos \theta}{2}}$$
+
+Putting the above two together:
+$$ 4 \frac{1 - \cos \theta}{2} = \sum
+(\cos \alpha_i - \cos \beta_i)^2  = \sum (\cos^2 \alpha_i - 2 \cos \alpha_i \cos
+\beta_i + \cos^2 \beta_i)$$
+
+Since $latex a$ and $latex b$ are both on the
+unit sphere:
+$$ 4 \frac{1 - \cos \theta}{2} = 2 - \sum 2 \cos \alpha_i \cos \beta_i $$,
+and
+$$ \cos \theta = \sum \cos \alpha_i \cos \beta_i$$
+
+<p>In this deduction of $latex \cos \theta $, we didn’t assume any knowledge of
+the scalar product. In fact, we could have used it as a basis for the definition
+of the scalar product.</p>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

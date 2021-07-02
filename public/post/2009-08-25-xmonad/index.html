@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	Xmonad
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/2009-09-03-recording-from-vinyl-with-inspire-and-cubase/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>Recording from vinyl with Inspire and Cubase</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2008-12-08-scalar-product-and-direction-cosines/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>Scalar product and direction cosines</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/linux">
+				linux
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Xmonad</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2009-08-25">
+					2009, August 25
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<p>I like <a href="http://xmonad.org/">Xmonad</a> much better than any other window manager (on any platform), but the default mod key is Alt, which interferes with Emacs and Conkeror.</p>
+<p>Here is how to <a href="http://haskell.org/haskellwiki/Xmonad/Frequently%5Fasked%5Fquestions#Rebinding%5Fthe%5Fmod%5Fkey%5F.28Alt%5Fconflicts%5Fwith%5Fother%5Fapps.3B%5FI%5Fwant%5Fthe%5F%5F%5F%5F%5Fkey.21.29">remap the mod key in Xmonad</a></p>
+<p>Or, locally copied on Aug 09:</p>
+
+Binding to the mod4 (often 'Win') key. Put this in yout xmonad.hs:</p>
+<pre>
+import XMonad
+main = xmonad defaultConfig
+    {
+      modMask = mod4Mask
+    }
+</pre>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

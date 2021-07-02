@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>code on Lost Among Notes</title>
+    <link>https://blog.silvela.org/categories/code/</link>
+    <description>Recent content in code on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 Sep 2010 06:07:06 +0200</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/categories/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Xmonad &#43; GNOME</title>
+      <link>https://blog.silvela.org/post/2010-09-19-xmonad-gnome/</link>
+      <pubDate>Sun, 19 Sep 2010 06:07:06 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2010-09-19-xmonad-gnome/</guid>
+      <description>I’m positively impressed with Linux lately, as I learn more.
+By combining the tiling window manager Xmonad with the GNOME environment, I’ve found my favorite windowing system on any platform.
+I used these basic instructions, but configured Xmonad to use the Window key (aka. Super key) as modifier instead of Alt, so that it doesn’t interfere with the Emacs keybindings. This is how it looks.
+ import XMonad import XMonad.Config.Gnome main = xmonad gnomeConfig { modMask = mod4Mask }  </description>
+    </item>
+    
+    <item>
+      <title>Number of trailing zeros in n factorial</title>
+      <link>https://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</link>
+      <pubDate>Mon, 17 Nov 2008 06:52:29 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</guid>
+      <description>I was asked this question in my first job interview in the US. I was completely unprepared for this type of interview, and I did badly. But it’s a nice problem to think about and it’s easy to solve.
+In case you don’t know, n factorial is the multiplication of all positive integers less than or equal to n. By convention, 0 factorial is taken as 1. The factorial is typically represented with “!</description>
+    </item>
+    
+  </channel>
+</rss>

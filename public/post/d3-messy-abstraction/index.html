@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	D3’s Messy Abstraction Path
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+				<tr>
+					<td><a href="https://blog.silvela.org/post/linux-on-ibookG4/">
+						&lt;&lt; Newer
+						</a>
+					</td>
+					<td>
+						<em>Linux on the iBook G4</em>
+					</td>
+				</tr>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/peter-principle/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>The Peter principle, for software</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/javascript">
+				javascript
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/d3">
+				d3
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/visualization">
+				visualization
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">D3’s Messy Abstraction Path</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2016-12-02">
+					2016, December 02
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<script src="https://d3js.org/d3.v4.js"></script>
+<p>D3 is a wonderful idea. A graphing library in Javascript that uses
+functional programming idioms, outputs SVG and is chock full of contributions from
+the community. No wonder it’s so popular.</p>
+<p>And yet, D3 code has a tendency to grow unwieldy very quickly. As
+happens in SQL, the means of abstraction in the language (in our case
+in the library) are obscure, and details in “normal” code tend to pile
+up.</p>
+<p>(Note that in SQL, the <code>WITH</code> statement allows abstraction and composition nicely, but a lot of people, or at least a lot of SQL codebases, do not leverage it.)</p>
+<h2 id="d3s-normal-abstraction-path-low-abstraction">D3’s normal abstraction path: low abstraction</h2>
+<p>We begin with a simple toy problem, and then add a little complexity
+to see how D3 copes.</p>
+<p>Say we’re plotting the result of a race. We have a list of runners,
+and for each of them we have a list of splits.</p>
+<p>Take our first runner:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+    <span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;Alice&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;nationality&#34;</span><span class="o">:</span> <span class="s2">&#34;UK&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;splits&#34;</span><span class="o">:</span> <span class="p">[</span><span class="mf">5.05</span><span class="p">,</span> <span class="mf">11.32</span><span class="p">,</span> <span class="mf">17.49</span><span class="p">,</span> <span class="mf">29.22</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div><p>Let’s display a line with the runner’s name, and circles representing
+the splits.</p>
+<div id="single"></div>
+<script>
+    var runners = [{
+        "name": "Alice",
+        "nationality": "UK",
+        "splits": [5.05, 11.32, 17.49, 29.22]
+    }, {
+        "name": "Bob",
+        "nationality": "US",
+        "splits": [6.05, 13.32, 23.49, 32.22]
+    }, {
+        "name": "Carlos",
+        "nationality": "Spain",
+        "splits": [5, 10.32, 15.49, 22.22]
+    }];
+
+    var plot = d3.select("#single")
+        .append("svg")
+        .attr("width", 300)
+        .attr("height", 20);
+
+    plot.append("text")
+        .text(runners[0].name)
+        .attr("dy", 20);
+
+    plot.selectAll("circle")
+        .data(runners[0].splits)
+        .enter()
+        .append("circle")
+            .attr("r", 5)
+            .attr("cx", function(t) {return 100 + 5*t;})
+            .attr("cy", 10)
+            .style("stroke", "red")
+            .style("fill", "red");
+</script>
+<p>The way you do things in D3 is to build up your SVG graph by
+accretion. Start by putting a <code>&lt;div&gt;</code> in your HTML where you want
+the plot to render, and give it an ID so that we can locate it, for example,
+“single”. Then</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">plot</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s2">&#34;#single&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;svg&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;width&#34;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;height&#34;</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</code></pre></div><p>This generates an empty <code>&lt;svg&gt;</code> element with the desired
+dimensions.  We want to show the runner’s name, so we add a
+<code>&lt;text&gt;</code> element. Bear in mind that our runner, Alice, lives in an
+array with other runners. She is <code>runner[0]</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">plot</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">runners</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">name</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;dy&#34;</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</code></pre></div><p>To the right of the runner’s name, we want to mark splits by dots,
+placed at a distance proportional to the times. <br/> Here we start to
+use D3’s core features: the binding operations, and selections.  We’re
+going to select all the existing circles in the plot. There are none
+at this point; we’re doing this to get a <strong>selection</strong>, which is the
+main data type that D3 deals with. We now bind, to this empty selection, the
+array with the splits, and for each split, we shall add a red
+<code>&lt;circle&gt;</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">plot</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">runners</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">splits</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;cx&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="mi">100</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="nx">t</span><span class="p">;})</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;cy&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;stroke&#34;</span><span class="p">,</span> <span class="s2">&#34;red&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;fill&#34;</span><span class="p">,</span> <span class="s2">&#34;red&#34;</span><span class="p">);</span>
+</code></pre></div><p>In the above, <code>.data()</code> binds the data to the selection, and
+<code>.enter()</code> returns the elements of the data array that were not already
+bound — i.e. all in our case, since the selection was empty. You can learn about D3’s <code>selection</code>s, and <code>enter()</code>,
+<code>exit()</code>, <code>update()</code> <a href="https://bost.ocks.org/mike/selection/">in this D3
+guide</a>.</p>
+<p>Note the line <code>.attr(&quot;cx&quot;, function(t) {return 100 + 5*t;})</code>,
+which takes a function as argument. This idiom is used widely in D3. It’s nothing more than the usual <code>map</code> from functional land; a
+function being mapped over the splits array that we bound previously with
+the <code>.data()</code> call.</p>
+<p>Now, let’s plot all the runners.</p>
+<div id="all"></div>
+<script>
+    var plotAll = d3.select("#all")
+        .append("svg")
+        .attr("width", 300)
+        .attr("height", 90);
+
+    var runLines = plotAll.selectAll("g")
+        .data(runners)
+        .enter()
+        .append("g")
+            .attr("transform",
+                function(ignore, k) {
+                    return "translate(0," + (k*30) + ")";
+                });
+
+    runLines.append("text")
+        .text(function(d) {return d.name;})
+        .attr("dy", 20);
+
+    runLines.selectAll("circle")
+        .data(function(d) {return d.splits;})
+        .enter()
+        .append("circle")
+            .attr("r", 5)
+            .attr("cx", function(t) {return 100 + 5*t;})
+            .attr("cy", 10)
+            .style("stroke", "red")
+            .style("fill", "red");
+</script>
+<p>Not much needs to be done on top of what we were doing before for a
+single runner. Firstly, we need to have fresh line to display each
+runner. Thanks to SVG’s <code>&lt;g&gt;</code> grouping element, and to SVG
+transforms, we can have a fresh canvas, with its own coordinate
+system, for each runner.  In the code below, <code>plotAll</code> is an empty <code>&lt;svg&gt;</code> element we have defined on an identified <code>&lt;div&gt;</code>, as we did before with
+<code>plot</code> in the single runner case.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">runLines</span> <span class="o">=</span> <span class="nx">plotAll</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;g&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">runners</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;g&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;transform&#34;</span><span class="p">,</span>
+            <span class="kd">function</span><span class="p">(</span><span class="nx">ignore</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="s2">&#34;translate(0,&#34;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">k</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;)&#34;</span><span class="p">;</span>
+            <span class="p">});</span>
+</code></pre></div><p>The only novelty here is the signature <code>function(ignore, k) {}</code>. This is fairly standard in Javascript, and within D3. The
+second argument is the index of the datum within the data array. We
+name the first argument <code>ignore</code> as a convention to signal that
+in this case, the value of the argument is not used within the function body.</p>
+<p>It is easy to repurpose the code that rendered the text and the splits. We
+just need to pull the data we’re interested in from each
+runner. <br/> We can see here the rendering of the runner names. The
+rendering of the splits would work in the same way.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">runLines</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">name</span><span class="p">;})</span>
+    <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;dy&#34;</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</code></pre></div><p>Already you may have started to appreciate D3’s failing abstraction. In a
+typical functional programming approach, we would figure out how to
+plot individual runners, then iterate or <code>map</code> over an array to
+produce the full plot for all runners.</p>
+<p>In D3, the default way of operating does not abstract the
+individual. To make it more visual: you can make 5 sandwiches by
+repeating the process of making a single sandwich 5 times, or you can
+put 5 slices of bread on 5 plates, then 5 pieces of cheese on the 5
+slices, then 5 portions of ham on the 5 pieces of cheese, then 5
+slices of bred on top of the portions of ham. This second way of
+operation is the default D3 way.</p>
+<h2 id="problems-due-to-low-abstraction">Problems due to low abstraction</h2>
+<p>This is working so far, but let’s see where the low
+abstraction can give rise to problems.  <br/> In our runner array, we
+keep track of each runner’s nationality, as we saw above with Alice,
+who is British. Let’s imagine we’d like to color the dots for the
+splits according to the runner’s nationality.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">UK</span> <span class="o">==&gt;</span> <span class="nx">blue</span>
+<span class="nx">US</span> <span class="o">==&gt;</span> <span class="nx">red</span>
+<span class="nx">Spain</span> <span class="o">==&gt;</span> <span class="nx">green</span>
+</code></pre></div><p>In the fragment we use to plot the circles, it’s not apparent how we
+could get the nationality, given that we’re iterating over the splits.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">runLines</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">splits</span><span class="p">;})</span>
+    <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;cx&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="mi">100</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="nx">t</span><span class="p">;})</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;cy&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;stroke&#34;</span><span class="p">,</span> <span class="s2">&#34;red&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;fill&#34;</span><span class="p">,</span> <span class="s2">&#34;red&#34;</span><span class="p">);</span>
+</code></pre></div><p>One thing we could do is assign a CSS class on each of the <code>runLines</code> we defined before.  We would add a line to the bottom of the
+definition of <code>runLines</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">runLines</span> <span class="o">=</span> <span class="nx">plotAll</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;g&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">runners</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;g&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;transform&#34;</span><span class="p">,</span>
+            <span class="kd">function</span><span class="p">(</span><span class="nx">ignore</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="s2">&#34;translate(0,&#34;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">k</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;)&#34;</span><span class="p">;</span>
+            <span class="p">})</span>
+        <span class="p">.</span><span class="nx">classed</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">nationality</span><span class="p">;},</span> <span class="kc">true</span><span class="p">);</span>
+</code></pre></div><p>But this feels lazy. We now need supporting CSS directives, and we
+need to make sure the text is still rendered black, even if the splits
+are in color.</p>
+<p>We could think of handing, to each circle in our splits code, not just
+the time, but the nationality. That is, we could define a procedure to
+convert the data.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">getNatlSplits</span><span class="p">(</span><span class="nx">runner</span><span class="p">)</span> <span class="o">==&gt;</span> <span class="p">[...,</span> <span class="p">{</span><span class="nx">nationality</span><span class="p">,</span> <span class="nx">time_i</span><span class="p">},</span> <span class="p">...]</span>
+</code></pre></div><p>Then do</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">runLines</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">getNatlSplits</span><span class="p">(</span><span class="nx">d</span><span class="p">);})</span>
+    <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+    <span class="p">...</span>
+</code></pre></div><p>But this is even clunkier. We need an auxiliary function, and we’re
+repeating the same nationality for all those elements. And does the
+<code>{nationality, time}</code> pair have any meaning outside of making our code work?</p>
+<p>The problem here is that, in iterating over the <code>splits</code>, we have
+lost access to the <em>parent</em> data that contained
+<code>nationality</code>. <br/> We would solve this problem quite easily if
+we could keep the parent data in scope.</p>
+<h2 id="abstraction-the-d3-way-too-magical">Abstraction the D3 way: too magical</h2>
+<p>The problem with coloring the circles, simple as it is, is an
+illustration of D3’s trouble with abstraction.</p>
+<p>Now imagine that we had a procedure <code>plotRunner(runner)</code> that
+produced the line with the runner name and the splits. To color the
+circles based on nationality would be trivial. The function parameter
+would allow us access to both <code>splits</code> and <code>nationality</code> in the function body.</p>
+<p>If we simply iterated over <code>runners</code> and called <code>plotRunner</code>
+for each, the code would need very little change. But <code>plotRunner</code>
+cannot function in a vacuum. It needs to do either of:</p>
+<ul>
+<li>Output an SVG snippet, to be aggregated by a higher level function
+that generates the full SVG.</li>
+<li>Receive an <em>entry point</em> into the overall SVG into which it will
+add its content.</li>
+</ul>
+<p>The D3 way is the second. And D3 already has a handy type for entry
+points into SVG: selections.</p>
+<p>Let’s write our <code>plotRunner</code> function, and for the moment let’s
+not worry about how we get the selection into it. Let’s just assume
+it’s there, and call it <code>seln</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">plotRunner</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">runner</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// NOTE: incomplete. Future version to explain
+</span><span class="c1"></span>    <span class="c1">// how we get the selection &#34;seln&#34;
+</span><span class="c1"></span>
+    <span class="nx">seln</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">runner</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;dy&#34;</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+
+    <span class="nx">seln</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">runner</span><span class="p">.</span><span class="nx">splits</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+        <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;cx&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="mi">100</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="nx">t</span><span class="p">;})</span>
+            <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;cy&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;stroke&#34;</span><span class="p">,</span> <span class="s2">&#34;red&#34;</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;fill&#34;</span><span class="p">,</span> <span class="s2">&#34;red&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>This is pretty much what we did previously, but there is one crucial
+difference: thanks to the function argument <code>runner</code>, we now have
+access to the parent data within the function body.</p>
+<p>Let’s go back to our color-by-nationality problem. We just need to
+codify the color assignments, and modify <code>plotRunner</code> to leverage
+them:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">nationalColor</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&#34;US&#34;</span><span class="o">:</span> <span class="s2">&#34;red&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;UK&#34;</span><span class="o">:</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;Spain&#34;</span><span class="o">:</span> <span class="s2">&#34;green&#34;</span><span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">plotRunner</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">runner</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="p">...</span>
+    <span class="nx">seln</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+        <span class="p">...</span>
+        <span class="p">...</span>
+            <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;stroke&#34;</span><span class="p">,</span> <span class="nx">nationalColor</span><span class="p">[</span><span class="nx">runner</span><span class="p">.</span><span class="nx">nationality</span><span class="p">])</span>
+            <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;fill&#34;</span><span class="p">,</span> <span class="nx">nationalColor</span><span class="p">[</span><span class="nx">runner</span><span class="p">.</span><span class="nx">nationality</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div><p>Easy as pie.</p>
+<p>We need to hook this up. <code>plotRunner</code>, as its name implies, plots
+a single runner.  As we saw in previous examples, selections in D3 are arrays.  How do we iterate through them?</p>
+<p>D3 has an operator <code>.each()</code> to iterate over selections. It
+takes a function argument that can itself have either one argument
+(the datum bound to the sub-selection), or two arguments (the datum, and the
+ordinal of the sub-selection within the selection).<br/> There is one
+more piece of magic to <code>.each()</code>. Within the function passed to
+it, <code>this</code> will be the context of the current DOM element. We can
+get the current selection with <code>d3.select(this)</code>.</p>
+<p>So, the <code>plotRunner</code> function will be called from an <code>.each()</code>
+loop, and we can now fill in the part we had left undefined.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">plotRunner</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">runner</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">seln</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+    <span class="nx">seln</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+        <span class="p">...</span>
+        <span class="p">...</span>
+</code></pre></div><p>Now we need to build the selection we will iterate over. We have seen
+this before. We bind the <code>runners</code> array to an empty selection,
+append <code>&lt;g&gt;</code> elements for each runner, and translate vertically.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">runnerLines</span> <span class="o">=</span> <span class="nx">runnersFinal</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;g&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">runners</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;g&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;transform&#34;</span><span class="p">,</span>
+            <span class="kd">function</span><span class="p">(</span><span class="nx">ignore</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="s2">&#34;translate(0,&#34;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">k</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;)&#34;</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">);</span>
+</code></pre></div><p>And, finally, we tie it all together.</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">runnerLines</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">plotRunner</span><span class="p">);</span>
+</code></pre></div><p>There we go.</p>
+<div id="allAbstracted"></div>
+<script>
+    var nationalColor = {
+        "US": "red",
+        "UK": "blue",
+        "Spain": "green"};
+
+    var plotRunner = function(runner) {
+        var seln = d3.select(this);
+
+        seln.append("text")
+            .text(runner.name)
+            .attr("dy", 20);
+
+        seln.selectAll("circle")
+            .data(runner.splits)
+            .enter()
+            .append("circle")
+                .attr("r", 5)
+                .attr("cx", function(t) {return 100 + 5*t;})
+                .attr("cy", 10)
+                .style("stroke", nationalColor[runner.nationality])
+                .style("fill", nationalColor[runner.nationality]);
+    }
+
+    var runnersFinal = d3.select("#allAbstracted")
+        .append("svg")
+        .attr("width", 300)
+        .attr("height", 90);
+
+    var runnerLines = runnersFinal.selectAll("g")
+        .data(runners)
+        .enter()
+        .append("g")
+            .attr("transform",
+                function(ignore, k) {
+                    return "translate(0," + (k*30) + ")";
+                }
+            );
+
+    runnerLines.each(plotRunner);
+</script>
+<p>Now, all this is very magical, in a bad way. Capturing selections
+inside of <code>.each()</code> by using <code>this</code> is flimsy.  And so, we
+rendered the plot by calling</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">runnerLines</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">plotRunner</span><span class="p">);</span>
+</code></pre></div><p>but the following will not work:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">runnerLines</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span><span class="nx">plotRunner</span><span class="p">(</span><span class="nx">d</span><span class="p">);});</span>
+</code></pre></div><p>How can this be? <code>this</code> depends on context, and in the second
+version, <code>plotRunner</code> gets it from the enclosing <code>function (d) {</code> rather than from <code>.each()</code>. There goes your referential transparency.</p>
+<p>D3 offers a lot of power, but its abstraction mechanism is somewhat
+finicky.  I recommend that you use it, though. For all but simple
+plots, the functional decomposition can clarify your code and make it
+more flexible.</p>
+<p>I wish there were less magic involved. <em>React</em>, for instance, achieves
+a very coherent abstraction and is also written in Javascript. I don’t
+know enough JS yet, but I’m getting interested in D3’s internals.</p>
+<hr/>
+<hr/>
+<p>Final code listing:</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">nationalColor</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&#34;US&#34;</span><span class="o">:</span> <span class="s2">&#34;red&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;UK&#34;</span><span class="o">:</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;Spain&#34;</span><span class="o">:</span> <span class="s2">&#34;green&#34;</span><span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">plotRunner</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">runner</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">seln</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+    <span class="nx">seln</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;text&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">runner</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;dy&#34;</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+
+    <span class="nx">seln</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">runner</span><span class="p">.</span><span class="nx">splits</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+        <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;circle&#34;</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;cx&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="mi">100</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="nx">t</span><span class="p">;})</span>
+            <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;cy&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;stroke&#34;</span><span class="p">,</span> <span class="nx">nationalColor</span><span class="p">[</span><span class="nx">runner</span><span class="p">.</span><span class="nx">nationality</span><span class="p">])</span>
+            <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&#34;fill&#34;</span><span class="p">,</span> <span class="nx">nationalColor</span><span class="p">[</span><span class="nx">runner</span><span class="p">.</span><span class="nx">nationality</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">runnersFinal</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s2">&#34;#allAbstracted&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;svg&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;width&#34;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;height&#34;</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">runnerLines</span> <span class="o">=</span> <span class="nx">runnersFinal</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&#34;g&#34;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">runners</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;g&#34;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;transform&#34;</span><span class="p">,</span>
+            <span class="kd">function</span><span class="p">(</span><span class="nx">ignore</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="s2">&#34;translate(0,&#34;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">k</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;)&#34;</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">);</span>
+
+<span class="nx">runnerLines</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">plotRunner</span><span class="p">);</span>
+</code></pre></div>
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>

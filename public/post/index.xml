@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Lost Among Notes</title>
+    <link>https://blog.silvela.org/post/</link>
+    <description>Recent content in Posts on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 29 May 2021 09:29:18 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A Simple Reusable Scheduler in Go</title>
+      <link>https://blog.silvela.org/post/2021-05-29-scheduler-in-go/</link>
+      <pubDate>Sat, 29 May 2021 09:29:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-05-29-scheduler-in-go/</guid>
+      <description>Tagline: You (still) don&amp;rsquo;t need a queueing service.
+I recently needed a module that would schedule work for a future time on behalf of users, and would execute it at said time. After some thought, I came to an easy design that leveraged the Go standard library.
+Some constraints I wanted satisfied:
+ The scheduling should be driven from the database (a relational DB in my case.) Users should be able to update their desired scheduled times.</description>
+    </item>
+    
+    <item>
+      <title>The Programmer as a Non-Fungible Artisan</title>
+      <link>https://blog.silvela.org/post/2021-05-22-top-down-fad/</link>
+      <pubDate>Sun, 23 May 2021 09:29:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-05-22-top-down-fad/</guid>
+      <description>Is it possible that software is not like anything else, that it is meant to be discarded: that the whole point is to always see it as a soap bubble?
+ Alan J. Perlis
+Oh, the fads affecting the practice of programming: I&amp;rsquo;ve witnessed the rise or/and fall of Object-Oriented Design, Patterns, TDD, AOP, &amp;ldquo;scripting languages&amp;rdquo;, JVM, Hadoop, XML/SOAP, REST, etc.
+Probably the original programming fad is Top-Down Design.</description>
+    </item>
+    
+    <item>
+      <title>What-if&#39;s in basic Mathematics</title>
+      <link>https://blog.silvela.org/post/2021-03-13-what-if-math/</link>
+      <pubDate>Sat, 13 Mar 2021 09:29:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-03-13-what-if-math/</guid>
+      <description>MathJax = { loader: { load: [&#39;input/tex-base&#39;, &#39;output/svg&#39;, &#39;ui/menu&#39;, &#39;[tex]/require&#39;] }, tex: { packages: [&#39;base&#39;, &#39;require&#39;], inlineMath: [[&#39;$latex&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], } };   Who was the first person to think of eating lobster? Who invented the wheel? Some of the best ideas seem to have come after a simple What-if? moment.
+Some what-if experiments are wayward, and when they work it&amp;rsquo;s just funny.
+Think of Eli Cash, the not-a-genius novelist in The Royal Tenenbaums, who says about his hit novel Old Custer:</description>
+    </item>
+    
+    <item>
+      <title>Go tests and MySQL Transactions</title>
+      <link>https://blog.silvela.org/post/2021-02-21-go-transaction-isolation/</link>
+      <pubDate>Sun, 21 Feb 2021 09:49:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-02-21-go-transaction-isolation/</guid>
+      <description>Parallel testing Go has good tooling for testing out of the box. To increase speed, it generally runs tests in parallel.
+At work, we noticed that with our growing codebase, our test suite would sometimes have failed tests due to database deadlocks. Rerunning the failed tests would fix this, and it wasn&amp;rsquo;t happening that often anyway, so we didn&amp;rsquo;t worry too much.
+Database deadlocks are not as bad as they sound, and databases have a good way of dealing with them.</description>
+    </item>
+    
+    <item>
+      <title>Polynomials are strange</title>
+      <link>https://blog.silvela.org/post/2021-02-16-polynomials-are-strange/</link>
+      <pubDate>Fri, 19 Feb 2021 20:49:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-02-16-polynomials-are-strange/</guid>
+      <description>MathJax = { loader: { load: [&#39;input/tex-base&#39;, &#39;output/svg&#39;, &#39;ui/menu&#39;, &#39;[tex]/require&#39;] }, tex: { packages: [&#39;base&#39;, &#39;require&#39;], inlineMath: [[&#39;$latex&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], } };   Two-headed things Polynomials are unexpectedly strange. They&amp;rsquo;re familiar from primary school, probably the first functions we study. But start studying abstract algebra or algebraic geometry, and they turn into two-headed beasts.
+In abstract algebra you start to emphasize the algebraic structure of polynomials. You define addition of two polynomials much like you define component-wise addition of vectors.</description>
+    </item>
+    
+    <item>
+      <title>A few bits about text on screens</title>
+      <link>https://blog.silvela.org/post/2021-01-14-musings/</link>
+      <pubDate>Thu, 14 Jan 2021 20:49:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-01-14-musings/</guid>
+      <description>The madness of font rendering in macOS macOS font rendering is getting worse and worse for non-Retina screens.
+The iPad renders crisp text, so can&amp;rsquo;t comment on iOS/iPadOS, but on my respectable 2560x1440 monitor, using macOS Big Sur, text seemed somewhat fuzzy. To the point where I was thinking I&amp;rsquo;d have to buy a 4K monitor. On Windows and Linux, the same monitor rendered text like a champ, so the problem was not the screen.</description>
+    </item>
+    
+    <item>
+      <title>Math year one. Classes</title>
+      <link>https://blog.silvela.org/post/2020-06-14-math-year-one-classes/</link>
+      <pubDate>Sun, 14 Jun 2020 15:49:18 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2020-06-14-math-year-one-classes/</guid>
+      <description>MathJax = { loader: { load: [&#39;input/tex-base&#39;, &#39;output/svg&#39;, &#39;ui/menu&#39;, &#39;[tex]/require&#39;] }, tex: { packages: [&#39;base&#39;, &#39;require&#39;], inlineMath: [[&#39;$latex&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], } };   I’ve started a Master’s degree in Mathematics. This post is a summary of the classes I’ve taken in the prequel year. The 2020 / 2021 session will be &amp;ldquo;the master proper&amp;rdquo;. There’s a higher level post on my personal blog.
+Galois Theory This was my greatest fear and my biggest challenge.</description>
+    </item>
+    
+    <item>
+      <title>Opinions matter</title>
+      <link>https://blog.silvela.org/post/2020-04-19-opinions-matter/</link>
+      <pubDate>Sun, 19 Apr 2020 09:58:11 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2020-04-19-opinions-matter/</guid>
+      <description>Opinions and feelings matter. Even in technical fields.
+I live overwhelmed by all the things I should be learning, by the incessant din of new fads in my industry. To help me make choices, I often look for personal opinions or experiences.
+Say I&amp;rsquo;m thinking of learning a new programming language; I want to know, How does it feel? Is it easy to read? Easy to modify? Does it feel heavy?</description>
+    </item>
+    
+    <item>
+      <title>Making Go JSON safe (for JavaScript)</title>
+      <link>https://blog.silvela.org/post/2020-04-19-safe-go-json/</link>
+      <pubDate>Sun, 19 Apr 2020 09:48:11 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2020-04-19-safe-go-json/</guid>
+      <description>Go has many things going for it. The marshalling package is generally one of them. Very well thought out and easy to use.
+This package holds a surprise, though, when shipping JSON to software built with other languages: nil Go slices marshal to null rather than the empty array [], and nil maps marshal to null rather than the empty map {}.
+These are not bugs. Indeed, in Go, nil is the zero value for slices as well as for maps.</description>
+    </item>
+    
+    <item>
+      <title>SQL is deep - a personal journey</title>
+      <link>https://blog.silvela.org/post/2019-09-30-sql-is-deep/</link>
+      <pubDate>Tue, 01 Oct 2019 09:58:11 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2019-09-30-sql-is-deep/</guid>
+      <description>Some time ago I was trying to advise a junior colleague who said he “knew” SQL: SQL is a bit like chess. You can learn the rules quickly; that doesn’t mean you know how to play well.
+I love SQL. I’ve been using it professionally since 2005. A great thing about it is a counterpoint to the previous remark on depth: you can start getting useful and correct results with just a little knowledge.</description>
+    </item>
+    
+    <item>
+      <title>Linux on the Desktop, n-th try</title>
+      <link>https://blog.silvela.org/post/2019-08-15-linux-desktop/</link>
+      <pubDate>Thu, 15 Aug 2019 15:45:19 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2019-08-15-linux-desktop/</guid>
+      <description>I love Linux. I&amp;rsquo;ve been using it at home since 1996 (togeter with macs). How far we&amp;rsquo;ve come in 20+ years.
+Desktop environment I used to be against desktop environments, which I saw as bloated, but since getting a HiDPI laptop in 2015, I have changed my mind. Having services and DPI settings taken care of in one place is too nice to pass up.
+As of mid-August, I have settled on KDE Plasma.</description>
+    </item>
+    
+    <item>
+      <title>Improving net privacy</title>
+      <link>https://blog.silvela.org/post/2019-07-27-security/</link>
+      <pubDate>Sat, 27 Jul 2019 09:45:19 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2019-07-27-security/</guid>
+      <description>I&amp;rsquo;ve been becoming more conscious of my privacy on the internet. It has led me, on one hand, to use the Privacy Badger and uBlock browser extensions, to switch to DuckDuckGo as my default search engine, to review my social networking settings.
+But I am also a gentleman website-and-domain-owner, a citizen of the &amp;lsquo;net.
+I decided to act on the nagging of browsers, when viewing my own website, that it was not served over HTTPS.</description>
+    </item>
+    
+    <item>
+      <title>Musings, the first of many</title>
+      <link>https://blog.silvela.org/post/2018-08-25-musings-first/</link>
+      <pubDate>Tue, 25 Sep 2018 21:45:19 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2018-08-25-musings-first/</guid>
+      <description>For many years now, I’ve struggled with the amount of information that I would like to absorb. I’m trying out sometihg new: to keep track of things I see or read or think about, in the form of posts.
+I started out with my personal blog, and so far, I like the idea.
+So, there will be posts now and then where I just keep track of stuff.</description>
+    </item>
+    
+    <item>
+      <title>SQL over time, or, Ditch your ORM</title>
+      <link>https://blog.silvela.org/post/2018-08-05-sql-over-time/</link>
+      <pubDate>Tue, 25 Sep 2018 01:36:11 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2018-08-05-sql-over-time/</guid>
+      <description>Here I&amp;rsquo;m telling a story of PostgreSQL performance over time, and the point of it, for me, is that given the richness of SQL, and the steady improvement of implementations, it is foolish to trust your querying to an ORM. SQL is very much worth learning, and learning well. There are many gains to be made, in efficiency and in code quality.
+ Years ago, I worked at a financial firm in New York City.</description>
+    </item>
+    
+    <item>
+      <title>Presentations, 2017</title>
+      <link>https://blog.silvela.org/post/presentations-2017/</link>
+      <pubDate>Sat, 16 Dec 2017 11:36:11 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/presentations-2017/</guid>
+      <description>In 2017 I gave my first ever talk at a public conference, dotGo in Paris. You can view the video and the slides. I&amp;rsquo;m on youtube, mom!
+I got a speakerdeck account too; here are other presentations.</description>
+    </item>
+    
+    <item>
+      <title>Object Oriented Programming with Go</title>
+      <link>https://blog.silvela.org/post/oo-with-go/</link>
+      <pubDate>Sun, 15 Oct 2017 12:36:26 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/oo-with-go/</guid>
+      <description>A presentation I delivered about the basics of Object Oriented Programming, and why Go is a great language for OO.
+OO with Go</description>
+    </item>
+    
+    <item>
+      <title>Software Basics - Presentation</title>
+      <link>https://blog.silvela.org/post/software-basics/</link>
+      <pubDate>Sun, 15 Oct 2017 12:18:47 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/software-basics/</guid>
+      <description>This is the PDF for a presentation I delivered at work to various engineers and data analysts who write programs as part of their job.
+Software Guidelines</description>
+    </item>
+    
+    <item>
+      <title>Linux on the iBook G4</title>
+      <link>https://blog.silvela.org/post/linux-on-ibookG4/</link>
+      <pubDate>Fri, 06 Jan 2017 21:21:06 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/linux-on-ibookG4/</guid>
+      <description>Installing Debian Jessie on an iBook G4 There is some good information out there, but scattered. Thought I might put something together.
+Wireless The wireless modules are in the non-free and contrib repositories. You&amp;rsquo;ll have to add them to /etc/apt/sources.list.
+After that, install firmware-b43-installer. After reboot, you should see wireless networks being picked up in the network manger.
+References: Debian Testing on iBook G4
+Battery indicator Add pmu_battery to /etc/modules and reload/reboot.</description>
+    </item>
+    
+    <item>
+      <title>D3’s Messy Abstraction Path</title>
+      <link>https://blog.silvela.org/post/d3-messy-abstraction/</link>
+      <pubDate>Fri, 02 Dec 2016 21:45:19 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/d3-messy-abstraction/</guid>
+      <description>D3 is a wonderful idea. A graphing library in Javascript that uses functional programming idioms, outputs SVG and is chock full of contributions from the community. No wonder it’s so popular.
+And yet, D3 code has a tendency to grow unwieldy very quickly. As happens in SQL, the means of abstraction in the language (in our case in the library) are obscure, and details in “normal” code tend to pile up.</description>
+    </item>
+    
+    <item>
+      <title>The Peter principle, for software</title>
+      <link>https://blog.silvela.org/post/peter-principle/</link>
+      <pubDate>Tue, 29 Nov 2016 16:13:15 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/peter-principle/</guid>
+      <description>The famous Peter principle lives large for computer programming abstractions.
+It can be in a positive way: operations that are well understood, and routine, are abstracted into a higher level that one must actually think about.
+But very often it&amp;rsquo;s in a pathological way: raising abstraction for the purpose of raising abstraction, until you end up with a pile of abstract spaghetti code, which is even harder to understand than regular spaghetti code.</description>
+    </item>
+    
+    <item>
+      <title>Linux on a DELL XPS 13 9350</title>
+      <link>https://blog.silvela.org/post/linux-dell-xps-9350/</link>
+      <pubDate>Mon, 28 Nov 2016 20:41:07 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/linux-dell-xps-9350/</guid>
+      <description>My preferred Linux distro is Debian, but currently, stable won&amp;rsquo;t support the Skybridge chipset. I&amp;rsquo;ll switch to Debian when the new version comes out, but at the moment, Ubuntu 16.04 is fine.
+Installation was easy, after changing a couple of the UEFI settings. Access them by pressing F2 during the boot sequence.
+ Set SATA Operation to Disable, or to AHCI, not RAID On, which came configured on my laptop with Win 10.</description>
+    </item>
+    
+    <item>
+      <title>And the Oscar goes to</title>
+      <link>https://blog.silvela.org/post/2016-03-06-and-the-oscar-goes-to/</link>
+      <pubDate>Sun, 06 Mar 2016 06:52:29 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2016-03-06-and-the-oscar-goes-to/</guid>
+      <description>In order to prepare myself to write a program for clustering of numeric arrays, I lived for two months in a numeric array.
+I got to understand the difficulties numbers face, being bunched into clusters, and how they try to maintain their individual identities and their dignity.
+Above all, my JavaScript code is an homage to them. Thank you.</description>
+    </item>
+    
+    <item>
+      <title>SDE</title>
+      <link>https://blog.silvela.org/post/2015-10-31-SDE/</link>
+      <pubDate>Sat, 31 Oct 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-10-31-SDE/</guid>
+      <description>Software Development Engineer: Development to make it sound more like management. Engineer so people don’t think you’re in IT (gross!)</description>
+    </item>
+    
+    <item>
+      <title>You Know How This Ends</title>
+      <link>https://blog.silvela.org/post/2015-10-30-you-know-how-this-ends/</link>
+      <pubDate>Fri, 30 Oct 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-10-30-you-know-how-this-ends/</guid>
+      <description>I’m not much into superhero movies, but there is a particular plot device they use that I find fun: in the typical superhero movie, somewhere in the first half, the hero will get a chance to kill the bad guy, and he will not take it. Maybe he doesn’t yet grasp how dangerous this guy is.
+And you just know there will be a second act where the bad guy will wreak havoc, and then a final act where the hero will kill the villain, or send him to jail so that there can be a sequel.</description>
+    </item>
+    
+    <item>
+      <title>Coding Comfort</title>
+      <link>https://blog.silvela.org/post/2015-08-14-coding-comfort/</link>
+      <pubDate>Fri, 14 Aug 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-08-14-coding-comfort/</guid>
+      <description>In the last year or so I&amp;rsquo;ve made a number of changes to my coding habits that have had a positive impact on my comfort.
+Touch typing Some years ago, I read Steve Yegge&amp;rsquo;s popular post about touch-typing. His thesis was that good programmers must be fast typists. As with much in his blog, I thought it was self-indulgent crap. If your coding speed is limited by your typing speed, something is very wrong with the way you work.</description>
+    </item>
+    
+    <item>
+      <title>It’s all zeros and ones</title>
+      <link>https://blog.silvela.org/post/2015-04-18-zeros-and-ones/</link>
+      <pubDate>Sat, 18 Apr 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-04-18-zeros-and-ones/</guid>
+      <description>That look of half-confusion, half-familiarity, when you tell people you’re a computer programmer. In the popular imagination, we programmers are “good with computers”. Perhaps some think that we have to do math to write programs. Others may have seen movies where the programmer is an over-caffeinated man-boy who types, and switches windows, at ludicrous speed. Of course, we’re all tired of friends asking us to fix their PowerPoint presentation.
+Then there are people with friends or family who program for a living.</description>
+    </item>
+    
+    <item>
+      <title>Living with a computer language</title>
+      <link>https://blog.silvela.org/post/2015-04-18-living-with-a-computer-language/</link>
+      <pubDate>Sat, 18 Apr 2015 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2015-04-18-living-with-a-computer-language/</guid>
+      <description>I’m not a big fan of David Lean’s movie “Doctor Zhivago”, but it contains a line I love: “He approved of us, but for reasons which were subtle, like his verse.”
+The older I get, the more I become averse to the snap judgements that seem to pervade the software industry. I particularly hate the genre of the shootout article. It’s bad enough for web browser comparisons, but it’s terrible for everything else.</description>
+    </item>
+    
+    <item>
+      <title>White space in source code, or ditch monospace</title>
+      <link>https://blog.silvela.org/post/2014-10-29-white-space-mono-space/</link>
+      <pubDate>Wed, 29 Oct 2014 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-10-29-white-space-mono-space/</guid>
+      <description>White space is very important for readability in general, and for readability of code in particular. If you look at a book on typography, you’ll see discussions on line spacing, kerning, double spacing and other spatial concerns. For example, check Butterick’s Practical Typography.
+Code is less dense on page than regular prose, but it is very compressed in comparison. Each and every letter and punctuation mark is important, each character must be clearly identifiable.</description>
+    </item>
+    
+    <item>
+      <title>Fonts for coding</title>
+      <link>https://blog.silvela.org/post/2014-10-23-fonts-for-coding/</link>
+      <pubDate>Thu, 23 Oct 2014 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-10-23-fonts-for-coding/</guid>
+      <description>I’ve been on a typography bender lately. This is a quick summary of my findings.
+Size matters Some coders have a bit of a macho attitude about making their coding font as small as possible, on the theory that the more lines of code you fit on a screen, the better. One often sees posts from coders claiming that Monaco, DejaVu, Consolas etc. at 9–10pt is their font of choice.</description>
+    </item>
+    
+    <item>
+      <title>Parnas on software project management</title>
+      <link>https://blog.silvela.org/post/2014-08-06-parnas-on-software-project-management/</link>
+      <pubDate>Wed, 06 Aug 2014 10:54:46 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-08-06-parnas-on-software-project-management/</guid>
+      <description>From Software Fundamentals. Collected Papers by David L. Parnas page 604
+ One of Mills’s most important lessons had to do with the difference between management and engineering. He did not try to tell us how to make unmanageable projects manageable. He showed us how to make projects manageable. He understood that only well-designed and well-documented projects could be managed properly; he taught us how to design products in ways that made management easier.</description>
+    </item>
+    
+    <item>
+      <title>Tabs,  spaces, fonts</title>
+      <link>https://blog.silvela.org/post/2014-08-06-tabs-spaces-fonts/</link>
+      <pubDate>Wed, 06 Aug 2014 10:23:32 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-08-06-tabs-spaces-fonts/</guid>
+      <description>Spaces advantages:
+ read the same everywhere high precision in character placement  Tabs advantages:
+ fewer keystrokes users can tailor display to their liking  Either choice can be defended. They should not be mixed, however, as that destroys the advantages of both.
+Note that if we use proportional fonts, the advantages of spaces disappear. Spaces still give us more precision, but it’s not enough to guarantee proper vertical alignment.</description>
+    </item>
+    
+    <item>
+      <title>Programming aesthetics</title>
+      <link>https://blog.silvela.org/post/2014-08-03-programming-aesthetics/</link>
+      <pubDate>Sun, 03 Aug 2014 11:22:42 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2014-08-03-programming-aesthetics/</guid>
+      <description>In recent weeks, my outlook has changed quite a bit. With the (re)discovery of Plan 9 from user space, and Acme, via Russ Cox’s intro video, I’ve been rethinking a lot of my assumptions on GUI’s, programming, and tools.
+I’ve also seen some talks by Rob Pike on youtube. It’s refreshing to see that the builders of UNIX offer incisive criticism of it, and had been developing alternatives since the 80s.</description>
+    </item>
+    
+    <item>
+      <title>Xmonad &#43; GNOME</title>
+      <link>https://blog.silvela.org/post/2010-09-19-xmonad-gnome/</link>
+      <pubDate>Sun, 19 Sep 2010 06:07:06 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2010-09-19-xmonad-gnome/</guid>
+      <description>I’m positively impressed with Linux lately, as I learn more.
+By combining the tiling window manager Xmonad with the GNOME environment, I’ve found my favorite windowing system on any platform.
+I used these basic instructions, but configured Xmonad to use the Window key (aka. Super key) as modifier instead of Alt, so that it doesn’t interfere with the Emacs keybindings. This is how it looks.
+ import XMonad import XMonad.Config.Gnome main = xmonad gnomeConfig { modMask = mod4Mask }  </description>
+    </item>
+    
+    <item>
+      <title>Recording from vinyl with Inspire and Cubase</title>
+      <link>https://blog.silvela.org/post/2009-09-03-recording-from-vinyl-with-inspire-and-cubase/</link>
+      <pubDate>Thu, 03 Sep 2009 16:36:27 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2009-09-03-recording-from-vinyl-with-inspire-and-cubase/</guid>
+      <description>Connect the Inspire to the computer and the phono pre-amp Start the Inspire software and make sure channels 3-4 are unmuted and the volume is OK  Start Cubase, do File =&amp;gt; New Project, and Project =&amp;gt; Add Track =&amp;gt; Audio Go to Devices =&amp;gt; Device Setup In the VST Audio System, choose the Inspire and hit OK Go to Devices =&amp;gt; VST Connections In the Input tab, choose channels 3 and 4 for input In the Output tab, choose channels 1 and 2 for output (connect your headphones to the Inspire, not the computer)  You will need to keep the Inspire connected at all times, even if you’re exporting a pre-recorded track to AIFF!</description>
+    </item>
+    
+    <item>
+      <title>Xmonad</title>
+      <link>https://blog.silvela.org/post/2009-08-25-xmonad/</link>
+      <pubDate>Tue, 25 Aug 2009 06:00:14 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2009-08-25-xmonad/</guid>
+      <description>I like Xmonad much better than any other window manager (on any platform), but the default mod key is Alt, which interferes with Emacs and Conkeror.
+Here is how to remap the mod key in Xmonad
+Or, locally copied on Aug 09:
+Binding to the mod4 (often &#39;Win&#39;) key. Put this in yout xmonad.hs:
+ import XMonad main = xmonad defaultConfig { modMask = mod4Mask }  </description>
+    </item>
+    
+    <item>
+      <title>Scalar product and direction cosines</title>
+      <link>https://blog.silvela.org/post/2008-12-08-scalar-product-and-direction-cosines/</link>
+      <pubDate>Mon, 08 Dec 2008 09:12:17 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2008-12-08-scalar-product-and-direction-cosines/</guid>
+      <description>MathJax = { loader: { load: [&#39;input/tex-base&#39;, &#39;output/svg&#39;, &#39;ui/menu&#39;, &#39;[tex]/require&#39;] }, tex: { packages: [&#39;base&#39;, &#39;require&#39;], inlineMath: [[&#39;$latex&#39;, &#39;$&#39;], [&#39;\\(&#39;, &#39;\\)&#39;]], } };   When I learned about the scalar product in high school, I was somewhat surprised by how lucky its properties are.
+The treatment is usually this: define $latex x \cdot y = |x| |y| \cos \theta $, where $latex \theta $ is the angle between $latex x $ and $latex y $.</description>
+    </item>
+    
+    <item>
+      <title>Number of trailing zeros in n factorial</title>
+      <link>https://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</link>
+      <pubDate>Mon, 17 Nov 2008 06:52:29 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2008-11-17-number-of-trailing-zeros-in-n-factorial/</guid>
+      <description>I was asked this question in my first job interview in the US. I was completely unprepared for this type of interview, and I did badly. But it’s a nice problem to think about and it’s easy to solve.
+In case you don’t know, n factorial is the multiplication of all positive integers less than or equal to n. By convention, 0 factorial is taken as 1. The factorial is typically represented with “!</description>
+    </item>
+    
+  </channel>
+</rss>
