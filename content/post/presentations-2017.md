@@ -1,5 +1,5 @@
 +++
-tags = ["coding", "go", "golang"]
+tags = ["talks", "presentations", "coding", "go", "golang"]
 categories = [
 ]
 date = "2017-12-16T11:36:11+01:00"
@@ -13,4 +13,3 @@ You can [view the video and the slides.](https://www.dotconferences.com/2017/11/
 I'm on [youtube](https://youtu.be/0qKqVSvB1G0), mom!
 
 I got a speakerdeck account too; here are [other presentations.](https://speakerdeck.com/jsilvela)
-
