@@ -25,7 +25,7 @@ func myHandler(http.ResponseWriter, *http.Request)
 
 The function returns nothing. How can you capture the HTTP status after execution?
 
-If you do a search on the internet, you'll very easily find the following approach:
+If you do a search on the web, you'll very easily find the following approach:
 `http.ResponseWriter` is an interface, so you can create an implementation of
 your own, with a field to hold the returned HTTP status.
 
@@ -33,13 +33,25 @@ Say
 
 ``` go
 type myWriter {
-    http.ResponseWriter
+    w http.ResponseWriter
     Status int
 }
 ```
 
 All you need to do is implement the three methods in the `http.ResponseWriter`
-interface, like so.
+interface, like so:
+
+``` go
+func (mw *myWriter) WriteStatus(n int) {
+    w.WriteStatus(n)
+    mw.Status = n
+}
+```
+
+How are you supposed to use this? Your team probably has a collection of handlers
+written before you defined `myWriter`. Are they supposed to make changes?
+
+
 
 ``` go
 // AppCoords represents the data we care about w.r.t. MSA metrics
