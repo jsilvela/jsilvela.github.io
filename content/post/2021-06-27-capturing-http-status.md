@@ -10,7 +10,7 @@ Rob Pike [says it best](https://commandcenter.blogspot.com/2012/06/less-is-expon
 > If C++ and Java are about type hierarchies and the taxonomy of types,
 > Go is about composition.
 
-Let's illustrate this with an example.
+Let's illustrate this with an example from `net/http`, a fantastic package.
 
 Say you've built a server in Go, and you would like to know when handlers
 return a 200-range code or a 500-range code.
@@ -39,18 +39,33 @@ type myWriter {
 ```
 
 All you need to do is implement the three methods in the `http.ResponseWriter`
-interface, like so:
+interface, and add a bit extra to `WriteHeader`:
 
 ``` go
-func (mw *myWriter) WriteStatus(n int) {
-    w.WriteStatus(n)
-    mw.Status = n
+func (m *myResponse) WriteHeader(statusCode int) {
+    // m.w.WriteHeader(statusCode)
+    m.Status = statusCode
 }
 ```
 
-How are you supposed to use this? Your team probably has a collection of handlers
-written before you defined `myWriter`. Are they supposed to make changes?
+After a `myResponse` has been written, you can read its Status. How are you
+supposed to ensure that the existing handlers in your codebase use `myResponse`?
 
+Again, thanks to the `http.ResponseWriter` being an interface, and a small one,
+it is easy to write a *middleware* to wrap existing handlers so they use the
+custom response writer.
+
+``` go
+func wrapHandler(next http.HandlerFunc) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        mw := &myResponse{
+            w: w,
+        }
+        next(mw, r)
+        log.Println("status was", mw.Status)
+    }
+}
+```
 
 
 ``` go
