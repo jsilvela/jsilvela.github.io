@@ -19,7 +19,7 @@ return a 200-range code or a 500-range code.
 For example, you may want to capture metrics to for your *Prometheus*. Or,
 you may want to alert your crash-reporting system on every 500.
 
-However, the canonical Go signature for HTTP handlers is:
+However, the canonical Go signature for HTTP handlers doesn't seem to help:
 
 ``` go
 func myHandler(http.ResponseWriter, *http.Request)
@@ -35,37 +35,35 @@ Say
 
 ``` go
 type myWriter {
-    w http.ResponseWriter
+    http.ResponseWriter
     Status int
 }
 ```
 
-All you need to do is implement the three methods in the `http.ResponseWriter`
-interface, and you'll be able to use it in handlers.
-You add a bit extra to `WriteHeader`:
+Since you took advantage of embedding, all you need to do is re-implement
+`WriteHeader` with an extra bit to capture status:
 
 ``` go
 func (m *myResponse) WriteHeader(statusCode int) {
-    // m.w.WriteHeader(statusCode)
-    m.Status = statusCode
+    m.status = statusCode
+    m.ResponseWriter.WriteHeader(statusCode)
 }
 ```
 
-After a `myResponse` has been written, you can read its Status. How are you
-supposed to ensure that the existing handlers in your codebase use `myResponse`?
+After a `myResponse` has been written to, you can check its Status.
+But how are you supposed to ensure that the existing handlers in your
+codebase use `myResponse`?
 
 Again, thanks to the `http.ResponseWriter` being an interface, and a small one,
 it is easy to write a *middleware* to wrap existing handlers so they use the
 custom response writer.
-It is convenient that the `http.HandlerFunc` interface encodes the signature of
+It helps that the `http.HandlerFunc` interface encodes the signature of
 HTTP handlers.
 
 ``` go
 func wrapHandler(next http.HandlerFunc) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
-        mw := &myResponse{
-            w: w,
-        }
+        mw := &myResponse{w, 0}
         next(mw, r)
         log.Println("status was", mw.Status)
     }
@@ -89,21 +87,20 @@ type EndPoint struct {
     …
 ```
 
-Note:
+Note that:
 
 * your custom `ResponseWriter` is transparent to the rest of the codebase. Your
   colleagues do not need to make any changes to the HTTP handlers they wrote
 * your middleware is also transparent to the existing HTTP handlers. You just
   added it like a LEGO piece. Someone else could write an additional
-  middleware to add behavior, without modifying yours
+  middleware to add extra behavior, without modifying yours
 
 Go makes this type of composition very easy. But it's not just that the language
-offers interfaces and first-class functions. It's a whole philosophy of use,
-one that is clearly informed by the UNIX design of pipes, and its continuation
-in *Plan 9*.[^1]
+offers interfaces and first-class functions. It's a whole philosophy,
+one informed by the UNIX design of pipes, and its continuation in *Plan 9*.[^1]
 
 In a previous job, I was creating applications for the Catastrophe Model sector
-(an engineering branch of the insurance industry). I had started a
+(an engineering branch of the insurance industry.) I had started a
 Prometheus service to capture internal usage metrics.
 
 I only had a few endpoints I wanted tracked, which each generated a different
@@ -123,7 +120,7 @@ type AppCoords struct {
     Model      string
 }
 
-// AppHandler represents a web app handler, only returning error
+// AppHandler represents a web app handler, only returning error and AppCoords,
 // i.e. it requires transformation to serve as a http.Handler
 type AppHandler interface {
     ServeApp(http.Re[…], *http.Request) (AppCoords, int, error)
@@ -139,8 +136,7 @@ func WrapAppHandler(counter *prometheus.CounterVec,
 ```
 
 This is a very different approach, and today I might have done things differently.
-The point is that hooking metrics up was easy to do, and accommodated different
-paths.
+The point is that hooking metrics up and writing middlewares is easy to do.
 
 Because the *interface* abstraction in Go is so pervasive and flexible, you can
 think of myriad ways to mix and match, reuse, and build new small pieces that
