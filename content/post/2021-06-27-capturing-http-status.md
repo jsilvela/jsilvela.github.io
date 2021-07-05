@@ -16,7 +16,7 @@ We can see Go's pervasive philosophy of composition at play in the
 
 Say you've built a server in Go, and you would like to know when handlers
 return a 200-range code or a 500-range code.
-For example, you may want to capture metrics to for your *Prometheus*. Or,
+For example, you may want to capture metrics for your *Prometheus*. Or,
 you may want to alert your crash-reporting system on every 500.
 
 However, the canonical Go signature for HTTP handlers doesn't seem to help:
@@ -40,12 +40,13 @@ type myWriter {
 }
 ```
 
-Since you took advantage of embedding, all you need to do is re-implement
-`WriteHeader` with an extra bit to capture status:
+Since we took advantage of embedding, we get the three interface methods for free
+by promotion. All we need to do is re-implement
+`WriteHeader` with the extra logic to capture status:
 
 ``` go
 func (m *myResponse) WriteHeader(statusCode int) {
-    m.status = statusCode
+    m.Status = statusCode
     m.ResponseWriter.WriteHeader(statusCode)
 }
 ```
@@ -54,11 +55,10 @@ After a `myResponse` has been written to, you can check its Status.
 But how are you supposed to ensure that the existing handlers in your
 codebase use `myResponse`?
 
-Again, thanks to the `http.ResponseWriter` being an interface, and a small one,
-it is easy to write a *middleware* to wrap existing handlers so they use the
+Again, because `http.ResponseWriter` is an interface, and a small one,
+it is easy to write a *middleware* to wrap existing handlers and inject the
 custom response writer.
-It helps that the `http.HandlerFunc` interface encodes the signature of
-HTTP handlers.
+The convenient `http.HandlerFunc` type helps us clarify signatures.[^1]
 
 ``` go
 func wrapHandler(next http.HandlerFunc) http.HandlerFunc {
@@ -89,21 +89,21 @@ type EndPoint struct {
 
 Note that:
 
-* your custom `ResponseWriter` is transparent to the rest of the codebase. Your
+* our custom `ResponseWriter` is transparent to the rest of the codebase. Your
   colleagues do not need to make any changes to the HTTP handlers they wrote
-* your middleware is also transparent to the existing HTTP handlers. You just
+* our middleware is also transparent to the existing HTTP handlers. We just
   added it like a LEGO piece. Someone else could write an additional
-  middleware to add extra behavior, without modifying yours
+  middleware to add extra behavior, and wrap ours
 
 Go makes this type of composition very easy. But it's not just that the language
 offers interfaces and first-class functions. It's a whole philosophy,
-one informed by the UNIX design of pipes, and its continuation in *Plan 9*.[^1]
+one informed by the UNIX design of pipes, and its continuation in *Plan 9*.[^2]
 
 In a previous job, I was creating applications for the Catastrophe Model sector
 (an engineering branch of the insurance industry.) I had started a
 Prometheus service to capture internal usage metrics.
 
-I only had a few endpoints I wanted tracked, which each generated a different
+I only had a few endpoints I wanted tracked, each of which generated a different
 kind of report. All reports were highly dependent on country,
 model (commercial *catastrophe model* used),
 and peril (earthquake, hurricane, flood, …)
@@ -120,7 +120,7 @@ type AppCoords struct {
     Model      string
 }
 
-// AppHandler represents a web app handler, only returning error
+// AppHandler represents a web app handler, but returning error
 // and AppCoords,
 // i.e. it requires transformation to serve as a http.Handler
 type AppHandler interface {
@@ -140,7 +140,7 @@ This is a very different approach, and today I might have done things differentl
 The point is that hooking metrics up and writing middlewares is easy to do.
 
 Because the *interface* abstraction in Go is so pervasive and flexible, you can
-think of myriad ways to mix and match, reuse, and build new small pieces that
+think of myriad ways to mix and match, reuse, and build new pieces that
 fit together.
 
 But in order for this to work well, interfaces should be small.
@@ -150,5 +150,9 @@ Again, Rob Pike says it best, in [Go Proverbs](https://go-proverbs.github.io)
 [(video)](https://www.youtube.com/watch?v=PAAkCSZUG1c&t=317s)
 > The bigger the interface, the weaker the abstraction.
 
-[^1]: It's no coincidence, given that Rob Pike and Ken Thompson, as well as other
+[^1]: the `HandlerFunc` type is a function type. It also has a `ServeHTTP` method
+that allows it to satisfy the `Handler` interface. Yes, a function can have
+methods in Go!
+
+[^2]: It's no coincidence, given that Rob Pike and Ken Thompson, as well as other
 Go core team members, worked on both UNIX and Plan 9.

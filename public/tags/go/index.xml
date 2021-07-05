@@ -20,7 +20,7 @@
       <description>If C++ and Java are about type hierarchies and the taxonomy of types, Go is about composition.
  from Rob Pike in Less is exponentially more.
 We can see Go&amp;rsquo;s pervasive philosophy of composition at play in the net/http package.
-Say you&amp;rsquo;ve built a server in Go, and you would like to know when handlers return a 200-range code or a 500-range code. For example, you may want to capture metrics to for your Prometheus.</description>
+Say you&amp;rsquo;ve built a server in Go, and you would like to know when handlers return a 200-range code or a 500-range code. For example, you may want to capture metrics for your Prometheus.</description>
     </item>
     
     <item>

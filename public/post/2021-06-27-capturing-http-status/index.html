@@ -93,7 +93,7 @@ Go is about composition.</p>
 <a href="https://golang.org/pkg/net/http/"><code>net/http</code></a> package.</p>
 <p>Say you&rsquo;ve built a server in Go, and you would like to know when handlers
 return a 200-range code or a 500-range code.
-For example, you may want to capture metrics to for your <em>Prometheus</em>. Or,
+For example, you may want to capture metrics for your <em>Prometheus</em>. Or,
 you may want to alert your crash-reporting system on every 500.</p>
 <p>However, the canonical Go signature for HTTP handlers doesn&rsquo;t seem to help:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">myHandler</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
@@ -106,20 +106,20 @@ your own, with a field to hold the returned HTTP status.</p>
     <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span>
     <span class="nx">Status</span> <span class="kt">int</span>
 <span class="p">}</span>
-</code></pre></div><p>Since you took advantage of embedding, all you need to do is re-implement
-<code>WriteHeader</code> with an extra bit to capture status:</p>
+</code></pre></div><p>Since we took advantage of embedding, we get the three interface methods for free
+by promotion. All we need to do is re-implement
+<code>WriteHeader</code> with the extra logic to capture status:</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">myResponse</span><span class="p">)</span> <span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">statusCode</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">m</span><span class="p">.</span><span class="nx">status</span> <span class="p">=</span> <span class="nx">statusCode</span>
+    <span class="nx">m</span><span class="p">.</span><span class="nx">Status</span> <span class="p">=</span> <span class="nx">statusCode</span>
     <span class="nx">m</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">statusCode</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div><p>After a <code>myResponse</code> has been written to, you can check its Status.
 But how are you supposed to ensure that the existing handlers in your
 codebase use <code>myResponse</code>?</p>
-<p>Again, thanks to the <code>http.ResponseWriter</code> being an interface, and a small one,
-it is easy to write a <em>middleware</em> to wrap existing handlers so they use the
+<p>Again, because <code>http.ResponseWriter</code> is an interface, and a small one,
+it is easy to write a <em>middleware</em> to wrap existing handlers and inject the
 custom response writer.
-It helps that the <code>http.HandlerFunc</code> interface encodes the signature of
-HTTP handlers.</p>
+The convenient <code>http.HandlerFunc</code> type helps us clarify signatures.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">wrapHandler</span><span class="p">(</span><span class="nx">next</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">)</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">mw</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">myResponse</span><span class="p">{</span><span class="nx">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span>
@@ -142,19 +142,19 @@ all your endpoints with the <code>wrapHandler</code> middleware.</p>
     <span class="err">…</span>
 </code></pre></div><p>Note that:</p>
 <ul>
-<li>your custom <code>ResponseWriter</code> is transparent to the rest of the codebase. Your
+<li>our custom <code>ResponseWriter</code> is transparent to the rest of the codebase. Your
 colleagues do not need to make any changes to the HTTP handlers they wrote</li>
-<li>your middleware is also transparent to the existing HTTP handlers. You just
+<li>our middleware is also transparent to the existing HTTP handlers. We just
 added it like a LEGO piece. Someone else could write an additional
-middleware to add extra behavior, without modifying yours</li>
+middleware to add extra behavior, and wrap ours</li>
 </ul>
 <p>Go makes this type of composition very easy. But it&rsquo;s not just that the language
 offers interfaces and first-class functions. It&rsquo;s a whole philosophy,
-one informed by the UNIX design of pipes, and its continuation in <em>Plan 9</em>.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+one informed by the UNIX design of pipes, and its continuation in <em>Plan 9</em>.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
 <p>In a previous job, I was creating applications for the Catastrophe Model sector
 (an engineering branch of the insurance industry.) I had started a
 Prometheus service to capture internal usage metrics.</p>
-<p>I only had a few endpoints I wanted tracked, which each generated a different
+<p>I only had a few endpoints I wanted tracked, each of which generated a different
 kind of report. All reports were highly dependent on country,
 model (commercial <em>catastrophe model</em> used),
 and peril (earthquake, hurricane, flood, …)</p>
@@ -168,7 +168,7 @@ more than just an HTTP code:</p>
     <span class="nx">Model</span>      <span class="kt">string</span>
 <span class="p">}</span>
 
-<span class="c1">// AppHandler represents a web app handler, only returning error
+<span class="c1">// AppHandler represents a web app handler, but returning error
 </span><span class="c1">// and AppCoords,
 </span><span class="c1">// i.e. it requires transformation to serve as a http.Handler
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">AppHandler</span> <span class="kd">interface</span> <span class="p">{</span>
@@ -185,7 +185,7 @@ more than just an HTTP code:</p>
 </span></code></pre></div><p>This is a very different approach, and today I might have done things differently.
 The point is that hooking metrics up and writing middlewares is easy to do.</p>
 <p>Because the <em>interface</em> abstraction in Go is so pervasive and flexible, you can
-think of myriad ways to mix and match, reuse, and build new small pieces that
+think of myriad ways to mix and match, reuse, and build new pieces that
 fit together.</p>
 <p>But in order for this to work well, interfaces should be small.
 An interface with 23 methods is hardly an invitation for reuse and composition.</p>
@@ -198,8 +198,13 @@ An interface with 23 methods is hardly an invitation for reuse and composition.<
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
+<p>the <code>HandlerFunc</code> type is a function type. It also has a <code>ServeHTTP</code> method
+that allows it to satisfy the <code>Handler</code> interface. Yes, a function can have
+methods in Go! <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
 <p>It&rsquo;s no coincidence, given that Rob Pike and Ken Thompson, as well as other
-Go core team members, worked on both UNIX and Plan 9. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+Go core team members, worked on both UNIX and Plan 9. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
