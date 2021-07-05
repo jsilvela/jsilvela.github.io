@@ -120,7 +120,8 @@ type AppCoords struct {
     Model      string
 }
 
-// AppHandler represents a web app handler, only returning error and AppCoords,
+// AppHandler represents a web app handler, only returning error
+// and AppCoords,
 // i.e. it requires transformation to serve as a http.Handler
 type AppHandler interface {
     ServeApp(http.Re[…], *http.Request) (AppCoords, int, error)

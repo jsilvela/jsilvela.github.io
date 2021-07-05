@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>talks on Lost Among Notes</title>
+    <link>https://blog.silvela.org/tags/talks/</link>
+    <description>Recent content in talks on Lost Among Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 16 Dec 2017 11:36:11 +0100</lastBuildDate>
+    
+	<atom:link href="https://blog.silvela.org/tags/talks/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Presentations, 2017</title>
+      <link>https://blog.silvela.org/post/presentations-2017/</link>
+      <pubDate>Sat, 16 Dec 2017 11:36:11 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/presentations-2017/</guid>
+      <description>In 2017 I gave my first ever talk at a public conference, dotGo in Paris. You can view the video and the slides. I&amp;rsquo;m on youtube, mom!
+I got a speakerdeck account too; here are other presentations.</description>
+    </item>
+    
+    <item>
+      <title>Object Oriented Programming with Go</title>
+      <link>https://blog.silvela.org/post/oo-with-go/</link>
+      <pubDate>Sun, 15 Oct 2017 12:36:26 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/oo-with-go/</guid>
+      <description>A presentation I delivered about the basics of Object Oriented Programming, and why Go is a great language for OO.
+OO with Go</description>
+    </item>
+    
+    <item>
+      <title>Software Basics - Presentation</title>
+      <link>https://blog.silvela.org/post/software-basics/</link>
+      <pubDate>Sun, 15 Oct 2017 12:18:47 +0200</pubDate>
+      
+      <guid>https://blog.silvela.org/post/software-basics/</guid>
+      <description>This is the PDF for a presentation I delivered at work, at Marsh &amp;amp; McLennan in Dublin to various engineers and data analysts who write programs as part of their job.
+Software Guidelines</description>
+    </item>
+    
+  </channel>
+</rss>

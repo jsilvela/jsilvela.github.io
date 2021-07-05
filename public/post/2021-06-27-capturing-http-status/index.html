@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.69.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://blog.silvela.org/css/custom.css">
+<link rel="alternate" href="https://blog.silvela.org/index.xml" type="application/rss+xml" title="Lost Among Notes">
+<title>
+	
+	HTTP status in Go. Or, composition rules
+	 - Lost Among Notes
+</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header>
+		
+			<h2><a href="https://blog.silvela.org/">Lost Among Notes</a></h2>
+		
+
+
+		
+		
+		<table>
+			
+			
+				<tr>
+					<td>
+						<a href="https://blog.silvela.org/post/2021-05-29-scheduler-in-go/">
+							Older &gt;&gt;
+						</a>
+					</td>
+					<td>
+						<em>A Simple Reusable Scheduler in Go</em>
+					</td>
+				</tr>
+			
+		</table>
+		
+
+		
+		<div class="tags">
+		
+			<b>Tags:</b>
+		
+		<ul class="tags">
+		
+			<li><a href="https://blog.silvela.org/tags/go">
+				go
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/golang">
+				golang
+				</a>
+			</li>
+		
+			<li><a href="https://blog.silvela.org/tags/coding">
+				coding
+				</a>
+			</li>
+		
+		</ul>
+		</div>
+
+	
+
+	</header>
+
+
+	<main>
+	
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">HTTP status in Go. Or, composition rules</h1>
+			<span class="entry-meta">
+				<time itemprop="datePublished"
+					datetime="2021-07-04">
+					2021, July 04
+				</time>
+			</span>
+
+			<div itemprop="entry-text">
+			
+				<blockquote>
+<p>If C++ and Java are about type hierarchies and the taxonomy of types,
+Go is about composition.</p>
+</blockquote>
+<p>from Rob Pike in <a href="https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html"><em>Less is exponentially more.</em></a></p>
+<p>We can see Go&rsquo;s pervasive philosophy of composition at play in the
+<a href="https://golang.org/pkg/net/http/"><code>net/http</code></a> package.</p>
+<p>Say you&rsquo;ve built a server in Go, and you would like to know when handlers
+return a 200-range code or a 500-range code.
+For example, you may want to capture metrics to for your <em>Prometheus</em>. Or,
+you may want to alert your crash-reporting system on every 500.</p>
+<p>However, the canonical Go signature for HTTP handlers doesn&rsquo;t seem to help:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">myHandler</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+</code></pre></div><p>The function returns nothing. How can you capture the HTTP status after execution?</p>
+<p>If you do a search on the web, you&rsquo;ll very easily find the following approach:
+<code>http.ResponseWriter</code> is an interface, so you can create an implementation of
+your own, with a field to hold the returned HTTP status.</p>
+<p>Say</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">myWriter</span> <span class="p">{</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span>
+    <span class="nx">Status</span> <span class="kt">int</span>
+<span class="p">}</span>
+</code></pre></div><p>Since you took advantage of embedding, all you need to do is re-implement
+<code>WriteHeader</code> with an extra bit to capture status:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">myResponse</span><span class="p">)</span> <span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">statusCode</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">m</span><span class="p">.</span><span class="nx">status</span> <span class="p">=</span> <span class="nx">statusCode</span>
+    <span class="nx">m</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">statusCode</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>After a <code>myResponse</code> has been written to, you can check its Status.
+But how are you supposed to ensure that the existing handlers in your
+codebase use <code>myResponse</code>?</p>
+<p>Again, thanks to the <code>http.ResponseWriter</code> being an interface, and a small one,
+it is easy to write a <em>middleware</em> to wrap existing handlers so they use the
+custom response writer.
+It helps that the <code>http.HandlerFunc</code> interface encodes the signature of
+HTTP handlers.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">wrapHandler</span><span class="p">(</span><span class="nx">next</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">)</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">mw</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">myResponse</span><span class="p">{</span><span class="nx">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="nf">next</span><span class="p">(</span><span class="nx">mw</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;status was&#34;</span><span class="p">,</span> <span class="nx">mw</span><span class="p">.</span><span class="nx">Status</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>If you&rsquo;ve had the foresight to package your handlers across your codebase so that
+the URL and the handler function are both available, it will be easy to wrap
+all your endpoints with the <code>wrapHandler</code> middleware.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">EndPoint</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Pattern</span> <span class="kt">string</span>
+    <span class="nx">Handler</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span>
+<span class="p">}</span>
+
+    <span class="err">…</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ep</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">myFooService</span><span class="p">.</span><span class="nx">EndPoints</span> <span class="p">{</span>
+        <span class="nx">myMux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="nx">ep</span><span class="p">.</span><span class="nx">Pattern</span><span class="p">,</span> <span class="nf">wrapHandler</span><span class="p">(</span><span class="nx">ep</span><span class="p">.</span><span class="nx">Handler</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="err">…</span>
+</code></pre></div><p>Note that:</p>
+<ul>
+<li>your custom <code>ResponseWriter</code> is transparent to the rest of the codebase. Your
+colleagues do not need to make any changes to the HTTP handlers they wrote</li>
+<li>your middleware is also transparent to the existing HTTP handlers. You just
+added it like a LEGO piece. Someone else could write an additional
+middleware to add extra behavior, without modifying yours</li>
+</ul>
+<p>Go makes this type of composition very easy. But it&rsquo;s not just that the language
+offers interfaces and first-class functions. It&rsquo;s a whole philosophy,
+one informed by the UNIX design of pipes, and its continuation in <em>Plan 9</em>.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>In a previous job, I was creating applications for the Catastrophe Model sector
+(an engineering branch of the insurance industry.) I had started a
+Prometheus service to capture internal usage metrics.</p>
+<p>I only had a few endpoints I wanted tracked, which each generated a different
+kind of report. All reports were highly dependent on country,
+model (commercial <em>catastrophe model</em> used),
+and peril (earthquake, hurricane, flood, …)</p>
+<p>My approach then was to reify the bits I was interested in tracking, which were
+more than just an HTTP code:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// AppCoords represents the data we care about w.r.t. metrics
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">AppCoords</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">ReportKind</span> <span class="kt">string</span>
+    <span class="nx">Country</span>    <span class="kt">string</span>
+    <span class="nx">Peril</span>      <span class="kt">string</span>
+    <span class="nx">Model</span>      <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="c1">// AppHandler represents a web app handler, only returning error
+</span><span class="c1">// and AppCoords,
+</span><span class="c1">// i.e. it requires transformation to serve as a http.Handler
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">AppHandler</span> <span class="kd">interface</span> <span class="p">{</span>
+    <span class="nf">ServeApp</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Re</span><span class="p">[</span><span class="err">…</span><span class="p">],</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="nx">AppCoords</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">WrapAppHandler</span><span class="p">(</span><span class="nx">counter</span> <span class="o">*</span><span class="nx">prometheus</span><span class="p">.</span><span class="nx">CounterVec</span><span class="p">,</span>
+    <span class="nx">ah</span> <span class="nx">AppHandler</span><span class="p">)</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span> <span class="p">{</span>
+
+    <span class="k">return</span> <span class="nx">http</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Re</span><span class="p">[</span><span class="err">…</span><span class="p">],</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="nx">coords</span><span class="p">,</span> <span class="nx">statusCode</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ah</span><span class="p">.</span><span class="nf">ServeApp</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+        <span class="c1">// my prometheus code followed here
+</span></code></pre></div><p>This is a very different approach, and today I might have done things differently.
+The point is that hooking metrics up and writing middlewares is easy to do.</p>
+<p>Because the <em>interface</em> abstraction in Go is so pervasive and flexible, you can
+think of myriad ways to mix and match, reuse, and build new small pieces that
+fit together.</p>
+<p>But in order for this to work well, interfaces should be small.
+An interface with 23 methods is hardly an invitation for reuse and composition.</p>
+<p>Again, Rob Pike says it best, in <a href="https://go-proverbs.github.io">Go Proverbs</a>
+<a href="https://www.youtube.com/watch?v=PAAkCSZUG1c&amp;t=317s">(video)</a></p>
+<blockquote>
+<p>The bigger the interface, the weaker the abstraction.</p>
+</blockquote>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>It&rsquo;s no coincidence, given that Rob Pike and Ken Thompson, as well as other
+Go core team members, worked on both UNIX and Plan 9. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+			</div>
+		</article>
+	</main>
+
+<div class="license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" width=88 height=31 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+    </a>
+    <br />
+    This work is licensed under a
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        Creative Commons Attribution-ShareAlike 4.0 International License.
+    </a>    
+</div>
+
+
+
+
+	<footer>
+		<hr/>
+		<div class="footer-link">
+			<a href="mailto:jaime.silvela@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/jsilvela" target="_blank">Twitter</a>
+			
+			
+		</div>
+		<div class="copyright">Copyright &copy; Jaime Silvela</div>
+	</footer>
+
+</div>
+
+</body>
+</html>
