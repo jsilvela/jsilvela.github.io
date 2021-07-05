@@ -2,7 +2,7 @@
 tags = ["go", "golang", "coding"]
 categories = []
 title = "HTTP status in Go. Or, composition rules"
-date = 2021-06-27T09:29:18+01:00
+date = 2021-07-04T09:29:18+01:00
 draft = false
 +++
 
