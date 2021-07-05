@@ -3,38 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.silvela.org/post/2021-05-29-scheduler-in-go/</loc>
-    <lastmod>2021-05-29T09:29:18+01:00</lastmod>
+    <loc>https://blog.silvela.org/tags/coding/</loc>
+    <lastmod>2021-06-27T09:29:18+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.silvela.org/tags/go/</loc>
-    <lastmod>2021-05-29T09:29:18+01:00</lastmod>
+    <lastmod>2021-06-27T09:29:18+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.silvela.org/tags/golang/</loc>
-    <lastmod>2021-05-29T09:29:18+01:00</lastmod>
+    <lastmod>2021-06-27T09:29:18+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.silvela.org/post/2021-06-27-capturing-http-status/</loc>
+    <lastmod>2021-06-27T09:29:18+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.silvela.org/</loc>
-    <lastmod>2021-05-29T09:29:18+01:00</lastmod>
+    <lastmod>2021-06-27T09:29:18+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.silvela.org/post/</loc>
-    <lastmod>2021-05-29T09:29:18+01:00</lastmod>
+    <lastmod>2021-06-27T09:29:18+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.silvela.org/tags/</loc>
-    <lastmod>2021-05-29T09:29:18+01:00</lastmod>
+    <lastmod>2021-06-27T09:29:18+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.silvela.org/tags/coding/</loc>
-    <lastmod>2021-05-23T09:29:18+01:00</lastmod>
+    <loc>https://blog.silvela.org/post/2021-05-29-scheduler-in-go/</loc>
+    <lastmod>2021-05-29T09:29:18+01:00</lastmod>
   </url>
   
   <url>
@@ -138,7 +143,7 @@
   </url>
   
   <url>
-    <loc>https://blog.silvela.org/tags/tech/</loc>
+    <loc>https://blog.silvela.org/tags/software/</loc>
     <lastmod>2019-07-27T09:45:19+01:00</lastmod>
   </url>
   
@@ -153,7 +158,17 @@
   </url>
   
   <url>
+    <loc>https://blog.silvela.org/tags/presentations/</loc>
+    <lastmod>2017-12-16T11:36:11+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.silvela.org/post/presentations-2017/</loc>
+    <lastmod>2017-12-16T11:36:11+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.silvela.org/tags/talks/</loc>
     <lastmod>2017-12-16T11:36:11+01:00</lastmod>
   </url>
   
@@ -180,16 +195,6 @@
   <url>
     <loc>https://blog.silvela.org/post/d3-messy-abstraction/</loc>
     <lastmod>2016-12-02T21:45:19+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.silvela.org/tags/visualization/</loc>
-    <lastmod>2016-12-02T21:45:19+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.silvela.org/tags/software/</loc>
-    <lastmod>2016-11-29T16:13:15+01:00</lastmod>
   </url>
   
   <url>

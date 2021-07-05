@@ -6,15 +6,24 @@
     <description>Recent content in Tags on Lost Among Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 29 May 2021 09:29:18 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 27 Jun 2021 09:29:18 +0100</lastBuildDate>
     
 	<atom:link href="https://blog.silvela.org/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>coding</title>
+      <link>https://blog.silvela.org/tags/coding/</link>
+      <pubDate>Sun, 27 Jun 2021 09:29:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/tags/coding/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>go</title>
       <link>https://blog.silvela.org/tags/go/</link>
-      <pubDate>Sat, 29 May 2021 09:29:18 +0100</pubDate>
+      <pubDate>Sun, 27 Jun 2021 09:29:18 +0100</pubDate>
       
       <guid>https://blog.silvela.org/tags/go/</guid>
       <description></description>
@@ -23,18 +32,9 @@
     <item>
       <title>golang</title>
       <link>https://blog.silvela.org/tags/golang/</link>
-      <pubDate>Sat, 29 May 2021 09:29:18 +0100</pubDate>
+      <pubDate>Sun, 27 Jun 2021 09:29:18 +0100</pubDate>
       
       <guid>https://blog.silvela.org/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>coding</title>
-      <link>https://blog.silvela.org/tags/coding/</link>
-      <pubDate>Sun, 23 May 2021 09:29:18 +0100</pubDate>
-      
-      <guid>https://blog.silvela.org/tags/coding/</guid>
       <description></description>
     </item>
     
@@ -102,11 +102,29 @@
     </item>
     
     <item>
-      <title>tech</title>
-      <link>https://blog.silvela.org/tags/tech/</link>
+      <title>software</title>
+      <link>https://blog.silvela.org/tags/software/</link>
       <pubDate>Sat, 27 Jul 2019 09:45:19 +0100</pubDate>
       
-      <guid>https://blog.silvela.org/tags/tech/</guid>
+      <guid>https://blog.silvela.org/tags/software/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>presentations</title>
+      <link>https://blog.silvela.org/tags/presentations/</link>
+      <pubDate>Sat, 16 Dec 2017 11:36:11 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/tags/presentations/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>talks</title>
+      <link>https://blog.silvela.org/tags/talks/</link>
+      <pubDate>Sat, 16 Dec 2017 11:36:11 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/tags/talks/</guid>
       <description></description>
     </item>
     
@@ -116,24 +134,6 @@
       <pubDate>Fri, 02 Dec 2016 21:45:19 +0100</pubDate>
       
       <guid>https://blog.silvela.org/tags/d3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>visualization</title>
-      <link>https://blog.silvela.org/tags/visualization/</link>
-      <pubDate>Fri, 02 Dec 2016 21:45:19 +0100</pubDate>
-      
-      <guid>https://blog.silvela.org/tags/visualization/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>software</title>
-      <link>https://blog.silvela.org/tags/software/</link>
-      <pubDate>Tue, 29 Nov 2016 16:13:15 +0100</pubDate>
-      
-      <guid>https://blog.silvela.org/tags/software/</guid>
       <description></description>
     </item>
     

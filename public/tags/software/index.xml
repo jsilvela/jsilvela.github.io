@@ -6,10 +6,21 @@
     <description>Recent content in software on Lost Among Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Nov 2016 16:13:15 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jul 2019 09:45:19 +0100</lastBuildDate>
     
 	<atom:link href="https://blog.silvela.org/tags/software/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Improving net privacy</title>
+      <link>https://blog.silvela.org/post/2019-07-27-security/</link>
+      <pubDate>Sat, 27 Jul 2019 09:45:19 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2019-07-27-security/</guid>
+      <description>I&amp;rsquo;ve been becoming more conscious of my privacy on the internet. It has led me, on one hand, to use the Privacy Badger and uBlock browser extensions, to switch to DuckDuckGo as my default search engine, to review my social networking settings.
+But I am also a gentleman website-and-domain-owner, a citizen of the &amp;lsquo;net.
+I decided to act on the nagging of browsers, when viewing my own website, that it was not served over HTTPS.</description>
+    </item>
     
     <item>
       <title>The Peter principle, for software</title>

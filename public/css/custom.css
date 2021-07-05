@@ -284,7 +284,7 @@ The [markup.highlight] section in site config must declare: noClasses = false
 
 /* Background */ .chroma { background-color: #ECECEC }
 /* Other */ .chroma .x {  }
-/* Error */ .chroma .err { background-color: #a848a8 }
+/* Error */ .chroma .err { background-color: #ECECEC }
 /* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
 /* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
 /* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }

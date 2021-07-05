@@ -6,10 +6,22 @@
     <description>Recent content in go on Lost Among Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 29 May 2021 09:29:18 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 27 Jun 2021 09:29:18 +0100</lastBuildDate>
     
 	<atom:link href="https://blog.silvela.org/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HTTP status in Go. Or, composition rules</title>
+      <link>https://blog.silvela.org/post/2021-06-27-capturing-http-status/</link>
+      <pubDate>Sun, 27 Jun 2021 09:29:18 +0100</pubDate>
+      
+      <guid>https://blog.silvela.org/post/2021-06-27-capturing-http-status/</guid>
+      <description>If C++ and Java are about type hierarchies and the taxonomy of types, Go is about composition.
+ from Rob Pike in Less is exponentially more.
+We can see Go&amp;rsquo;s pervasive philosophy of composition at play in the net/http package.
+Say you&amp;rsquo;ve built a server in Go, and you would like to know when handlers return a 200-range code or a 500-range code. For example, you may want to capture metrics to for your Prometheus.</description>
+    </item>
     
     <item>
       <title>A Simple Reusable Scheduler in Go</title>
