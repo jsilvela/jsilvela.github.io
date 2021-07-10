@@ -135,6 +135,9 @@ all your endpoints with the <code>wrapHandler</code> middleware.</p>
     <span class="nx">Handler</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span>
 <span class="p">}</span>
 
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="err">…</span>
+    <span class="nx">myMux</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewServeMux</span><span class="p">()</span>
     <span class="err">…</span>
     <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ep</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">myFooService</span><span class="p">.</span><span class="nx">EndPoints</span> <span class="p">{</span>
         <span class="nx">myMux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="nx">ep</span><span class="p">.</span><span class="nx">Pattern</span><span class="p">,</span> <span class="nf">wrapHandler</span><span class="p">(</span><span class="nx">ep</span><span class="p">.</span><span class="nx">Handler</span><span class="p">))</span>

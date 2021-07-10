@@ -80,6 +80,9 @@ type EndPoint struct {
     Handler http.HandlerFunc
 }
 
+func main() {
+    …
+    myMux := http.NewServeMux()
     …
     for _, ep := range myFooService.EndPoints {
         myMux.HandleFunc(ep.Pattern, wrapHandler(ep.Handler))
