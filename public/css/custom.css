@@ -9,7 +9,7 @@
 	}
 
 	pre, code {
-		font-size: 16px;
+		font-size: 17px;
 	}
 
 	a {
@@ -60,62 +60,26 @@
 	font-style: normal;
 	src: url('../fonts/SourceSerif4SmText-Regular.otf.woff') format('woff');
 }
-/* 
+
 @font-face{
-	font-family: 'Gintronic';
-	src: url('../fonts/Gintronic-Regular.woff') format('woff');
+	font-family: 'ISO';
+	src: url('../fonts/ISOv0.9-Regular.woff') format('woff');
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face{
-	font-family: 'Gintronic';
-	src: url('../fonts/Gintronic-Bold.woff') format('woff');
+	font-family: 'ISO';
+	src: url('../fonts/ISOv0.9-RegularItalic.woff') format('woff');
+	font-weight: 400;
+	font-style: italic;
+}
+
+@font-face{
+	font-family: 'ISO';
+	src: url('../fonts/ISOv0.9-Bold.woff') format('woff');
 	font-weight: 700;
 	font-style: normal;
-}
-
-@font-face{
-	font-family: 'Gintronic';
-	src: url('../fonts/Gintronic-Italic.woff') format('woff');
-	font-weight: 400;
-	font-style: italic;
-}
- */
-
-@font-face{
-	font-family: 'TheSansMono';
-	src: url('../fonts/TheSansMonoOffice-Regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face{
-	font-family: 'TheSansMono';
-	src: url('../fonts/TheSansMonoOffice-Bold.woff') format('woff');
-	font-weight: 700;
-	font-style: normal;
-}
-
-@font-face{
-	font-family: 'TheSansMono';
-	src: url('../fonts/TheSansMonoOffice-Italic.woff') format('woff');
-	font-weight: 400;
-	font-style: italic;
-}
-
-@font-face{
-	font-family: 'Roboto Mono';
-	src: url('../fonts/roboto-mono-v13-latin-regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face{
-	font-family: 'Roboto Mono';
-	src: url('../fonts/roboto-mono-v13-latin-italic.woff') format('woff');
-	font-weight: 400;
-	font-style: italic;
 }
 
 @page {
@@ -140,7 +104,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: 1.5em;
 	margin-bottom: 0;
 	font-weight: 700;
-	font-family: "TheSansMono", Consolas, sf mono, Menlo, monospace;
+	font-family: "ISO", Consolas, sf mono, Menlo, monospace;
 }
 
 a {
@@ -271,7 +235,7 @@ hr {
 
 pre, code {
 	background: #ECECEC;
-	font-family: roboto mono, sf mono, Consolas, Menlo, monospace;
+	font-family: "ISO", sf mono, Consolas, Menlo, monospace;
 	line-height: 1.6;
 }
 
